@@ -1,0 +1,22 @@
+.card {
+  background: #f5eee3;
+  width: 160px;
+  border: 1px solid #ffdaa0;
+  border-radius: 4px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  padding-bottom: 6px;
+}
+
+.danger {
+  background: #cd2222;
+  color: #fff;
+}
