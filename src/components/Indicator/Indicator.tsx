@@ -80,7 +80,6 @@ export const checkDanger = (model: IndicatorProps) => {
   };
 
   if (model.alarm && model.alarm.values.length) {
-
     const valuesToCompare: operatorParams = {
       value: model.value,
       values: model.alarm.values
