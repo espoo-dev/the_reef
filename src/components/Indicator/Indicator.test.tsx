@@ -12,11 +12,11 @@ const modelIndicator: IndicatorProps = {
 };
 
 describe('Indicator defaults tests', () => {
-  it('should create the indicator on screen', () => {
+  it('should create and render indicator on screen', () => {
     render(<Indicator config={modelIndicator} />);
   })
 
-  it('idicator without alarm', () => {
+  it('should render idicator without alarm', () => {
     const withoutAlarm: IndicatorProps = {
       value: 27,
       unit: 'graus',
@@ -26,91 +26,91 @@ describe('Indicator defaults tests', () => {
   })
 })
 
-describe('check operator >', () => {
-  it('with value bigger', () => {
+describe('should check all cases with operator bigger then (>)', () => {
+  it('should alarm with value bigger', () => {
     expect(checkDanger(mountModel(30, '>', [29]))).toBeTruthy();
   })
 
-  it('with value smaller', () => {
+  it('not should alarm with value smaller', () => {
     expect(checkDanger(mountModel(27, '>', [29]))).toBeFalsy();
   })
 
-  it('with value equals', () => {
+  it('not should alarm with value equals', () => {
     expect(checkDanger(mountModel(29, '>', [29]))).toBeFalsy();
   })
 })
 
-describe('check operator <', () => {
-  it('with value smaller', () => {
+describe('should check all cases with operator less then (<)', () => {
+  it('should alarm with value smaller', () => {
     expect(checkDanger(mountModel(27, '<', [29]))).toBeTruthy();
   })
 
-  it('with value bigger', () => {
+  it('not should alarm with value bigger', () => {
     expect(checkDanger(mountModel(30, '<', [29]))).toBeFalsy();
   })
 
-  it('with value equals', () => {
+  it('not should alarm with value equals', () => {
     expect(checkDanger(mountModel(30, '<', [30]))).toBeFalsy();
   })
 })
 
-describe('check operator >=', () => {
-  it('with value equals', () => {
+describe('should check all cases with operator check operator greater than (>=)', () => {
+  it('should alarm with value equals', () => {
     expect(checkDanger(mountModel(30, '>=', [30]))).toBeTruthy();
   })
 
-  it('with value smaller', () => {
+  it('not should alarm with value smaller', () => {
     expect(checkDanger(mountModel(10, '>=', [30]))).toBeFalsy();
   })
 
-  it('with value bigger', () => {
+  it('not should alarm with value bigger', () => {
     expect(checkDanger(mountModel(40, '>=', [30]))).toBeTruthy();
   })
 })
 
-describe('check operator <=', () => {
-  it('with value equals', () => {
+describe('should check all cases with lesser than operator (<=)', () => {
+  it('should alarm with value equals', () => {
     expect(checkDanger(mountModel(30, '<=', [30]))).toBeTruthy();
   })
 
-  it('with value smaller', () => {
+  it('should alarm with value smaller', () => {
     expect(checkDanger(mountModel(10, '<=', [30]))).toBeTruthy();
   })
 
-  it('with value bigger', () => {
+  it('not should alarm with value bigger', () => {
     expect(checkDanger(mountModel(31, '<=', [30]))).toBeFalsy();
   })
 })
 
-describe('check operator ==', () => {
-  it('check operator == values', () => {
+describe('should check all cases with operator equals (==)', () => {
+  it('should alarm with value equals', () => {
     expect(checkDanger(mountModel(30, '==', [30]))).toBeTruthy();
   })
 
-  it('check operator == with value bigger', () => {
+  it('not should alarm when the value is bigger', () => {
     expect(checkDanger(mountModel(31, '==', [30]))).toBeFalsy();
   })
 
-  it('check operator == with value smaller', () => {
+  it('not should alarm when the value is smaller', () => {
     expect(checkDanger(mountModel(29, '==', [30]))).toBeFalsy();
   })
 
-  it('check operator == with values differents', () => {
+  it('not should alarm when the values differents', () => {
     expect(checkDanger(mountModel(26, '==', [30]))).toBeFalsy();
   })
 })
 
-describe('check includes operator', () => {
+describe('should check all cases with numbers includes in array', () => {
   it('should includes value in values array', () => {
     expect(checkDanger(mountModel(27, 'includes', [26, 27, 28, 29]))).toBeTruthy();
   })
 
-  it('dont should includes value in values array', () => {
+  it('not should includes value in values array', () => {
     expect(checkDanger(mountModel(11, 'includes', [26, 27, 28, 29]))).toBeFalsy();
   })
 })
 
-describe('check out_interval operator', () => {
+describe('should check all cases with values out interval', () => {
   it('the value should to between two numbers', () => {
     expect(checkDanger(mountModel(27, 'out_interval', [26, 29]))).toBeFalsy();
   })
