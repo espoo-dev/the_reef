@@ -31,9 +31,9 @@ jobs:
       - run:
           name: Run install
           command: yarn install
-      # - run:
-      #     name: Run tests
-      #     command: yarn test
+      - run:
+          name: Run tests
+          command: yarn test
 
 workflows:
   # Below is the definition of your workflow.
