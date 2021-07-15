@@ -1,6 +1,7 @@
 # My Reef
 🐚 My reef is a project to automate and monitor my coral reef tank 🐬
 
+<a href="https://codeclimate.com/github/IuryNogueira/myreef/maintainability"><img src="https://api.codeclimate.com/v1/badges/fea1b960248d65e3407a/maintainability" /></a>
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
