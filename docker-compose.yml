@@ -1,0 +1,11 @@
+version: "3"
+services:
+  myreef_front:
+    container_name: myreef_front
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    ports:
+      - 3000:3000
+    tty: true
+    command: yarn start
