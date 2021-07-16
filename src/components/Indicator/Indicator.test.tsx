@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-dom-import */
 import { render } from '@testing-library/react';
 import { checkDanger, Indicator, IndicatorProps } from './Indicator';
 
@@ -23,6 +24,21 @@ describe('Indicator defaults tests', () => {
       name: 'temperatura'
     };
     expect(checkDanger(withoutAlarm)).toBeFalsy();
+  })
+
+  it('should render card without danger alert', () => {
+    const modelNoDanger: IndicatorProps = {
+      value: 26,
+      unit: 'graus',
+      name: 'temperatura',
+      alarm: {
+        condition: 'out_interval',
+        values: [26, 29]
+      }
+    };
+    const { container } = render(<Indicator config={modelNoDanger} />);
+    expect(container.getElementsByClassName('card').length).toBe(1);
+    expect(container.getElementsByClassName('danger').length).toBe(0);
   })
 })
 
