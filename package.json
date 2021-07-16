@@ -42,6 +42,6 @@
     ]
   },
   "jest": {
-    "coverageReporters": ["json", "html"]
+    "coverageReporters": ["json", "html", "lcov", "text", "clover"]
   }
 }
