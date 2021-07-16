@@ -19,6 +19,8 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - node/install-packages:
+          pkg-manager: yarn 
       - run:
           name: Install dependencies
           command: yarn install
@@ -44,11 +46,11 @@ jobs:
             sudo vendor/bin/phpunit --coverage-clover clover.xml
             ./cc-test-reporter after-build --coverage-input-type clover --exit-code $?
   install-test-build:  
-    # These next lines define a Docker executor: https://circleci.com/docs/2.0/executor-types/
-    # You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # A list of available CircleCI Docker Convenience Images are available here: https://circleci.com/developer/images/image/cimg/node
+    environment:
+      CC_TEST_REPORTER_ID: c8f294cd54feece3273291ddb744d3189db1d3eaa5cf10073e54e171fcd140ea
     docker:
       - image: cimg/node:14.1
+    working_directory: ~/repo
     # Then run your tests!
     # CircleCI will report the results back to your VCS provider.
     steps:
@@ -66,6 +68,11 @@ jobs:
       - run:
           name: Run all tests
           command: yarn test
+      - run: 
+          name: Run frontend testss
+          command: |
+            yarn test:ci
+            ./tmp/cc-test-reporter format-coverage -t lcov -o tmp/codeclimate.frontend.json coverage/lcov.info
       - run:
           name: Generate build
           command: yarn build
@@ -78,6 +85,6 @@ workflows:
   sample: 
     jobs:
       - install-test-build
-      - jobs
+      # - build
       # For running simple node tests, you could optionally use the node/test job from the orb to replicate and replace the job above in fewer lines.
       # - node/test
