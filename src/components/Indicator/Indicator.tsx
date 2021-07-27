@@ -1,6 +1,7 @@
 import './Indicator.css';
 
 export interface IndicatorProps {
+  id: number;
   value: number;
   name: string;
   unit: string;

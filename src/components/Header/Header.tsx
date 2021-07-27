@@ -1,10 +1,12 @@
+import { HeaderMain } from "./Header.styles";
+
 const Header = () => {
 
   return(
-    <header style={{ display: 'flex', justifyContent: 'space-between', padding: '16px', background: '#f5eee3', color: '#2e343f' }}>
+    <HeaderMain>
       <div>Reef</div>
       {/* <div>Sair</div> */}
-    </header>
+    </HeaderMain>
   )
 
 }
