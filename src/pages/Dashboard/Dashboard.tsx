@@ -53,7 +53,7 @@ const Dashboard = () => {
       }
     },
     {
-      id: 5,
+      id: 6,
       value: 0.06,
       unit: 'ppm',
       name: 'fosfato',
