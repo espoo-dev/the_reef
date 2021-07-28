@@ -1,5 +1,5 @@
 /* eslint-disable testing-library/no-dom-import */
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { checkDanger, Indicator, IndicatorProps } from './Indicator';
 
 const modelIndicator: IndicatorProps = {
@@ -149,6 +149,18 @@ describe('should check all cases with values out interval', () => {
 
   it('the value should to between four numbers without order', () => {
     expect(checkDanger(mountModel(28, 'out_interval', [26, 29, 5, 12]))).toBeFalsy();
+  })
+
+  it('the value indicator should show 30', () => {
+    expect(render(<Indicator config={modelIndicator} />).queryAllByText('30')).toHaveLength(1);
+  })
+
+  it('the name indicator should be temperatura', () => {
+    expect(render(<Indicator config={modelIndicator} />).queryAllByText('temperatura')).toHaveLength(1);
+  })
+
+  it('the unit indicator should be graus', () => {
+    expect(render(<Indicator config={modelIndicator} />).queryAllByText('graus')).toHaveLength(1);
   })
 })
 

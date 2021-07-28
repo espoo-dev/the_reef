@@ -1,7 +1,13 @@
 import './Indicator.css';
-
+import { 
+  CardMonitor,
+  ContainerCard,
+  Description,
+  ValueTitle,
+  AlertCircle,
+  NameIndicator
+} from './Indicator.styles';
 export interface IndicatorProps {
-  id: number;
   value: number;
   name: string;
   unit: string;
@@ -9,6 +15,7 @@ export interface IndicatorProps {
     condition: '>' | '>=' | '<' | '<=' | '==' | 'includes' | 'out_interval';
     values: number[];
   };
+  danger?: boolean;
 }
 
 interface config {
@@ -18,33 +25,45 @@ interface config {
 export const Indicator = (props: config) => {
   const { name, value, unit, alarm } = props.config;
 
-  const checkAlarm = ():string => {
+  const checkAlarm = ():boolean => {
     if (alarm && alarm.values && alarm.values.length) {
-      if (!checkDanger(props.config)) {
-        return 'card';
-      }
+      return checkDanger(props.config);
     }
-    return 'card danger';
+    return false;
   }
 
   return (
-    <div className={checkAlarm()}>
-      <div style={{ width: '100%' }}>
-        <div className="title">
+    <CardMonitor danger={checkAlarm()} key={name}>
+      <ContainerCard>
+        <ValueTitle>
           <span>{value}</span>
-        </div>
-        <div>
-          <span>{unit}</span>
-        </div>
-        <div>
-          <span>{name}</span>
-        </div>
-      </div>
-    </div>
+        </ValueTitle>
+        { checkAlarm() && <AlertCircle /> }
+      </ContainerCard>
+      <NameIndicator>
+        <span>{unit}</span>
+      </NameIndicator>
+      <Description>
+        <span>{name}</span>
+      </Description>
+    </CardMonitor>
+    // <div className={checkAlarm()}>
+    //   <div style={{ width: '100%' }}>
+    //     <div className="title">
+    //       <span>{value}</span>
+    //     </div>
+    //     <div>
+    //       <span>{unit}</span>
+    //     </div>
+    //     <div>
+    //       <span>{name}</span>
+    //     </div>
+    //   </div>
+    // </div>
   )
 }
 
-export const checkDanger = (model: IndicatorProps) => {
+export const checkDanger = (model: IndicatorProps): boolean => {
   interface operatorParams {
     value: number;
     values: number[]
