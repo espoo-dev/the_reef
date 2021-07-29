@@ -38,7 +38,7 @@ export const Indicator = (props: config) => {
         <ValueTitle>
           <span>{value}</span>
         </ValueTitle>
-        { checkAlarm() && <AlertCircle /> }
+        { checkAlarm() && <AlertCircle data-testid={'alert-' + name} /> }
       </ContainerCard>
       <NameIndicator>
         <span>{unit}</span>
@@ -47,19 +47,6 @@ export const Indicator = (props: config) => {
         <span>{name}</span>
       </Description>
     </CardMonitor>
-    // <div className={checkAlarm()}>
-    //   <div style={{ width: '100%' }}>
-    //     <div className="title">
-    //       <span>{value}</span>
-    //     </div>
-    //     <div>
-    //       <span>{unit}</span>
-    //     </div>
-    //     <div>
-    //       <span>{name}</span>
-    //     </div>
-    //   </div>
-    // </div>
   )
 }
 
