@@ -56,7 +56,7 @@ describe('Indicator defaults tests', () => {
 
   it('should render card without alert config', () => {
     const withoutAlert: IndicatorProps = {
-      value: 26,
+      value: 27,
       unit: 'graus',
       name: 'temperatura',
     };
