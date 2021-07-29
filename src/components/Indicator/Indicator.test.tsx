@@ -27,7 +27,7 @@ describe('Indicator defaults tests', () => {
   })
 
   it('should render card with danger alert', () => {
-    const modelNoDanger: IndicatorProps = {
+    const modelDangerAlert: IndicatorProps = {
       value: 24,
       unit: 'graus',
       name: 'temperatura',
@@ -36,12 +36,12 @@ describe('Indicator defaults tests', () => {
         values: [26, 29]
       }
     };
-    const rendered = render(<Indicator config={modelNoDanger} />);
-    expect(rendered.queryAllByTestId('alert-' + modelNoDanger.name)).toHaveLength(1);
+    const rendered = render(<Indicator config={modelDangerAlert} />);
+    expect(rendered.queryAllByTestId('alert-' + modelDangerAlert.name)).toHaveLength(1);
   })
 
   it('not should render card with danger alert', () => {
-    const modelNoDanger: IndicatorProps = {
+    const withoutDanger: IndicatorProps = {
       value: 26,
       unit: 'graus',
       name: 'temperatura',
@@ -50,18 +50,18 @@ describe('Indicator defaults tests', () => {
         values: [26, 29]
       }
     };
-    const rendered = render(<Indicator config={modelNoDanger} />);
-    expect(rendered.queryAllByTestId('alert-' + modelNoDanger.name)).toHaveLength(0);
+    const rendered = render(<Indicator config={withoutDanger} />);
+    expect(rendered.queryAllByTestId('alert-' + withoutDanger.name)).toHaveLength(0);
   })
 
   it('should render card without alert config', () => {
-    const modelNoDanger: IndicatorProps = {
+    const withoutAlert: IndicatorProps = {
       value: 26,
       unit: 'graus',
       name: 'temperatura',
     };
-    const rendered = render(<Indicator config={modelNoDanger} />);
-    expect(rendered.queryAllByTestId('alert-' + modelNoDanger.name)).toHaveLength(0);
+    const rendered = render(<Indicator config={withoutAlert} />);
+    expect(rendered.queryAllByTestId('alert-' + withoutAlert.name)).toHaveLength(0);
   })
 })
 
