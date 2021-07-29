@@ -1,5 +1,5 @@
 /* eslint-disable testing-library/no-dom-import */
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { checkDanger, Indicator, IndicatorProps } from './Indicator';
 
 const modelIndicator: IndicatorProps = {
@@ -26,8 +26,22 @@ describe('Indicator defaults tests', () => {
     expect(checkDanger(withoutAlarm)).toBeFalsy();
   })
 
-  it('should render card without danger alert', () => {
-    const modelNoDanger: IndicatorProps = {
+  it('should render card with danger alert', () => {
+    const modelDangerAlert: IndicatorProps = {
+      value: 24,
+      unit: 'graus',
+      name: 'temperatura',
+      alarm: {
+        condition: 'out_interval',
+        values: [26, 29]
+      }
+    };
+    const rendered = render(<Indicator config={modelDangerAlert} />);
+    expect(rendered.queryAllByTestId('alert-' + modelDangerAlert.name)).toHaveLength(1);
+  })
+
+  it('not should render card with danger alert', () => {
+    const withoutDanger: IndicatorProps = {
       value: 26,
       unit: 'graus',
       name: 'temperatura',
@@ -36,9 +50,18 @@ describe('Indicator defaults tests', () => {
         values: [26, 29]
       }
     };
-    const { container } = render(<Indicator config={modelNoDanger} />);
-    expect(container.getElementsByClassName('card').length).toBe(1);
-    expect(container.getElementsByClassName('danger').length).toBe(0);
+    const rendered = render(<Indicator config={withoutDanger} />);
+    expect(rendered.queryAllByTestId('alert-' + withoutDanger.name)).toHaveLength(0);
+  })
+
+  it('should render card without alert config', () => {
+    const withoutAlert: IndicatorProps = {
+      value: 27,
+      unit: 'graus',
+      name: 'temperatura',
+    };
+    const rendered = render(<Indicator config={withoutAlert} />);
+    expect(rendered.queryAllByTestId('alert-' + withoutAlert.name)).toHaveLength(0);
   })
 })
 
@@ -149,6 +172,18 @@ describe('should check all cases with values out interval', () => {
 
   it('the value should to between four numbers without order', () => {
     expect(checkDanger(mountModel(28, 'out_interval', [26, 29, 5, 12]))).toBeFalsy();
+  })
+
+  it('the value indicator should show 30', () => {
+    expect(render(<Indicator config={modelIndicator} />).queryAllByText('30')).toHaveLength(1);
+  })
+
+  it('the name indicator should be temperatura', () => {
+    expect(render(<Indicator config={modelIndicator} />).queryAllByText('temperatura')).toHaveLength(1);
+  })
+
+  it('the unit indicator should be graus', () => {
+    expect(render(<Indicator config={modelIndicator} />).queryAllByText('graus')).toHaveLength(1);
   })
 })
 
