@@ -7,7 +7,6 @@ import {
   NameIndicator,
   IconContainer
 } from './Indicator.styles';
-import { FaTemperatureLow } from 'react-icons/fa';
 import { IconType } from 'react-icons/lib';
 import { ReactElement } from 'react';
 export interface IndicatorProps {
