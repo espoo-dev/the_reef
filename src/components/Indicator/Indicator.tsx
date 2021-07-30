@@ -4,9 +4,12 @@ import {
   ContainerCard,
   Description,
   ValueTitle,
-  AlertCircle,
-  NameIndicator
+  NameIndicator,
+  IconContainer
 } from './Indicator.styles';
+import { FaTemperatureLow } from 'react-icons/fa';
+import { IconType } from 'react-icons/lib';
+import { ReactElement } from 'react';
 export interface IndicatorProps {
   value: number;
   name: string;
@@ -16,6 +19,7 @@ export interface IndicatorProps {
     values: number[];
   };
   danger?: boolean;
+  icon?: ReactElement<IconType>
 }
 
 interface config {
@@ -23,7 +27,7 @@ interface config {
 }
 
 export const Indicator = (props: config) => {
-  const { name, value, unit, alarm } = props.config;
+  const { name, value, unit, alarm, icon } = props.config;
 
   const checkAlarm = ():boolean => {
     if (alarm && alarm.values && alarm.values.length) {
@@ -38,7 +42,11 @@ export const Indicator = (props: config) => {
         <ValueTitle>
           <span>{value}</span>
         </ValueTitle>
-        { checkAlarm() && <AlertCircle data-testid={'alert-' + name} /> }
+        { icon && (
+          <IconContainer danger={checkAlarm()}>
+            { icon }
+          </IconContainer>
+        )}
       </ContainerCard>
       <NameIndicator>
         <span>{unit}</span>
