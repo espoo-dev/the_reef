@@ -1,14 +1,12 @@
-import { HeaderMain } from "./Header.styles";
+import { HeaderMain } from './Header.styles';
 
 const Header = () => {
-
-  return(
+  return (
     <HeaderMain>
       <div>Reef</div>
       {/* <div>Sair</div> */}
     </HeaderMain>
-  )
-
-}
+  );
+};
 
 export default Header;
