@@ -7,6 +7,11 @@ export const HeaderSection = styled.div`
   color: #464646;
   background: #edfbfe;
   align-items: center;
+  
+  @media(max-width: 550px) {
+    flex-direction: column;
+    text-align: center;
+  }
 `;
 
 export const ImgMonitor = styled.img`

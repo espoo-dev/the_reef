@@ -8,6 +8,7 @@ import {
   ImgMonitor,
   CardsSection
 } from './Dashboard.styles';
+import { FaTemperatureLow, FaStrikethrough } from 'react-icons/fa';
 
 const Dashboard = () => {
 
@@ -19,7 +20,8 @@ const Dashboard = () => {
       alarm: {
         condition: 'out_interval',
         values: [26, 29]
-      }
+      },
+      icon: <FaTemperatureLow />
     },
     {
       value: 1023,
@@ -28,7 +30,8 @@ const Dashboard = () => {
       alarm: {
         condition: 'out_interval',
         values: [1024, 1026]
-      }
+      },
+      icon: <FaStrikethrough />
     },
     {
       value: 0.06,

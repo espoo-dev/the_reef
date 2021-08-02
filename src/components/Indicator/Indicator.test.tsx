@@ -1,6 +1,7 @@
 /* eslint-disable testing-library/no-dom-import */
 import { render, screen } from '@testing-library/react';
 import { checkDanger, Indicator, IndicatorProps } from './Indicator';
+import { FaTemperatureLow } from 'react-icons/fa';
 
 const modelIndicator: IndicatorProps = {
   value: 30,
@@ -25,45 +26,46 @@ describe('Indicator defaults tests', () => {
     };
     expect(checkDanger(withoutAlarm)).toBeFalsy();
   })
+})
 
-  it('should render card with danger alert', () => {
-    const modelDangerAlert: IndicatorProps = {
-      value: 24,
-      unit: 'graus',
-      name: 'temperatura',
-      alarm: {
-        condition: 'out_interval',
-        values: [26, 29]
-      }
-    };
-    const rendered = render(<Indicator config={modelDangerAlert} />);
-    expect(rendered.queryAllByTestId('alert-' + modelDangerAlert.name)).toHaveLength(1);
-  })
-
-  it('not should render card with danger alert', () => {
-    const withoutDanger: IndicatorProps = {
+describe('should check all icon cases', () => {
+  it('should show indicator with icon without alarm', () => {
+    const indicatorWithIcon: IndicatorProps = {
       value: 26,
       unit: 'graus',
       name: 'temperatura',
-      alarm: {
-        condition: 'out_interval',
-        values: [26, 29]
-      }
+      icon: <FaTemperatureLow />
     };
-    const rendered = render(<Indicator config={withoutDanger} />);
-    expect(rendered.queryAllByTestId('alert-' + withoutDanger.name)).toHaveLength(0);
+    expect(render(<Indicator config={indicatorWithIcon} />).queryAllByTestId('icon')).toHaveLength(1);
+    screen.debug();
   })
 
-  it('should render card without alert config', () => {
-    const withoutAlert: IndicatorProps = {
-      value: 27,
+  it('not should show indicator with icon', () => {
+    const indicatorWithIcon: IndicatorProps = {
+      value: 26,
+      unit: 'graus',
+      name: 'temperatura'
+    };
+    expect(render(<Indicator config={indicatorWithIcon} />).queryAllByTestId('icon')).toHaveLength(0);
+    screen.debug();
+  })
+
+  it('should show indicator with icon and alert', () => {
+    const indicatorWithIcon: IndicatorProps = {
+      value: 26,
       unit: 'graus',
       name: 'temperatura',
+      icon: <FaTemperatureLow />,
+      alarm: {
+        condition: '>',
+        values: [25]
+      }
     };
-    const rendered = render(<Indicator config={withoutAlert} />);
-    expect(rendered.queryAllByTestId('alert-' + withoutAlert.name)).toHaveLength(0);
+    expect(render(<Indicator config={indicatorWithIcon} />).queryAllByTestId('icon')).toHaveLength(1);
+    screen.debug();
   })
 })
+
 
 describe('should check all cases with operator bigger then (>)', () => {
   it('should alarm with value bigger', () => {

@@ -11,7 +11,7 @@ interface Props {
 
 // Card
 export const CardMonitor = styled.div<Props>`
-  padding: 10px;
+  padding: 14px;
   color: #464646;
   display: flex;
   flex-direction: column;
@@ -46,9 +46,21 @@ export const AlertCircle = styled.div`
   border-radius: 50%;
   height: 12px;
   width: 12px;
+  margin-left: 10px;
 `;
 
 export const NameIndicator = styled.div`
   font-size: 14px;
   margin-top: 10px;
+`;
+
+export const IconContainer = styled.div<Props>`
+  display: flex;
+  font-size: 18px;
+
+  ${props =>
+    props.danger &&
+    css`
+      color: #fe7061;
+    `};
 `;
