@@ -1,6 +1,7 @@
 /* eslint-disable testing-library/no-dom-import */
 import { render, screen } from '@testing-library/react';
 import { checkDanger, Indicator, IndicatorProps } from './Indicator';
+import { FaTemperatureLow } from 'react-icons/fa';
 
 const modelIndicator: IndicatorProps = {
   value: 30,
@@ -26,6 +27,45 @@ describe('Indicator defaults tests', () => {
     expect(checkDanger(withoutAlarm)).toBeFalsy();
   })
 })
+
+describe('should check all icon cases', () => {
+  it('should show indicator with icon without alarm', () => {
+    const indicatorWithIcon: IndicatorProps = {
+      value: 26,
+      unit: 'graus',
+      name: 'temperatura',
+      icon: <FaTemperatureLow />
+    };
+    expect(render(<Indicator config={indicatorWithIcon} />).queryAllByTestId('icon')).toHaveLength(1);
+    screen.debug();
+  })
+
+  it('not should show indicator with icon', () => {
+    const indicatorWithIcon: IndicatorProps = {
+      value: 26,
+      unit: 'graus',
+      name: 'temperatura'
+    };
+    expect(render(<Indicator config={indicatorWithIcon} />).queryAllByTestId('icon')).toHaveLength(0);
+    screen.debug();
+  })
+
+  it('should show indicator with icon and alert', () => {
+    const indicatorWithIcon: IndicatorProps = {
+      value: 26,
+      unit: 'graus',
+      name: 'temperatura',
+      icon: <FaTemperatureLow />,
+      alarm: {
+        condition: '>',
+        values: [25]
+      }
+    };
+    expect(render(<Indicator config={indicatorWithIcon} />).queryAllByTestId('icon')).toHaveLength(1);
+    screen.debug();
+  })
+})
+
 
 describe('should check all cases with operator bigger then (>)', () => {
   it('should alarm with value bigger', () => {

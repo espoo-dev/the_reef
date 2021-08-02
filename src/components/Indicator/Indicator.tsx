@@ -42,7 +42,7 @@ export const Indicator = (props: config) => {
           <span>{value}</span>
         </ValueTitle>
         { icon && (
-          <IconContainer danger={checkAlarm()}>
+          <IconContainer data-testid="icon" danger={checkAlarm()}>
             { icon }
           </IconContainer>
         )}
