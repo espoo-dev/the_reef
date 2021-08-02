@@ -21,7 +21,7 @@ jobs:
           name: Install dependencies
           command: yarn install
       - run:
-          name: Install dependencies
+          name: Run lint
           command: yarn lint
       - run:
           name:  Download cc-test-reporter
