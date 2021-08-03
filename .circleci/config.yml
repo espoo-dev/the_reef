@@ -8,8 +8,6 @@ orbs:
 
 jobs:
   install-lint-test-build:
-    environment:
-      CC_TEST_REPORTER_ID: c8f294cd54feece3273291ddb744d3189db1d3eaa5cf10073e54e171fcd140ea
     docker:
       - image: cimg/node:14.1
     working_directory: ~/repo
