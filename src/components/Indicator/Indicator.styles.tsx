@@ -19,7 +19,7 @@ export const CardMonitor = styled.div<Props>`
   box-shadow: -1px 12px 23px -10px rgb(0 0 0 / 15%);
   border: 1px solid #eaeaea;
 
-  ${props =>
+  ${(props) =>
     props.danger &&
     css`
       border: 1px solid #fe7061;
@@ -58,7 +58,7 @@ export const IconContainer = styled.div<Props>`
   display: flex;
   font-size: 18px;
 
-  ${props =>
+  ${(props) =>
     props.danger &&
     css`
       color: #fe7061;

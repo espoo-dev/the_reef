@@ -3,25 +3,20 @@ import Header from '../../components/Header/Header';
 import LogoImg from '../../assets/logo.png';
 import { IndicatorProps } from '../../components/Indicator';
 import { Indicator } from '../../components/Indicator';
-import {
-  HeaderSection,
-  ImgMonitor,
-  CardsSection
-} from './Dashboard.styles';
+import { HeaderSection, ImgMonitor, CardsSection } from './Dashboard.styles';
 import { FaTemperatureLow, FaStrikethrough } from 'react-icons/fa';
 
 const Dashboard = () => {
-
-  let indicators: IndicatorProps[] = [
+  const indicators: IndicatorProps[] = [
     {
       value: 27,
       unit: 'graus',
       name: 'temperatura',
       alarm: {
         condition: 'out_interval',
-        values: [26, 29]
+        values: [26, 29],
       },
-      icon: <FaTemperatureLow />
+      icon: <FaTemperatureLow />,
     },
     {
       value: 1023,
@@ -29,9 +24,9 @@ const Dashboard = () => {
       name: 'salinidade',
       alarm: {
         condition: 'out_interval',
-        values: [1024, 1026]
+        values: [1024, 1026],
       },
-      icon: <FaStrikethrough />
+      icon: <FaStrikethrough />,
     },
     {
       value: 0.06,
@@ -39,9 +34,9 @@ const Dashboard = () => {
       name: 'fosfato',
       alarm: {
         condition: '>',
-        values: [0.12]
-      }
-    }
+        values: [0.12],
+      },
+    },
   ];
 
   return (
@@ -51,7 +46,9 @@ const Dashboard = () => {
         <HeaderSection>
           <div>
             <h1>Bem vindo ao monitoramento,</h1>
-            <h3>está <span style={{color: '#fe7061'}}>tudo bem</span> por aqui.</h3>
+            <h3>
+              está <span style={{ color: '#fe7061' }}>tudo bem</span> por aqui.
+            </h3>
           </div>
           <div>
             <ImgMonitor src={LogoImg} alt="Shark Good" />
@@ -60,11 +57,12 @@ const Dashboard = () => {
       </div>
       {/* cards */}
       <CardsSection>
-        {indicators.map((card) => <Indicator key={card.name} config={card} />)}
+        {indicators.map((card) => (
+          <Indicator key={card.name} config={card} />
+        ))}
       </CardsSection>
-
-      </div>
+    </div>
   );
-}
+};
 
 export default Dashboard;

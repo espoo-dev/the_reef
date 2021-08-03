@@ -3,6 +3,6 @@ import Dashboard from './Dashboard';
 
 describe('Dashboard defaults tests', () => {
   it('should create and render dashboad page on screen', () => {
-    render(<Dashboard  />);
-  })
-})
+    render(<Dashboard />);
+  });
+});
