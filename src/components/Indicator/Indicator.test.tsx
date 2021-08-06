@@ -38,7 +38,6 @@ describe('should check all icon cases', () => {
     expect(
       render(<Indicator config={indicatorWithIcon} />).queryAllByTestId('icon')
     ).toHaveLength(1);
-    screen.debug();
   });
 
   it('not should show indicator with icon', () => {
@@ -50,7 +49,6 @@ describe('should check all icon cases', () => {
     expect(
       render(<Indicator config={indicatorWithIcon} />).queryAllByTestId('icon')
     ).toHaveLength(0);
-    screen.debug();
   });
 
   it('should show indicator with icon and alert', () => {
@@ -67,7 +65,6 @@ describe('should check all icon cases', () => {
     expect(
       render(<Indicator config={indicatorWithIcon} />).queryAllByTestId('icon')
     ).toHaveLength(1);
-    screen.debug();
   });
 });
 
