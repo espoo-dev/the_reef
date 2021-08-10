@@ -35,6 +35,32 @@ export const Indicator = (props: config) => {
     return false;
   };
 
+  const mountDescription = () => {
+    if (alarm?.condition === 'out_interval') {
+      return (
+        'ideal seria ' +
+        alarm?.values[0] +
+        ' a ' +
+        alarm?.values[alarm?.values.length - 1]
+      );
+    }
+    if (alarm?.condition === 'includes' || alarm?.condition === '==') {
+      return 'não pode ser ' + value;
+    }
+    if (alarm?.condition === '>=') {
+      return 'ideal seria menor que ' + alarm?.values[0];
+    }
+    if (alarm?.condition === '<=') {
+      return 'ideal seria maior que ' + alarm?.values[0];
+    }
+    if (alarm?.condition === '>') {
+      return 'ideal seria menor ou igual a ' + alarm?.values[0];
+    }
+    if (alarm?.condition === '<') {
+      return 'ideal seria maior ou igual a ' + alarm?.values[0];
+    }
+  };
+
   return (
     <CardMonitor danger={checkAlarm()} key={name}>
       <ContainerCard>
@@ -51,7 +77,7 @@ export const Indicator = (props: config) => {
         <span>{unit}</span>
       </NameIndicator>
       <Description>
-        <span>{name}</span>
+        <span>{name}</span> {checkAlarm() && <span>{mountDescription()}</span>}
       </Description>
     </CardMonitor>
   );

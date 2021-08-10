@@ -17,13 +17,151 @@ describe('Indicator defaults tests', () => {
     render(<Indicator config={modelIndicator} />);
   });
 
-  it('should render idicator without alarm', () => {
+  it('should render indicator without alarm', () => {
     const withoutAlarm: IndicatorProps = {
       value: 27,
       unit: 'graus',
       name: 'temperatura',
     };
     expect(checkDanger(withoutAlarm)).toBeFalsy();
+  });
+});
+
+describe('should show to user the values ideal when alarm the indicator', () => {
+  it('not should render description when not danger', () => {
+    const indicatorDanger: IndicatorProps = {
+      value: 25,
+      unit: 'graus',
+      name: 'temperatura',
+      alarm: {
+        condition: '==',
+        values: [26],
+      },
+    };
+    expect(
+      render(<Indicator config={indicatorDanger} />).queryAllByText(
+        'ideal seria ' + indicatorDanger.alarm?.values[0]
+      )
+    ).toHaveLength(0);
+  });
+
+  it('should render unique value ideal in description when greater than danger', () => {
+    const indicatorDanger: IndicatorProps = {
+      value: 27,
+      unit: 'graus',
+      name: 'temperatura',
+      alarm: {
+        condition: '>=',
+        values: [26],
+      },
+    };
+    expect(
+      render(<Indicator config={indicatorDanger} />).queryAllByText(
+        'ideal seria menor que ' + indicatorDanger.alarm?.values[0]
+      )
+    ).toHaveLength(1);
+  });
+
+  it('should render unique value ideal in description when lesser than danger', () => {
+    const indicatorDanger: IndicatorProps = {
+      value: 25,
+      unit: 'graus',
+      name: 'temperatura',
+      alarm: {
+        condition: '<=',
+        values: [26],
+      },
+    };
+    expect(
+      render(<Indicator config={indicatorDanger} />).queryAllByText(
+        'ideal seria maior que ' + indicatorDanger.alarm?.values[0]
+      )
+    ).toHaveLength(1);
+  });
+
+  it('should render range value ideal in description when danger', () => {
+    const indicatorDanger: IndicatorProps = {
+      value: 25,
+      unit: 'graus',
+      name: 'temperatura',
+      alarm: {
+        condition: 'out_interval',
+        values: [26, 29],
+      },
+    };
+    expect(
+      render(<Indicator config={indicatorDanger} />).queryAllByText(
+        'ideal seria 26 a 29'
+      )
+    ).toHaveLength(1);
+  });
+
+  it('should render ideal values in description when danger (includes)', () => {
+    const indicatorDanger: IndicatorProps = {
+      value: 26,
+      unit: 'graus',
+      name: 'temperatura',
+      alarm: {
+        condition: 'includes',
+        values: [26, 27, 28],
+      },
+    };
+    expect(
+      render(<Indicator config={indicatorDanger} />).queryAllByText(
+        'não pode ser 26'
+      )
+    ).toHaveLength(1);
+  });
+
+  it('should render ideal values in description when is same danger', () => {
+    const indicatorDanger: IndicatorProps = {
+      value: 26,
+      unit: 'graus',
+      name: 'temperatura',
+      alarm: {
+        condition: '==',
+        values: [26],
+      },
+    };
+    expect(
+      render(<Indicator config={indicatorDanger} />).queryAllByText(
+        'não pode ser 26'
+      )
+    ).toHaveLength(1);
+  });
+
+  it('should render ideal values in description when bigger then danger', () => {
+    const indicatorDanger: IndicatorProps = {
+      value: 27,
+      unit: 'graus',
+      name: 'temperatura',
+      alarm: {
+        condition: '>',
+        values: [26],
+      },
+    };
+    expect(
+      render(<Indicator config={indicatorDanger} />).queryAllByText(
+        'ideal seria menor ou igual a 26'
+      )
+    ).toHaveLength(1);
+  });
+
+  it('should render ideal values in description when less then danger', () => {
+    const indicatorDanger: IndicatorProps = {
+      value: 24,
+      unit: 'graus',
+      name: 'temperatura',
+      alarm: {
+        condition: '<',
+        values: [25],
+      },
+    };
+    expect(
+      render(<Indicator config={indicatorDanger} />).queryAllByText(
+        'ideal seria maior ou igual a 25'
+      )
+    ).toHaveLength(1);
   });
 });
 
