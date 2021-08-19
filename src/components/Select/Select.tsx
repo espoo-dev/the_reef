@@ -9,17 +9,29 @@ import {
   Option,
 } from './Select.styles';
 
+export interface OptionDefault {
+  [x: string]: string | number | undefined;
+  name?: string;
+}
 interface SelectProps {
-  options: string[];
-  defaultOption?: string;
+  options: OptionDefault[];
+  labelValue?: string;
+  keyValue?: string;
+  setOptionSelected: React.Dispatch<React.SetStateAction<OptionDefault>>;
+  option: OptionDefault;
 }
 
-export const Select = ({ options, defaultOption }: SelectProps) => {
+export const Select = ({
+  options,
+  labelValue = 'name',
+  keyValue = 'id',
+  setOptionSelected,
+  option,
+}: SelectProps) => {
   const [open, setOpen] = useState(false);
-  const [optionSelected, setOptionSelected] = useState(defaultOption || '');
   const node = useRef(null);
 
-  const setOption = (option: string) => {
+  const setOption = (option: OptionDefault) => {
     setOptionSelected(option);
     setOpen(false);
   };
@@ -28,15 +40,15 @@ export const Select = ({ options, defaultOption }: SelectProps) => {
     <SelectContainer ref={node}>
       <SelectMain onClick={() => setOpen(!open)}>
         <ContainerSelected>
-          <span>{optionSelected || 'Selecione'}</span>
+          <span>{option[labelValue] ? option[labelValue] : 'Selecione'}</span>
           {open ? <FaChevronUp /> : <FaChevronDown />}
         </ContainerSelected>
       </SelectMain>
       {open && (
         <ListOptions>
-          {options.map((option) => (
-            <Option key={option} onClick={() => setOption(option)}>
-              {option}
+          {options.map((option: OptionDefault) => (
+            <Option key={option[keyValue]} onClick={() => setOption(option)}>
+              {option[labelValue]}
             </Option>
           ))}
         </ListOptions>
