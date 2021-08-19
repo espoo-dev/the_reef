@@ -1,12 +1,12 @@
-const Header = () => {
+import { HeaderMain } from './Header.styles';
 
-  return(
-    <header style={{ display: 'flex', justifyContent: 'space-between', padding: '16px', background: '#f5eee3', color: '#2e343f' }}>
+const Header = () => {
+  return (
+    <HeaderMain>
       <div>Reef</div>
       {/* <div>Sair</div> */}
-    </header>
-  )
-
-}
+    </HeaderMain>
+  );
+};
 
 export default Header;

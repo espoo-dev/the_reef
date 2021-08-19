@@ -5,6 +5,8 @@ import { IndicatorProps } from '../../components/Indicator';
 import { Indicator } from '../../components/Indicator';
 import { FaTemperatureLow, FaStrikethrough } from 'react-icons/fa';
 import { Select } from '../../components/Select';
+import { HeaderSection, ImgMonitor, CardsSection } from './Dashboard.styles';
+import { FaTemperatureLow, FaStrikethrough } from 'react-icons/fa';
 
 const Dashboard = () => {
   const indicators: IndicatorProps[] = [
