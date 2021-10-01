@@ -23,7 +23,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "test:ci": "react-scripts test --watchAll=false --coverage",
-    "lint": "eslint './**/*.{js,jsx,ts,tsx}'"
+    "lint": "eslint './**/*.{js,jsx,ts,tsx}'",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -57,7 +58,8 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "styled-components": "^5.3.0",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "husky": "^7.0.0"
   },
   "engines": {
     "node": "^14.1.0"
