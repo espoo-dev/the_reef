@@ -5,9 +5,10 @@ version: 2.1
 orbs:
   node: circleci/node@4.1
 
-
 jobs:
   install-lint-test-build:
+    environment:
+      CC_TEST_REPORTER_ID: 6fc6622d453f3e720216167de0d43a79988c06e04bf89125337502747595f927
     docker:
       - image: cimg/node:14.1
     working_directory: ~/repo
@@ -22,7 +23,7 @@ jobs:
           name: Run lint
           command: yarn lint
       - run:
-          name:  Download cc-test-reporter
+          name: Download cc-test-reporter
           command: |
             mkdir -p tmp/
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
