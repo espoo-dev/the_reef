@@ -38,7 +38,7 @@ export const Select = ({
 
   return (
     <SelectContainer ref={node}>
-      <SelectMain onClick={() => setOpen(!open)}>
+      <SelectMain data-testid="select-main" onClick={() => setOpen(!open)}>
         <ContainerSelected>
           <span>{option[labelValue] ? option[labelValue] : 'Selecione'}</span>
           {open ? <FaChevronUp /> : <FaChevronDown />}
