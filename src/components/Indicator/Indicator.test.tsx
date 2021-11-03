@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { checkDanger, Indicator, IndicatorProps } from './Indicator';
 import { FaTemperatureLow } from 'react-icons/fa';
 
