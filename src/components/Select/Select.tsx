@@ -36,12 +36,27 @@ export const Select = ({
     setOpen(false);
   };
 
+  const showChevron = () => {
+    if (options.length > 0) {
+      return open ? (
+        <FaChevronUp />
+      ) : (
+        <FaChevronDown data-testid="select-chevron" />
+      );
+    }
+    return null;
+  };
+
   return (
     <SelectContainer ref={node}>
       <SelectMain data-testid="select-main" onClick={() => setOpen(!open)}>
         <ContainerSelected>
-          <span>{option[labelValue] ? option[labelValue] : 'Selecione'}</span>
-          {open ? <FaChevronUp /> : <FaChevronDown />}
+          {options.length ? (
+            <span>{option[labelValue] ? option[labelValue] : 'Selecione'}</span>
+          ) : (
+            <span>Nenhuma opção encontrada</span>
+          )}
+          {showChevron()}
         </ContainerSelected>
       </SelectMain>
       {open && (

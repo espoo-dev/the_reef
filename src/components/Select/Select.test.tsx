@@ -35,4 +35,21 @@ describe('Select defaults tests', () => {
     fireEvent.click(option);
     expect(stateMock).toHaveBeenCalledWith(options[0]);
   });
+
+  it('should display a message to the user when there are no options', () => {
+    render(<Select options={[]} option={{}} setOptionSelected={stateMock} />);
+    expect(screen.getByText('Nenhuma opção encontrada')).toBeTruthy();
+  });
+
+  it('should show chevron to open when has options', () => {
+    render(
+      <Select options={options} option={{}} setOptionSelected={stateMock} />
+    );
+    expect(screen.queryByTestId('select-chevron')).toBeTruthy();
+  });
+
+  it('should not show chevron to open options when there are no options', () => {
+    render(<Select options={[]} option={{}} setOptionSelected={stateMock} />);
+    expect(screen.queryByTestId('select-chevron')).toBeFalsy();
+  });
 });
