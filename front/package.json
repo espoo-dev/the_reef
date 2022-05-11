@@ -24,7 +24,7 @@
     "eject": "react-scripts eject",
     "test:ci": "react-scripts test --watchAll=false --coverage",
     "lint": "eslint './**/*.{js,jsx,ts,tsx}'",
-    "prepare": "husky install"
+    "prepare": "cd ../ && husky install"
   },
   "eslintConfig": {
     "extends": [
