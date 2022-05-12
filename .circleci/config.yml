@@ -9,9 +9,10 @@ jobs:
   install-lint-test-build:
     docker:
       - image: cimg/node:14.1
-    working_directory: ~/front
+    working_directory: ~/repo/front
     steps:
-      - checkout
+      - checkout:
+          path: ~/front
       - node/install-packages:
           pkg-manager: yarn
       - run:
