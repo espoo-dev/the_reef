@@ -12,7 +12,7 @@ jobs:
     working_directory: ~/repo/front
     steps:
       - checkout:
-          path: ~/front
+          path: ~/repo
       - node/install-packages:
           pkg-manager: yarn
       - run:
