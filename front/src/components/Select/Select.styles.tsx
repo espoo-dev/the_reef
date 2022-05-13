@@ -8,6 +8,11 @@ export const SelectContainer = styled.div`
   width: 40%;
   position: relative;
   user-select: none;
+  padding: 20px 0px;
+
+  @media (max-width: 1200px) {
+    padding: 20px 30px;
+  }
 `;
 
 export const SelectMain = styled.div`
