@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const limitMaxLength = '1200px';
 
 export const HeaderSection = styled.div`
-  max-width: 1200px;
+  max-width: ${limitMaxLength};
   margin: auto;
   display: flex;
   justify-content: space-between;
@@ -35,7 +35,6 @@ export const CardsSection = styled.div`
   }
 `;
 
-// Card
 export const CardMonitor = styled.div`
   padding: 10px;
   color: #464646;

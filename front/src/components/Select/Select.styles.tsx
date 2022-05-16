@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const bRadiusDefault = '6px';
 const borderColor = '#eaeaea';
+const limitMaxLength = '1200px';
 
 export const SelectContainer = styled.div`
   color: #fe7061;
@@ -10,7 +11,7 @@ export const SelectContainer = styled.div`
   user-select: none;
   padding: 20px 0px;
 
-  @media (max-width: 1200px) {
+  @media (max-width: ${limitMaxLength}) {
     padding: 20px 30px;
   }
 `;
