@@ -15,4 +15,12 @@ export default class AquariumRepositoryMemory implements AquariumRepository {
   async list(): Promise<Aquarium[]> {
     return this.aquariums;
   }
+
+  async get(idAquarium: number): Promise<Aquarium> {
+    const aquarium = this.aquariums.find(aquarium => aquarium.id === idAquarium);
+    if (!aquarium) {
+      throw new Error("Aquarium not found");
+    }
+    return aquarium;
+  }
 }

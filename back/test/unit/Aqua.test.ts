@@ -4,7 +4,7 @@ import Fish from "../../src/domain/entity/Fish";
 
 describe('Aquarium', () => {
   const sut = () => {
-    return new Aquarium('My Reef', new Dimensions(50, 50, 50));
+    return new Aquarium(1, 'My Reef', new Dimensions(50, 50, 50));
   };
 
   it('should create an aquarium', () => {
@@ -18,7 +18,7 @@ describe('Aquarium', () => {
   });
 
   it('should return error when dont have dimensions', () => {
-    const aquarium = new Aquarium('My Reef');
+    const aquarium = new Aquarium(1, 'My Reef');
     expect(() => aquarium.getLiters()).toThrowError('Aquarium dont have dimensions');
   })
 
