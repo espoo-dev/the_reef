@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+const limitMaxLength = '1200px';
+
 export const HeaderSection = styled.div`
   max-width: 1200px;
   margin: auto;
@@ -45,6 +47,6 @@ export const CardMonitor = styled.div`
 `;
 
 export const Container = styled.div`
-  max-width: 1200px;
+  max-width: ${limitMaxLength};
   margin: auto;
 `;
