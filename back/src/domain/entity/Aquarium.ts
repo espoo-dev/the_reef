@@ -2,13 +2,9 @@ import Dimensions from "./Dimensions";
 import Fish from "./Fish";
 
 export default class Aquarium {
-  name: string;
-  dimensions?: Dimensions;
   fishs: Fish[] = [];
 
-  constructor(name: string, dimensions?: Dimensions) {
-    this.name = name;
-    this.dimensions = dimensions;
+  constructor(readonly id: number, readonly name: string, readonly dimensions?: Dimensions) {
   }
 
   getLiters(): number {
