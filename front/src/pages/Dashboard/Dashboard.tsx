@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Header from '../../components/Header/Header';
 import LogoImg from '../../assets/logo.png';
 import { IndicatorProps } from '../../components/Indicator';
 import { Indicator } from '../../components/Indicator';
 import { FaTemperatureLow, FaStrikethrough } from 'react-icons/fa';
 import { OptionDefault, Select } from '../../components/Select';
-import { HeaderSection, ImgMonitor, CardsSection } from './Dashboard.styles';
+import {
+  HeaderSection,
+  ImgMonitor,
+  Container,
+  CardsSection,
+} from './Dashboard.styles';
 
 const Dashboard = () => {
   const indicators: IndicatorProps[] = [
@@ -44,12 +49,12 @@ const Dashboard = () => {
   const tanks = [
     {
       id: 1,
-      name: 'tank1',
+      name: 'tank 01',
       cor: 'aaa',
     },
     {
       id: 2,
-      name: 'tank2',
+      name: 'tank 02',
       cor: 'bbb',
     },
   ];
@@ -58,46 +63,42 @@ const Dashboard = () => {
     <div>
       <div>
         <Header />
-        <HeaderSection>
-          <div>
-            {tankSelected.name ? (
-              <h1>
-                {`Bem vindo ao monitoramento do
-                ${tankSelected.name}`}
-              </h1>
-            ) : (
-              <h1>Selecione um tank</h1>
-            )}
-            {tankSelected.name && (
-              <h3>
-                está <span style={{ color: '#fe7061' }}>tudo bem</span> por
-                aqui.
-              </h3>
-            )}
-          </div>
-          <div>
+        <div style={{ background: '#edfbfe' }}>
+          <HeaderSection>
+            <div>
+              {tankSelected.name ? (
+                <h1>
+                  {`Bem vindo ao monitoramento do
+                  ${tankSelected.name}`}
+                </h1>
+              ) : (
+                <h1>Selecione um tank</h1>
+              )}
+              {tankSelected.name && (
+                <h3>
+                  está <span style={{ color: '#fe7061' }}>tudo bem</span> por
+                  aqui.
+                </h3>
+              )}
+            </div>
             <ImgMonitor src={LogoImg} alt="Shark Good" />
-          </div>
-        </HeaderSection>
+          </HeaderSection>
+        </div>
       </div>
-      {/* cards */}
-      <div
-        style={{
-          padding: '30px',
-        }}
-      >
+
+      <Container>
         <Select
           options={tanks}
           option={tankSelected}
           setOptionSelected={setTankSelected}
           // labelValue={'cor'}
         />
-      </div>
-      <CardsSection>
-        {indicators.map((card) => (
-          <Indicator key={card.name} config={card} />
-        ))}
-      </CardsSection>
+        <CardsSection>
+          {indicators.map((card) => (
+            <Indicator key={card.name} config={card} />
+          ))}
+        </CardsSection>
+      </Container>
     </div>
   );
 };
