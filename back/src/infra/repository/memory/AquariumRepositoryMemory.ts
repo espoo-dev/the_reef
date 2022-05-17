@@ -7,6 +7,13 @@ export default class AquariumRepositoryMemory implements AquariumRepository {
   constructor() {
     this.aquariums = [];
   }
+  async remove(idAquarium: number): Promise<void> {
+    this.aquariums.forEach((aquarium, index) => {
+      if (aquarium.id === idAquarium) {
+        this.aquariums.splice(index, 1);
+      }
+    });
+  }
 
   async save(aquarium: Aquarium): Promise<void> {
     this.aquariums.push(aquarium);
