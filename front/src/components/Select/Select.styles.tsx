@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
+import { defaultTheme as theme } from '../../main/theme';
+
 export const SelectContainer = styled.div`
-  color: ${(props) => props.theme.pallete.primary.main};
+  color: ${theme.pallete.primary.main};
   width: 40%;
   position: relative;
   user-select: none;
@@ -10,9 +12,9 @@ export const SelectContainer = styled.div`
 
 export const SelectMain = styled.div`
   padding: 4px;
-  background: ${(props) => props.theme.pallete.common.white};
-  border: 1px solid ${(props) => props.theme.borderColor};
-  border-radius: ${(props) => props.theme.borderRadius};
+  background: ${theme.pallete.common.white};
+  border: 1px solid ${theme.borderColor};
+  border-radius: ${theme.borderRadius};
 `;
 
 export const ContainerSelected = styled.div`
@@ -26,14 +28,14 @@ export const ListOptions = styled.ul`
   margin: 0px;
   position: absolute;
   list-style-type: none;
-  background: ${(props) => props.theme.pallete.common.white};
-  color: ${(props) => props.theme.pallete.primary.main};
+  background: ${theme.pallete.common.white};
+  color: ${theme.pallete.primary.main};
   padding-left: 0px;
-  border-radius: ${(props) => props.theme.borderRadius};
+  border-radius: ${theme.borderRadius};
   width: 100%;
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
-  border-left: 1px solid ${(props) => props.theme.borderColor};
-  border-right: 1px solid ${(props) => props.theme.borderColor};
+  border-bottom: 1px solid ${theme.borderColor};
+  border-left: 1px solid ${theme.borderColor};
+  border-right: 1px solid ${theme.borderColor};
 `;
 
 export const Option = styled.li`
