@@ -8,6 +8,14 @@ export default class AquariumRepositoryMemory implements AquariumRepository {
     this.aquariums = [];
   }
 
+  async remove(idAquarium: number): Promise<void> {
+    this.aquariums.forEach((aquarium, index) => {
+      if (aquarium.id === idAquarium) {
+        this.aquariums.splice(index, 1);
+      }
+    });
+  }
+
   async save(aquarium: Aquarium): Promise<void> {
     this.aquariums.push(aquarium);
   }
@@ -22,5 +30,9 @@ export default class AquariumRepositoryMemory implements AquariumRepository {
       throw new Error("Aquarium not found");
     }
     return aquarium;
+  }
+
+  async clean(): Promise<void> {
+    this.aquariums = [];
   }
 }
