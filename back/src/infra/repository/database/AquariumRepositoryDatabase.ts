@@ -7,7 +7,7 @@ export default class AquariumRepositoryDatabase implements AquariumRepository {
   constructor(readonly connection: Connection) {}
 
   async remove(idAquarium: number): Promise<void> {
-    await this.connection.query("delete from aquariums where id = $1", [idAquarium]);
+    await this.connection.query("DELETE FROM aquariums WHERE id = $1", [idAquarium]);
   }
 
   async save(aquarium: Aquarium): Promise<void> {
@@ -16,7 +16,7 @@ export default class AquariumRepositoryDatabase implements AquariumRepository {
   }
 
   async list(): Promise<Aquarium[]> {
-    const aquariumsData = await this.connection.query("select * from aquariums", []);
+    const aquariumsData = await this.connection.query("SELECT * FROM aquariums", []);
     const aquariums: Aquarium[] = [];
     for (const aquariumData of aquariumsData) {
       aquariums.push(new Aquarium(aquariumData.id, aquariumData.name));
@@ -25,11 +25,11 @@ export default class AquariumRepositoryDatabase implements AquariumRepository {
   }
 
   async get(idAquarium: number): Promise<Aquarium> {
-    const [aquariumData] = await this.connection.query("select * from aquariums where id = $1", [idAquarium]);
+    const [aquariumData] = await this.connection.query("SELECT * FROM aquariums WHERE id = $1", [idAquarium]);
     return new Aquarium(aquariumData.id, aquariumData.name);
   }
 
   async clean(): Promise<void> {
-    await this.connection.query("delete from aquariums", []);
+    await this.connection.query("DELETE FROM aquariums", []);
   }
 }
