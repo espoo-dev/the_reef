@@ -1,4 +1,4 @@
-import { Aquarium } from '@/domain/entity/Aquarium';
+import { Aquarium } from '@/domain/entity';
 import { AquariumRepository } from '@/domain/repository';
 
 export class AquariumRepositoryMemory implements AquariumRepository {
