@@ -7,6 +7,7 @@ export default class AquariumRepositoryMemory implements AquariumRepository {
   constructor() {
     this.aquariums = [];
   }
+
   async remove(idAquarium: number): Promise<void> {
     this.aquariums.forEach((aquarium, index) => {
       if (aquarium.id === idAquarium) {
@@ -29,5 +30,9 @@ export default class AquariumRepositoryMemory implements AquariumRepository {
       throw new Error("Aquarium not found");
     }
     return aquarium;
+  }
+
+  async clean(): Promise<void> {
+    this.aquariums = [];
   }
 }

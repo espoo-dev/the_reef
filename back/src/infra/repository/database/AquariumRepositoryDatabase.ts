@@ -5,6 +5,7 @@ import Connection from "../../database/Connection";
 export default class AquariumRepositoryDatabase implements AquariumRepository {
 
   constructor(readonly connection: Connection) {}
+
   async remove(idAquarium: number): Promise<void> {
     await this.connection.query("delete from aquariums where id = $1", [idAquarium]);
   }
@@ -26,5 +27,9 @@ export default class AquariumRepositoryDatabase implements AquariumRepository {
   async get(idAquarium: number): Promise<Aquarium> {
     const [aquariumData] = await this.connection.query("select * from aquariums where id = $1", [idAquarium]);
     return new Aquarium(aquariumData.id, aquariumData.name);
+  }
+
+  async clean(): Promise<void> {
+    await this.connection.query("delete from aquariums", []);
   }
 }

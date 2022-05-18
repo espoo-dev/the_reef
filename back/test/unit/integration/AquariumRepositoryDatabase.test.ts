@@ -7,30 +7,40 @@ import AquariumRepositoryDatabase from "../../../src/infra/repository/database/A
 let connection: Connection;
 let aquariumRepository: AquariumRepository;
 
-beforeEach(() => {
+beforeEach(async () => {
   connection = new PgPromiseConnectionAdapter();
   aquariumRepository = new AquariumRepositoryDatabase(connection);
+  await aquariumRepository.clean();
 })
 
+const saveAquarium = async (name: string) => {
+  const aquarium = new Aquarium(1, name);
+  await aquariumRepository.save(aquarium);
+}
+
 describe('AquariumRepositoryDatabase', () => {
-  it.skip('should add a new aquarium in database', async () => {
-    const aquarium = new Aquarium(1, 'Iury Reef');
-    aquariumRepository.save(aquarium);
+  it('should add a new aquarium in database', async () => {
+    await saveAquarium('Iury Reef');
     expect(aquariumRepository.list()).resolves.toHaveLength(1);
   });
 
   it('should return all aquariums from database', async () => {
+    await saveAquarium('Iury Reef');
     const aquariums = await aquariumRepository.list();
     expect(aquariums).toHaveLength(1);
   });
 
-  it.skip('should remove aquarium by id from database', async () => {
-    await aquariumRepository.remove(1);
-    expect(await aquariumRepository.list()).toHaveLength(1);
+  it('should remove aquarium by id from database', async () => {
+    await saveAquarium('Iury Reef');
+    const aquariums = await aquariumRepository.list();
+    aquariumRepository.remove(aquariums[0].id)
+    expect(await aquariumRepository.list()).toHaveLength(0);
   });
 
   it('should return a aquarium by index', async () => {
-    const aquariumFounded = await aquariumRepository.get(2);
+    await saveAquarium('Iury Reef');
+    const aquariums = await aquariumRepository.list();
+    const aquariumFounded = await aquariumRepository.get(aquariums[0].id);
     expect(aquariumFounded.name).toBe('Iury Reef');
   });
 });

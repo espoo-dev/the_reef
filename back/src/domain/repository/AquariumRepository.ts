@@ -5,4 +5,5 @@ export default interface AquariumRepository {
   list(): Promise<Aquarium[]>
   get(idAquarium: number): Promise<Aquarium>;
   remove(idAquarium: number): Promise<void>;
+  clean(): Promise<void>;
 }
