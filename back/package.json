@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "tsc && jest dist/test"
+    "test": "jest --passWithNoTests --no-cache --runInBand"
   },
   "node": "16.x.x",
   "license": "ISC",

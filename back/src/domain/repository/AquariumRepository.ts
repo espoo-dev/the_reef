@@ -1,6 +1,6 @@
-import Aquarium from "../entity/Aquarium";
+import { Aquarium } from '@/domain/entity';
 
-export default interface AquariumRepository {
+export interface AquariumRepository {
   save(aquarium: Aquarium): Promise<void>;
   list(): Promise<Aquarium[]>
   get(idAquarium: number): Promise<Aquarium>;

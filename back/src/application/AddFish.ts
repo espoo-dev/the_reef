@@ -1,7 +1,7 @@
-import Fish from "../domain/entity/Fish";
-import AquariumRepository from "../domain/repository/AquariumRepository";
+import { Fish } from '@/domain/entity';
+import { AquariumRepository } from '@/domain/repository';
 
-export default class AddFish {
+export class AddFish {
   constructor(private aquariumRepository: AquariumRepository) {}
 
   async execute(input: Input): Promise<Output> {
