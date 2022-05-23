@@ -61,7 +61,8 @@ jobs:
           command: yarn test
 
 workflows:
-  pipeline:
+  version: 2
+  back_front:
     jobs:
       - install-lint-test-build
-      - backend-test
+      - backend-lint-test
