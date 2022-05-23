@@ -1,42 +1,41 @@
-import { Dimensions, Fish } from '@/domain/entity';
+import { Dimensions, Fish } from '@/domain/entity'
 
 export class Aquarium {
   fishs: Fish[] = [];
 
-  constructor(readonly id: number, readonly name: string, readonly dimensions?: Dimensions) {
+  constructor (readonly id: number, readonly name: string, readonly dimensions?: Dimensions) {
   }
 
-  getLiters(): number {
+  getLiters (): number {
     if (!this.dimensions) {
-      throw new Error("Aquarium dont have dimensions");
+      throw new Error('Aquarium dont have dimensions')
     }
-    return this.dimensions.getLiters();
+    return this.dimensions.getLiters()
   }
 
-  addFish(newFish: Fish): void {
+  addFish (newFish: Fish): void {
     if (this.getLitersRemaining() < newFish.litersRequired) {
-      throw new Error("Aquarium crowded");
+      throw new Error('Aquarium crowded')
     }
-    this.fishs.push(newFish);
+    this.fishs.push(newFish)
   }
 
-  getFishs(): Fish[] {
-    return this.fishs;
+  getFishs (): Fish[] {
+    return this.fishs
   }
 
-  getLitersRemaining(): number {
+  getLitersRemaining (): number {
     const usedLiters = this.fishs.reduce((total, fish) => {
-      return total + fish.litersRequired;
-    }, 0);
-    return this.getLiters() - usedLiters;
+      return total + fish.litersRequired
+    }, 0)
+    return this.getLiters() - usedLiters
   }
 
-  removeFish(name: string): void {
-    const fishToRemove = this.fishs.find(fish => fish.name === name);
+  removeFish (name: string): void {
+    const fishToRemove = this.fishs.find(fish => fish.name === name)
     if (!fishToRemove) {
-      throw new Error("Fish not found");
+      throw new Error('Fish not found')
     }
-    this.fishs = this.fishs.filter(fish => fish.name !== name);
+    this.fishs = this.fishs.filter(fish => fish.name !== name)
   }
-
 }
