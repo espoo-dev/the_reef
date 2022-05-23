@@ -1,7 +1,8 @@
 {
   "scripts": {
     "test": "jest --passWithNoTests --no-cache --runInBand",
-    "lint": "eslint --ext .ts src"
+    "lint": "eslint --ext .ts src",
+    "start": "nodemon src/main.ts"
   },
   "node": "16.x.x",
   "license": "ISC",
