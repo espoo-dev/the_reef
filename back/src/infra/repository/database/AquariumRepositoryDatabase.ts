@@ -1,5 +1,5 @@
-import { Aquarium } from '@/domain/entity';
-import { AquariumRepository } from '@/domain/repository';
+import { Aquarium } from '../../../domain/entity';
+import { AquariumRepository } from '../../../domain/repository';
 import { Connection } from '@/infra/database';
 
 export class AquariumRepositoryDatabase implements AquariumRepository {
