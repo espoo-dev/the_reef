@@ -1,26 +1,20 @@
 import styled from 'styled-components';
 
-const bRadiusDefault = '6px';
-const borderColor = '#eaeaea';
-const limitMaxLength = '1200px';
+import { defaultTheme as theme } from '../../main/theme';
 
 export const SelectContainer = styled.div`
-  color: #fe7061;
+  color: ${theme.pallete.primary.main};
   width: 40%;
   position: relative;
   user-select: none;
-  padding: 20px 0px;
-
-  @media (max-width: ${limitMaxLength}) {
-    padding: 20px 30px;
-  }
+  margin-bottom: 20px;
 `;
 
 export const SelectMain = styled.div`
   padding: 4px;
-  background: #fff;
-  border: 1px solid ${borderColor};
-  border-radius: ${bRadiusDefault};
+  background: ${theme.pallete.common.white};
+  border: 1px solid ${theme.borderColor};
+  border-radius: ${theme.borderRadius};
 `;
 
 export const ContainerSelected = styled.div`
@@ -34,14 +28,14 @@ export const ListOptions = styled.ul`
   margin: 0px;
   position: absolute;
   list-style-type: none;
-  background: #fff;
-  color: #fe7061;
+  background: ${theme.pallete.common.white};
+  color: ${theme.pallete.primary.main};
   padding-left: 0px;
-  border-radius: ${bRadiusDefault};
+  border-radius: ${theme.borderRadius};
   width: 100%;
-  border-bottom: 1px solid ${borderColor};
-  border-left: 1px solid ${borderColor};
-  border-right: 1px solid ${borderColor};
+  border-bottom: 1px solid ${theme.borderColor};
+  border-left: 1px solid ${theme.borderColor};
+  border-right: 1px solid ${theme.borderColor};
 `;
 
 export const Option = styled.li`
