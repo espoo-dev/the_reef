@@ -1,5 +1,4 @@
 import { Connection } from '@/infra/database';
-
 import pgp from 'pg-promise';
 
 export class PgPromiseConnectionAdapter implements Connection {
