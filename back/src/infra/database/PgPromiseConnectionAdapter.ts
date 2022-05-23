@@ -1,7 +1,7 @@
-import Connection from "./Connection";
-import pgp from "pg-promise";
+import { Connection } from '@/infra/database';
+import pgp from 'pg-promise';
 
-export default class PgPromiseConnectionAdapter implements Connection {
+export class PgPromiseConnectionAdapter implements Connection {
   pgp: any;
 
   constructor() {

@@ -1,7 +1,7 @@
-import Aquarium from "../../../domain/entity/Aquarium";
-import AquariumRepository from "../../../domain/repository/AquariumRepository";
+import { Aquarium } from '@/domain/entity';
+import { AquariumRepository } from '@/domain/repository';
 
-export default class AquariumRepositoryMemory implements AquariumRepository {
+export class AquariumRepositoryMemory implements AquariumRepository {
   aquariums: Aquarium[];
 
   constructor() {

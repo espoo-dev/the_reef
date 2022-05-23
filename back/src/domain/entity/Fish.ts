@@ -1,4 +1,4 @@
-export default class Fish {
+export class Fish {
   name: string;
   type: string;
   litersRequired: number;

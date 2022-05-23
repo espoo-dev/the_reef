@@ -1,9 +1,8 @@
-import Aquarium from "../../../domain/entity/Aquarium";
-import AquariumRepository from "../../../domain/repository/AquariumRepository";
-import Connection from "../../database/Connection";
+import { Aquarium } from '@/domain/entity';
+import { AquariumRepository } from '@/domain/repository';
+import { Connection } from '@/infra/database';
 
-export default class AquariumRepositoryDatabase implements AquariumRepository {
-
+export class AquariumRepositoryDatabase implements AquariumRepository {
   constructor(readonly connection: Connection) {}
 
   async remove(idAquarium: number): Promise<void> {
@@ -11,8 +10,7 @@ export default class AquariumRepositoryDatabase implements AquariumRepository {
   }
 
   async save(aquarium: Aquarium): Promise<void> {
-    await this.connection.query(`insert into aquariums (name) 
-      values ($1) returning *`, [aquarium.name]);
+    await this.connection.query(`INSERT INTO aquariums (name) VALUES ($1) RETURNING *`, [aquarium.name]);
   }
 
   async list(): Promise<Aquarium[]> {

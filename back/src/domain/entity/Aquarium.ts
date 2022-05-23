@@ -1,7 +1,6 @@
-import Dimensions from "./Dimensions";
-import Fish from "./Fish";
+import { Dimensions, Fish } from '@/domain/entity';
 
-export default class Aquarium {
+export class Aquarium {
   fishs: Fish[] = [];
 
   constructor(readonly id: number, readonly name: string, readonly dimensions?: Dimensions) {

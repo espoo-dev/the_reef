@@ -1,8 +1,7 @@
-import Aquarium from "../../../src/domain/entity/Aquarium";
-import AquariumRepository from "../../../src/domain/repository/AquariumRepository";
-import Connection from "../../../src/infra/database/Connection";
-import PgPromiseConnectionAdapter from "../../../src/infra/database/PgPromiseConnectionAdapter";
-import AquariumRepositoryDatabase from "../../../src/infra/repository/database/AquariumRepositoryDatabase";
+import { Aquarium } from '@/domain/entity';
+import { AquariumRepository } from '@/domain/repository';
+import { Connection, PgPromiseConnectionAdapter } from '@/infra/database';
+import { AquariumRepositoryDatabase } from '@/infra/repository/database';
 
 let connection: Connection;
 let aquariumRepository: AquariumRepository;
