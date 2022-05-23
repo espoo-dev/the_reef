@@ -6,7 +6,7 @@ orbs:
   node: circleci/node@4.1
 
 jobs:
-  install-lint-test-build:
+  front-ci:
     docker:
       - image: cimg/node:14.1
     working_directory: ~/repo/front
@@ -41,7 +41,28 @@ jobs:
             ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -o tmp/codeclimate.total.json
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.json
 
+  back-ci:
+    docker:
+      - image: cimg/node:16.10
+    working_directory: ~/repo/back
+    steps:
+      - checkout:
+          path: ~/repo
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          name: Install dependencies
+          command: yarn install
+      - run:
+          name: Run lint
+          command: yarn lint
+      - run:
+          name: Run test
+          command: yarn test
+
 workflows:
-  pipeline:
+  version: 2
+  back_front:
     jobs:
-      - install-lint-test-build
+      - front-ci
+      - back-ci
