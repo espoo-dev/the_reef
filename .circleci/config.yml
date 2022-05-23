@@ -41,7 +41,27 @@ jobs:
             ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -o tmp/codeclimate.total.json
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.json
 
+  backend-lint-test:
+    docker:
+      - image: cimg/node:16.10
+    working_directory: ~/repo/back
+    steps:
+      - checkout:
+          path: ~/repo
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          name: Install dependencies
+          command: yarn install
+      - run:
+          name: Run lint
+          command: yarn lint
+      - run:
+          name: Run test
+          command: yarn test
+
 workflows:
   pipeline:
     jobs:
       - install-lint-test-build
+      - backend-test
