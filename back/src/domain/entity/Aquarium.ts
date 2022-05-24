@@ -32,10 +32,10 @@ export class Aquarium {
   }
 
   removeFish (name: string): void {
-    const fishToRemove = this.fishs.find(fish => fish.name === name)
+    const fishToRemove = this.fishs.find(fish => fish.commonName === name)
     if (!fishToRemove) {
       throw new Error('Fish not found')
     }
-    this.fishs = this.fishs.filter(fish => fish.name !== name)
+    this.fishs = this.fishs.filter(fish => fish.commonName !== name)
   }
 }
