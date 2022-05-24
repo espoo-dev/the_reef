@@ -12,6 +12,12 @@ http.on('get', '/aquariums', async () => {
   return output
 })
 
+http.on('get', '/', () => {
+  return {
+    message: 'MyReef API'
+  }
+})
+
 const port = Number(process.env.PORT) || 3000
 http.listen(port)
 console.log('Running on port ' + process.env.PORT)
