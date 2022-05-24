@@ -5,7 +5,7 @@ export class PgPromiseConnectionAdapter implements Connection {
   pgp: any;
 
   constructor () {
-    this.pgp = pgp()(process.env.DATABASE_URL || 'postgres://postgres:123456@localhost:5432/myreef')
+    this.pgp = pgp()(process.env.DATABASE || 'postgres://postgres:123456@localhost:5432/myreef')
   }
 
   async query (statement: string, params: any): Promise<any> {
