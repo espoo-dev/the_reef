@@ -1,6 +1,7 @@
 import { AddFish } from '@/application'
 import { Aquarium, Dimensions } from '@/domain/entity'
 import { AquariumRepositoryMemory } from '@/infra/repository/memory'
+import { mockNemo } from '../mock/Fish'
 
 describe('Add fish in aquarium', () => {
   it('should add a fish to a aquarium', async () => {
@@ -11,8 +12,7 @@ describe('Add fish in aquarium', () => {
 
     const input = {
       aquariumId: aquarium.id,
-      name: 'Nemo',
-      species: 'clownfish',
+      ...mockNemo,
       litersRequired: 10
     }
     const output = await addFish.execute(input)

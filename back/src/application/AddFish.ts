@@ -4,8 +4,18 @@ import { AquariumRepository } from '@/domain/repository'
 export class AddFish {
   constructor (private readonly aquariumRepository: AquariumRepository) {}
 
-  async execute (input: Input): Promise<Output> {
-    const fish = new Fish(input.name, input.species, input.litersRequired)
+  async execute (input: Input & Fish): Promise<Output> {
+    const fish = new Fish(
+      input.commonName,
+      input.scientificName,
+      input.type,
+      input.litersRequired,
+      input.picture,
+      input.description,
+      input.reefSafe,
+      input.fishAvoid,
+      input.difficulty
+    )
     const aquarium = await this.aquariumRepository.get(input.aquariumId)
     aquarium.addFish(fish)
 
@@ -17,9 +27,6 @@ export class AddFish {
 
 type Input = {
   aquariumId: number
-  name: string
-  species: string
-  litersRequired: number
 }
 
 type Output = {
