@@ -6,7 +6,7 @@
 [![CircleCI](https://circleci.com/gh/iurynogueira/myreef/tree/main.svg?style=svg)](https://circleci.com/gh/IuryNogueira/myreef/tree/main)
 
 
-## Run project 👷
+## Run frontend project 👷
 
 Tip: Use node 14
 
@@ -18,6 +18,22 @@ yarn install
 yarn start
 ```
 
+## Run backend project 👷
+
+Tip: Use node 16
+
+```
+## Install dependencies
+yarn install
+
+## Run
+yarn start
+```
+
 ## Deployed 🚀
 
+Client:
 https://myreef.vercel.app/
+
+API:
+https://myreef2.herokuapp.com/
