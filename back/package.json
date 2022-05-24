@@ -3,6 +3,7 @@
     "test": "jest --passWithNoTests --no-cache --runInBand",
     "lint": "eslint --ext .ts src",
     "start": "node dist/src/main.js",
+    "start:dev": "nodemon src/main.ts",
     "build": "tsc --outDir dist"
   },
   "node": "16.x.x",
@@ -26,6 +27,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-standard": "^5.0.0"
+    "eslint-plugin-standard": "^5.0.0",
+    "nodemon": "^2.0.16"
   }
 }
