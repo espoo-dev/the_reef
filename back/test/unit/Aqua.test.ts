@@ -1,7 +1,7 @@
 import { Aquarium, Dimensions, Fish } from '@/domain/entity'
 
 describe('Aquarium', () => {
-  const sut = () => {
+  const sut = (): Aquarium => {
     return new Aquarium(1, 'My Reef', new Dimensions(50, 50, 50))
   }
 
