@@ -92,5 +92,33 @@ describe('Indicator', () => {
       const indicator = sut({ ...indicatorWithoutMinMax, currentValue: tempIrregular })
       expect(indicator.isOk()).toBe(false)
     })
+
+    it('should ok to float numbers in range', () => {
+      const pH = {
+        id: 1,
+        name: 'pH',
+        unit: '',
+        description: 'pH of the reef',
+        currentValue: 8.3,
+        acceptedValue: 8.3,
+        minValue: 8.2,
+        maxValue: 8.4
+      }
+      expect(sut(pH).isOk()).toBe(true)
+    })
+
+    it('should not ok when is outside of range using flaot numbers', () => {
+      const pH = {
+        id: 1,
+        name: 'pH',
+        unit: '',
+        description: 'pH of the reef',
+        currentValue: 8.1,
+        acceptedValue: 8.3,
+        minValue: 8.2,
+        maxValue: 8.4
+      }
+      expect(sut(pH).isOk()).toBe(false)
+    })
   })
 })
