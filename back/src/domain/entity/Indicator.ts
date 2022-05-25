@@ -1,4 +1,4 @@
-export default class Indicator {
+export class Indicator {
   constructor (
     readonly id: number,
     readonly name: string,
