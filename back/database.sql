@@ -11,5 +11,6 @@ CREATE TABLE indicators (
   current_value numeric NOT NULL,
   accepted_value numeric NOT NULL,
   min_value numeric NOT NULL,
-  max_value numeric NOT NULL
+  max_value numeric NOT NULL,
+  created_at timestamp NOT NULL DEFAULT NOW()
 );
