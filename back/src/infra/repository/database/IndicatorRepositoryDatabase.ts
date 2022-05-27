@@ -49,7 +49,7 @@ export class IndicatorRepositoryDatabase implements IndicatorRepository {
   }
 
   async get (idIndicator: number): Promise<Indicator> {
-    const [indicatorData] = await this.connection.query('select * from indicators where id = $1', [idIndicator])
+    const [indicatorData] = await this.connection.query('SELECT * FROM indicators WHERE id = $1', [idIndicator])
     const indicator = new Indicator(indicatorData.id, indicatorData.name, indicatorData.unit, indicatorData.description, Number(indicatorData.current_value), Number(indicatorData.accepted_value), Number(indicatorData.min_value), Number(indicatorData.max_value))
     return indicator
   }
