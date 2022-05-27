@@ -1,13 +1,13 @@
-import { Fish } from '@/domain/entity';
-import { AquariumRepository } from '@/domain/repository';
+import { Fish } from '@/domain/entity'
+import { AquariumRepository } from '@/domain/repository'
 
 export class AddFish {
-  constructor(private aquariumRepository: AquariumRepository) {}
+  constructor (private readonly aquariumRepository: AquariumRepository) {}
 
-  async execute(input: Input): Promise<Output> {
-    const fish = new Fish(input.name, input.species, input.litersRequired);
-    const aquarium = await this.aquariumRepository.get(input.aquariumId);
-    aquarium.addFish(fish);
+  async execute (input: Input): Promise<Output> {
+    const fish = new Fish(input.name, input.species, input.litersRequired)
+    const aquarium = await this.aquariumRepository.get(input.aquariumId)
+    aquarium.addFish(fish)
 
     return {
       fishs: aquarium.getFishs()
@@ -16,12 +16,12 @@ export class AddFish {
 }
 
 type Input = {
-  aquariumId: number;
-  name: string;
-  species: string;
-  litersRequired: number;
+  aquariumId: number
+  name: string
+  species: string
+  litersRequired: number
 }
 
 type Output = {
-  fishs: Fish[];
+  fishs: Fish[]
 }

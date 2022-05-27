@@ -1,38 +1,38 @@
-import { Aquarium } from '@/domain/entity';
-import { AquariumRepository } from '@/domain/repository';
+import { Aquarium } from '@/domain/entity'
+import { AquariumRepository } from '@/domain/repository'
 
 export class AquariumRepositoryMemory implements AquariumRepository {
   aquariums: Aquarium[];
 
-  constructor() {
-    this.aquariums = [];
+  constructor () {
+    this.aquariums = []
   }
 
-  async remove(idAquarium: number): Promise<void> {
+  async remove (idAquarium: number): Promise<void> {
     this.aquariums.forEach((aquarium, index) => {
       if (aquarium.id === idAquarium) {
-        this.aquariums.splice(index, 1);
+        this.aquariums.splice(index, 1)
       }
-    });
+    })
   }
 
-  async save(aquarium: Aquarium): Promise<void> {
-    this.aquariums.push(aquarium);
+  async save (aquarium: Aquarium): Promise<void> {
+    this.aquariums.push(aquarium)
   }
 
-  async list(): Promise<Aquarium[]> {
-    return this.aquariums;
+  async list (): Promise<Aquarium[]> {
+    return this.aquariums
   }
 
-  async get(idAquarium: number): Promise<Aquarium> {
-    const aquarium = this.aquariums.find(aquarium => aquarium.id === idAquarium);
+  async get (idAquarium: number): Promise<Aquarium> {
+    const aquarium = this.aquariums.find(aquarium => aquarium.id === idAquarium)
     if (!aquarium) {
-      throw new Error("Aquarium not found");
+      throw new Error('Aquarium not found')
     }
-    return aquarium;
+    return aquarium
   }
 
-  async clean(): Promise<void> {
-    this.aquariums = [];
+  async clean (): Promise<void> {
+    this.aquariums = []
   }
 }

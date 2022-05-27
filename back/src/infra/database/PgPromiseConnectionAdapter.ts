@@ -1,16 +1,18 @@
-import { Connection } from '@/infra/database';
-import pgp from 'pg-promise';
+import { Connection } from '@/infra/database'
+import pgp from 'pg-promise'
 
 export class PgPromiseConnectionAdapter implements Connection {
   pgp: any;
 
-  constructor() {
-    this.pgp = pgp()("postgres://postgres:123456@localhost:5432/myreef")
+  constructor () {
+    this.pgp = pgp()(process.env.DATABASE ?? 'postgres://postgres:123456@localhost:5432/myreef')
   }
-  query(statement: string, params: any): Promise<any> {
-    return this.pgp.query(statement, params);
+
+  async query (statement: string, params: any): Promise<any> {
+    return this.pgp.query(statement, params)
   }
-  close(): Promise<void> {
-    return this.pgp.$pool.end();
+
+  async close (): Promise<void> {
+    return this.pgp.$pool.end()
   }
 }
