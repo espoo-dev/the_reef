@@ -46,6 +46,12 @@ describe('IndicatorRepositoryDatabase', () => {
   it('should return all indicators from database', async () => {
     await saveIndicator()
     const indicators = await indicatorRepository.list()
+    indicators.forEach(indicator => {
+      expect(indicator.currentValue).toBe(temperature.currentValue)
+      expect(indicator.acceptedValue).toBe(temperature.acceptedValue)
+      expect(indicator.minValue).toBe(temperature.minValue)
+      expect(indicator.maxValue).toBe(temperature.maxValue)
+    })
     expect(indicators).toHaveLength(1)
   })
 

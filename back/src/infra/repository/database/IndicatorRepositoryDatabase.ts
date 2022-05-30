@@ -39,10 +39,10 @@ export class IndicatorRepositoryDatabase implements IndicatorRepository {
         indicatorData.name,
         indicatorData.unit,
         indicatorData.description,
-        indicatorData.currentValue,
-        indicatorData.acceptedValue,
-        indicatorData.minValue,
-        indicatorData.maxValue
+        Number(indicatorData.current_value),
+        Number(indicatorData.accepted_value),
+        Number(indicatorData.min_value),
+        Number(indicatorData.max_value)
       ))
     }
     return indicators

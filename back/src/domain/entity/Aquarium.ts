@@ -1,7 +1,8 @@
-import { Dimensions, Fish } from '@/domain/entity'
+import { Dimensions, Fish, Indicator } from '@/domain/entity'
 
 export class Aquarium {
   fishs: Fish[] = [];
+  indicators: Indicator[] = []
 
   constructor (readonly id: number, readonly name: string, readonly dimensions?: Dimensions) {
   }
@@ -37,5 +38,13 @@ export class Aquarium {
       throw new Error('Fish not found')
     }
     this.fishs = this.fishs.filter(fish => fish.name !== name)
+  }
+
+  addIndicator (indicator: Indicator): void {
+    this.indicators.push(indicator)
+  }
+
+  getIndicators (): Indicator[] {
+    return this.indicators
   }
 }

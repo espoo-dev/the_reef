@@ -120,5 +120,12 @@ describe('Indicator', () => {
       }
       expect(sut(pH).isOk()).toBe(false)
     })
+
+    it('should update current value', () => {
+      const temperature = sut()
+      temperature.update(30)
+      expect(temperature.currentValue).toBe(30)
+      expect(temperature.isOk()).toBe(false)
+    })
   })
 })
