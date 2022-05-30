@@ -1,13 +1,16 @@
-import { Indicator } from '@/domain/entity'
-import { IndicatorRepository } from '@/domain/repository'
+import { Aquarium, Dimensions, Indicator } from '@/domain/entity'
+import { AquariumRepository, IndicatorRepository } from '@/domain/repository'
 import { Connection, PgPromiseConnectionAdapter } from '@/infra/database'
+import { AquariumRepositoryDatabase } from '@/infra/repository/database'
 import { IndicatorRepositoryDatabase } from '@/infra/repository/database/IndicatorRepositoryDatabase'
 
 let connection: Connection
 let indicatorRepository: IndicatorRepository
+let aquariumRepository: AquariumRepository
 
 const temperature = {
   id: 1,
+  aquariumId: 1,
   name: 'Temperature',
   unit: 'celsius',
   description: 'Temperature of the reef',
@@ -20,12 +23,18 @@ const temperature = {
 beforeEach(async () => {
   connection = new PgPromiseConnectionAdapter()
   indicatorRepository = new IndicatorRepositoryDatabase(connection)
+  aquariumRepository = new AquariumRepositoryDatabase(connection)
   await indicatorRepository.clean()
 })
 
 const saveIndicator = async (): Promise<void> => {
+  const aquarium = new Aquarium(1, 'Reef Indicator', new Dimensions(50, 50, 50))
+  await aquariumRepository.save(aquarium)
+  const aquariums = await aquariumRepository.list()
+
   const indicator = new Indicator(
     temperature.id,
+    aquariums[0].id,
     temperature.name,
     temperature.unit,
     temperature.description,

@@ -26,24 +26,27 @@ describe('Add indicator in aquarium', () => {
     const aquarium = new Aquarium(1, 'Reef Indicator', new Dimensions(50, 50, 50))
     await aquariumRepository.save(aquarium)
 
+    const aquariums = await aquariumRepository.list()
+
     const temperatureIndicator = new Indicator(
       1,
+      aquariums[0].id,
       'Temperature',
       'celsius',
       'Temperature indicator',
       0, 26, 23, 27
     )
-    await indicatorRepository.save(temperatureIndicator)
 
-    const aquariums = await aquariumRepository.list()
+    await indicatorRepository.save(temperatureIndicator)
     const indicators = await indicatorRepository.list()
 
     const input = {
       aquariumId: aquariums[0].id,
       indicatorId: indicators[0].id
     }
+
     const output = await addIndicatorToAquarium.execute(input)
-    expect(output.indicators).toHaveLength(1)
+    expect(output.indicators).toHaveLength(2)
   })
 })
 

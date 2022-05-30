@@ -5,6 +5,7 @@ CREATE TABLE aquariums (
 
 CREATE TABLE indicators (
   id serial PRIMARY KEY,
+  aquarium_id INT NOT NULL,
   name VARCHAR(255) NOT NULL,
   unit VARCHAR(255) NOT NULL,
   description VARCHAR(255) NOT NULL,

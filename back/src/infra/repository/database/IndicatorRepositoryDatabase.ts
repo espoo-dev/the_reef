@@ -13,14 +13,16 @@ export class IndicatorRepositoryDatabase implements IndicatorRepository {
     await this.connection.query(`INSERT INTO indicators
     (
       name,
+      aquarium_id,
       unit,
       description,
       current_value,
       accepted_value,
       min_value,
       max_value
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`, [
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`, [
       indicator.name,
+      indicator.aquariumId,
       indicator.unit,
       indicator.description,
       indicator.currentValue,
@@ -36,6 +38,7 @@ export class IndicatorRepositoryDatabase implements IndicatorRepository {
     for (const indicatorData of indicatorsData) {
       indicators.push(new Indicator(
         indicatorData.id,
+        indicatorData.aquarium_id,
         indicatorData.name,
         indicatorData.unit,
         indicatorData.description,
@@ -50,7 +53,7 @@ export class IndicatorRepositoryDatabase implements IndicatorRepository {
 
   async get (idIndicator: number): Promise<Indicator> {
     const [indicatorData] = await this.connection.query('SELECT * FROM indicators WHERE id = $1', [idIndicator])
-    const indicator = new Indicator(indicatorData.id, indicatorData.name, indicatorData.unit, indicatorData.description, Number(indicatorData.current_value), Number(indicatorData.accepted_value), Number(indicatorData.min_value), Number(indicatorData.max_value))
+    const indicator = new Indicator(indicatorData.id, indicatorData.aquarium_id, indicatorData.name, indicatorData.unit, indicatorData.description, Number(indicatorData.current_value), Number(indicatorData.accepted_value), Number(indicatorData.min_value), Number(indicatorData.max_value))
     return indicator
   }
 

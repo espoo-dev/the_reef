@@ -9,6 +9,7 @@ interface IndicatorProps {
   acceptedValue: number
   minValue?: number
   maxValue?: number
+  aquariumId: number
 }
 
 const indicatorWithoutMinMax: IndicatorProps = {
@@ -17,7 +18,8 @@ const indicatorWithoutMinMax: IndicatorProps = {
   unit: 'celsius',
   description: 'Temperature of the reef',
   currentValue: 0,
-  acceptedValue: 26
+  acceptedValue: 26,
+  aquariumId: 1
 }
 
 const indicatorDefault: IndicatorProps = {
@@ -28,7 +30,8 @@ const indicatorDefault: IndicatorProps = {
   currentValue: 27,
   acceptedValue: 26,
   minValue: 23,
-  maxValue: 27
+  maxValue: 27,
+  aquariumId: 1
 }
 
 describe('Indicator', () => {
@@ -41,6 +44,7 @@ describe('Indicator', () => {
 
     return new Indicator(
       indicator.id,
+      indicator.aquariumId,
       indicator.name,
       indicator.unit,
       indicator.description,
@@ -102,7 +106,8 @@ describe('Indicator', () => {
         currentValue: 8.3,
         acceptedValue: 8.3,
         minValue: 8.2,
-        maxValue: 8.4
+        maxValue: 8.4,
+        aquariumId: 1
       }
       expect(sut(pH).isOk()).toBe(true)
     })
@@ -116,7 +121,8 @@ describe('Indicator', () => {
         currentValue: 8.1,
         acceptedValue: 8.3,
         minValue: 8.2,
-        maxValue: 8.4
+        maxValue: 8.4,
+        aquariumId: 1
       }
       expect(sut(pH).isOk()).toBe(false)
     })
@@ -126,6 +132,19 @@ describe('Indicator', () => {
       temperature.update(30)
       expect(temperature.currentValue).toBe(30)
       expect(temperature.isOk()).toBe(false)
+    })
+
+    it('should is in correct aquarium', () => {
+      const indicatorTest = new Indicator(
+        indicatorDefault.id,
+        indicatorDefault.aquariumId,
+        indicatorDefault.name,
+        indicatorDefault.unit,
+        indicatorDefault.description,
+        indicatorDefault.currentValue,
+        indicatorDefault.acceptedValue
+      )
+      expect(indicatorTest.aquariumId).toBe(1)
     })
   })
 })

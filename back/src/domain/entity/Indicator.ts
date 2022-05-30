@@ -3,7 +3,7 @@ export class Indicator {
 
   constructor (
     readonly id: number,
-    // readonly aquariumId: number,
+    readonly aquariumId: number,
     readonly name: string,
     readonly unit: string,
     readonly description: string,
