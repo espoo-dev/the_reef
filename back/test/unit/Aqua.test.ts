@@ -1,7 +1,7 @@
-import { Aquarium, Dimensions, Fish } from '@/domain/entity'
+import { Aquarium, Dimensions, Fish, Indicator } from '@/domain/entity'
 
 describe('Aquarium', () => {
-  const sut = () => {
+  const sut = (): Aquarium => {
     return new Aquarium(1, 'My Reef', new Dimensions(50, 50, 50))
   }
 
@@ -66,6 +66,22 @@ describe('Aquarium', () => {
     it('not should remove fish when name not found', () => {
       const aquarium = sut()
       expect(() => aquarium.removeFish('Nemo')).toThrowError('Fish not found')
+    })
+  })
+
+  describe('indicator', () => {
+    it.skip('should add a new indicator', () => {
+      const aquarium = sut()
+      const indicator = new Indicator(
+        1,
+        1,
+        'Temperature',
+        'celsius',
+        'Temperature indicator',
+        0, 26, 23, 27
+      )
+      aquarium.addIndicator(indicator)
+      expect(aquarium.getIndicators()).toContain(indicator)
     })
   })
 })
