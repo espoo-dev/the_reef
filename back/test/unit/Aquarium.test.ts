@@ -70,7 +70,7 @@ describe('Aquarium', () => {
   })
 
   describe('indicator', () => {
-    it.skip('should add a new indicator', () => {
+    it('should add a new indicator', () => {
       const aquarium = sut()
       const indicator = new Indicator(
         1,

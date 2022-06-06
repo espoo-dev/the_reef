@@ -25,7 +25,6 @@ export class AquariumRepositoryDatabase implements AquariumRepository {
   async get (idAquarium: number): Promise<Aquarium> {
     const [aquariumData] = await this.connection.query('SELECT * FROM aquariums WHERE id = $1', [idAquarium])
     const indicatorsWithAquarium = await this.connection.query('SELECT * FROM indicators WHERE aquarium_id = $1', [idAquarium])
-    console.log('indicatorsWithAquarium -> ', indicatorsWithAquarium)
     const aquarium = new Aquarium(aquariumData.id, aquariumData.name)
     indicatorsWithAquarium.forEach((indicator: Indicator) => {
       aquarium.indicators.push(indicator)
