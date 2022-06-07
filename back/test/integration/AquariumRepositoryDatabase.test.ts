@@ -33,7 +33,7 @@ describe('AquariumRepositoryDatabase', () => {
     await saveAquarium('Iury Reef')
     const aquariums = await aquariumRepository.list()
     aquariumRepository.remove(aquariums[0].id)
-    expect(await aquariumRepository.list()).toHaveLength(1)
+    expect(await aquariumRepository.list()).toHaveLength(0)
   })
 
   it('should return a aquarium by index', async () => {
