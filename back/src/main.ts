@@ -1,3 +1,5 @@
+import { ListAquariumsController } from './application'
+import { setupListAquariums } from './domain/usecases'
 import { PgPromiseConnectionAdapter } from './infra/database'
 import { ExpressAdapter } from './infra/http/ExpressAdapter'
 import { AquariumRepositoryDatabase } from './infra/repository/database'
@@ -6,9 +8,10 @@ const http = new ExpressAdapter()
 const connection = new PgPromiseConnectionAdapter()
 
 http.on('get', '/aquariums', async () => {
-  const aquariumRepository = new AquariumRepositoryDatabase(connection)
-  const output = await aquariumRepository.list()
-  return output
+  const repository = new AquariumRepositoryDatabase(connection)
+  const usecase = setupListAquariums(repository)
+  const controller = new ListAquariumsController(usecase)
+  return controller.execute()
 })
 
 http.on('get', '/', () => {
@@ -19,4 +22,4 @@ http.on('get', '/', () => {
 
 const port = Number(process.env.PORT) || 3000
 http.listen(port)
-console.log(`Running on port ${process.env.PORT}`)
+console.log(`Running on port ${port}`)

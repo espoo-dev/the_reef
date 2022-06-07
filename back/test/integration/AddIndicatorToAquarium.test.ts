@@ -1,9 +1,10 @@
 import { AddIndicatorToAquarium } from '@/application'
 import { Aquarium, Dimensions, Indicator } from '@/domain/entity'
-import { AquariumRepository, IndicatorRepository } from '@/domain/repository'
+import { AquariumRepository, IndicatorRepository } from '@/domain/contracts/repository'
 import { PgPromiseConnectionAdapter } from '@/infra/database'
 import { AquariumRepositoryDatabase } from '@/infra/repository/database'
 import { IndicatorRepositoryDatabase } from '@/infra/repository/database/IndicatorRepositoryDatabase'
+import { setupAddIndicatorToAquarium } from '@/domain/usecases'
 
 let connection = new PgPromiseConnectionAdapter()
 let aquariumRepository: AquariumRepository
@@ -20,12 +21,11 @@ beforeEach(async () => {
 describe('Add indicator in aquarium', () => {
   it('should add a new indicator to a aquarium', async () => {
     const addIndicatorToAquarium = new AddIndicatorToAquarium(
-      aquariumRepository,
-      indicatorRepository
+      setupAddIndicatorToAquarium(indicatorRepository)
     )
+    
     const aquarium = new Aquarium(1, 'Reef Indicator', new Dimensions(50, 50, 50))
     await aquariumRepository.save(aquarium)
-
     const aquariums = await aquariumRepository.list()
 
     const temperatureIndicator = new Indicator(
@@ -46,7 +46,7 @@ describe('Add indicator in aquarium', () => {
     }
 
     const output = await addIndicatorToAquarium.execute(input)
-    expect(output.indicators).toHaveLength(2)
+    expect(output).toBeUndefined()
   })
 })
 

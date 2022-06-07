@@ -1,5 +1,5 @@
 import { Indicator } from '@/domain/entity'
-import { IndicatorRepository } from '@/domain/repository'
+import { IndicatorRepository } from '@/domain/contracts/repository'
 import { Connection } from '@/infra/database'
 
 export class IndicatorRepositoryDatabase implements IndicatorRepository {

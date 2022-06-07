@@ -1,5 +1,6 @@
-import { AddFish } from '@/application'
+import { AddFishController } from '@/application'
 import { Aquarium, Dimensions } from '@/domain/entity'
+import { setupAddFish } from '@/domain/usecases'
 import { AquariumRepositoryMemory } from '@/infra/repository/memory'
 
 describe('Add fish in aquarium', () => {
@@ -7,7 +8,8 @@ describe('Add fish in aquarium', () => {
     const aquariumRepository = new AquariumRepositoryMemory()
     const aquarium = new Aquarium(1, 'My Reef', new Dimensions(50, 50, 50))
     await aquariumRepository.save(aquarium)
-    const addFish = new AddFish(aquariumRepository)
+
+    const addFish = new AddFishController(setupAddFish(aquariumRepository))
 
     const input = {
       aquariumId: aquarium.id,
@@ -15,7 +17,8 @@ describe('Add fish in aquarium', () => {
       species: 'clownfish',
       litersRequired: 10
     }
+
     const output = await addFish.execute(input)
-    expect(output.fishs).toHaveLength(1)
+    expect(output).toBeUndefined()
   })
 })

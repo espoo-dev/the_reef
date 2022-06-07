@@ -4,8 +4,7 @@ export class Aquarium {
   fishs: Fish[] = [];
   indicators: Indicator[] = []
 
-  constructor (readonly id: number, readonly name: string, readonly dimensions?: Dimensions) {
-  }
+  constructor (readonly id: number, readonly name: string, readonly dimensions?: Dimensions) {}
 
   getLiters (): number {
     if (!this.dimensions) {

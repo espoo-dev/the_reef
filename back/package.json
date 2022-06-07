@@ -3,8 +3,8 @@
     "test": "jest --passWithNoTests --no-cache --runInBand",
     "test:coverage": "jest --passWithNoTests --no-cache --runInBand --coverage",
     "lint": "eslint --ext .ts src",
-    "start": "node dist/src/main.js",
-    "start:dev": "nodemon src/main.ts",
+    "start": "node -r dotenv/config dist/src/main.js",
+    "start:dev": "nodemon -r dotenv/config src/main.ts",
     "build": "tsc --outDir dist"
   },
   "node": "16.x.x",

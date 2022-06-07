@@ -1,5 +1,5 @@
 import { Aquarium, Dimensions, Indicator } from '@/domain/entity'
-import { AquariumRepository, IndicatorRepository } from '@/domain/repository'
+import { AquariumRepository, IndicatorRepository } from '@/domain/contracts/repository'
 import { Connection, PgPromiseConnectionAdapter } from '@/infra/database'
 import { AquariumRepositoryDatabase } from '@/infra/repository/database'
 import { IndicatorRepositoryDatabase } from '@/infra/repository/database/IndicatorRepositoryDatabase'

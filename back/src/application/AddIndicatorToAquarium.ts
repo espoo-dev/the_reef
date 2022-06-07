@@ -1,29 +1,14 @@
-import { Indicator } from '@/domain/entity'
-import { AquariumRepository, IndicatorRepository } from '@/domain/repository'
+import { AddIndicatorToAquariumUseCase } from '@/domain/usecases'
 
-export class AddIndicatorToAquarium {
-  constructor (
-    private readonly aquariumRepository: AquariumRepository,
-    private readonly indicatorRepository: IndicatorRepository
-  ) {}
-
-  async execute (input: Input): Promise<Output> {
-    const aquarium = await this.aquariumRepository.get(input.aquariumId)
-    const indicator = await this.indicatorRepository.get(input.indicatorId)
-
-    aquarium.addIndicator(indicator)
-
-    return {
-      indicators: aquarium.getIndicators()
-    }
-  }
-}
-
-type Input = {
+type HttpRequest = {
   aquariumId: number
   indicatorId: number
 }
 
-type Output = {
-  indicators: Indicator[]
+export class AddIndicatorToAquarium {
+  constructor (private readonly addIndicatorToAquarium: AddIndicatorToAquariumUseCase) {}
+
+  async execute ({ aquariumId, indicatorId }: HttpRequest): Promise<void> {
+    await this.addIndicatorToAquarium({ aquariumId, indicatorId })
+  }
 }

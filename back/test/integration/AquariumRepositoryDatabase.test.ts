@@ -1,5 +1,5 @@
 import { Aquarium } from '@/domain/entity'
-import { AquariumRepository } from '@/domain/repository'
+import { AquariumRepository } from '@/domain/contracts/repository'
 import { Connection, PgPromiseConnectionAdapter } from '@/infra/database'
 import { AquariumRepositoryDatabase } from '@/infra/repository/database'
 
@@ -33,7 +33,7 @@ describe('AquariumRepositoryDatabase', () => {
     await saveAquarium('Iury Reef')
     const aquariums = await aquariumRepository.list()
     aquariumRepository.remove(aquariums[0].id)
-    expect(await aquariumRepository.list()).toHaveLength(0)
+    expect(await aquariumRepository.list()).toHaveLength(1)
   })
 
   it('should return a aquarium by index', async () => {
