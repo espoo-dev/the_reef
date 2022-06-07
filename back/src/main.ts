@@ -1,23 +1,16 @@
-import { ListAquariumsController } from './application'
-import { setupListAquariums } from './domain/usecases'
+import AquariumController from './infra/controller/AquariumController'
 import { PgPromiseConnectionAdapter } from './infra/database'
 import { ExpressAdapter } from './infra/http/ExpressAdapter'
 import { AquariumRepositoryDatabase } from './infra/repository/database'
 
 const http = new ExpressAdapter()
 const connection = new PgPromiseConnectionAdapter()
+const aquariumRepository = new AquariumRepositoryDatabase(connection)
 
-http.on('get', '/aquariums', async () => {
-  const repository = new AquariumRepositoryDatabase(connection)
-  const usecase = setupListAquariums(repository)
-  const controller = new ListAquariumsController(usecase)
-  return controller.execute()
-})
+new AquariumController(http, aquariumRepository)
 
 http.on('get', '/', () => {
-  return {
-    message: 'MyReef API'
-  }
+  return { message: 'MyReef API' }
 })
 
 const port = Number(process.env.PORT) || 3000
