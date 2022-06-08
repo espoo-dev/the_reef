@@ -1,4 +1,5 @@
 import { AddFishUseCase } from '@/domain/usecases'
+import { badRequest, created, HttpResponse } from './helpers'
 
 type HttpRequest = {
   aquariumId: number
@@ -7,10 +8,17 @@ type HttpRequest = {
   litersRequired: number
 }
 
+type Model = Error | void
+
 export class AddFishController {
   constructor (private readonly addFish: AddFishUseCase) {}
 
-  async execute ({ aquariumId, name, species, litersRequired }: HttpRequest): Promise<void> {
-    await this.addFish({ aquariumId, name, species, litersRequired })
+  async execute ({ aquariumId, name, species, litersRequired }: HttpRequest): Promise<HttpResponse<Model>> {
+    try {
+      await this.addFish({ aquariumId, name, species, litersRequired })
+      return created()
+    } catch (error: any) {
+      return badRequest(error)
+    }
   }
 }
