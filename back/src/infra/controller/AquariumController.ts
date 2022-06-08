@@ -1,7 +1,7 @@
 import { AquariumRepository } from '@/domain/repository'
-import { Http } from '../http/Http'
+import { Http } from '@/infra/http'
 
-export default class AquariumController {
+export class AquariumController {
   constructor (
     readonly http: Http,
     readonly aquariumRepository: AquariumRepository
