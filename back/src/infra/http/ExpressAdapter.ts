@@ -1,4 +1,4 @@
-import { Http } from './Http'
+import { Http } from '@/infra/http'
 import express from 'express'
 
 export class ExpressAdapter implements Http {
