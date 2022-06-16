@@ -15,4 +15,12 @@ module.exports = {
     '\\.ts$': 'ts-jest'
   },
   clearMocks: true,
+  setupFiles: ['dotenv/config'],
+  coverageDirectory: 'coverage',
+  coverageProvider: 'babel',
+  collectCoverageFrom: [
+    '<rootDir>/src/**/*.ts',
+    '!<rootDir>/src/main/**',
+    '!<rootDir>/src/**/index.ts'
+  ],
 }

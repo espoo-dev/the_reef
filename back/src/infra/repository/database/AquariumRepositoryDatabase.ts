@@ -1,4 +1,4 @@
-import { Aquarium, Indicator } from '../../../domain/entity'
+import { Aquarium, Indicator } from '@/domain/entity'
 import { AquariumRepository } from '@/domain/contracts/repository'
 import { Connection } from '@/infra/database'
 
