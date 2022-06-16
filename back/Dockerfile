@@ -4,6 +4,7 @@ WORKDIR /usr/src/app/back
 ENV PATH /node_modules/.bin:$PATH
 
 COPY package.json /
+COPY package-lock.json /
 COPY yarn.lock /
 
 RUN yarn install
