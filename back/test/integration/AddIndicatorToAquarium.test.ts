@@ -1,28 +1,28 @@
 import { AddIndicatorToAquarium } from '@/application'
 import { Aquarium, Dimensions, Indicator } from '@/domain/entity'
+import RepositoryFactory from '@/domain/factory/RepositoryFactory'
 import { AquariumRepository, IndicatorRepository } from '@/domain/repository'
 import { PgPromiseConnectionAdapter } from '@/infra/database'
-import { AquariumRepositoryDatabase } from '@/infra/repository/database'
-import { IndicatorRepositoryDatabase } from '@/infra/repository/database/IndicatorRepositoryDatabase'
+import DatabaseRepositoryFactory from '@/infra/factory/DatabaseRepositoryFactory'
 
 let connection = new PgPromiseConnectionAdapter()
 let aquariumRepository: AquariumRepository
 let indicatorRepository: IndicatorRepository
+let repositoryFactory: RepositoryFactory
 
 beforeEach(async () => {
   connection = new PgPromiseConnectionAdapter()
-  aquariumRepository = new AquariumRepositoryDatabase(connection)
-  indicatorRepository = new IndicatorRepositoryDatabase(connection)
+  repositoryFactory = new DatabaseRepositoryFactory(connection)
+
+  indicatorRepository = repositoryFactory.createIndicatorRepository()
+  aquariumRepository = repositoryFactory.createAquariumRepository()
   await aquariumRepository.clean()
   await indicatorRepository.clean()
 })
 
 describe('Add indicator in aquarium', () => {
   it('should add a new indicator to a aquarium', async () => {
-    const addIndicatorToAquarium = new AddIndicatorToAquarium(
-      aquariumRepository,
-      indicatorRepository
-    )
+    const addIndicatorToAquarium = new AddIndicatorToAquarium(repositoryFactory)
     const aquarium = new Aquarium(1, 'Reef Indicator', new Dimensions(50, 50, 50))
     await aquariumRepository.save(aquarium)
 
