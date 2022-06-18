@@ -1,11 +1,33 @@
 version: "3"
+
 services:
+  database:
+    image: postgres:14.1-alpine
+    container_name: database
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=root
+    ports:
+      - 5432:5432
+
   myreef_front:
-    container_name: myreef_front
-    build:
-      context: .
-      dockerfile: dev.Dockerfile
+    container_name: front
+    build: ./front/
     ports:
       - 3000:3000
     tty: true
     command: yarn start
+
+  myreef_back:
+    container_name: back
+    build: ./back/
+    restart: always
+    command: yarn start
+    ports:
+      - 8081:8081
+    environment:
+      - DATABASE=postgres://root:root@database:5432/root
+    depends_on:
+      - database
