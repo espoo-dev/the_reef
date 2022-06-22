@@ -60,4 +60,10 @@ export class IndicatorRepositoryDatabase implements IndicatorRepository {
   async clean (): Promise<void> {
     await this.connection.query('DELETE FROM indicators', [])
   }
+
+  async updateValue (idIndicator: number, value: number): Promise<Indicator> {
+    const [indicatorUpdated] = await this.connection.query('UPDATE indicators SET current_value = $1 WHERE id = $2 returning *', [value, idIndicator])
+    const indicator = new Indicator(indicatorUpdated.id, indicatorUpdated.aquarium_id, indicatorUpdated.name, indicatorUpdated.unit, indicatorUpdated.description, Number(indicatorUpdated.current_value), Number(indicatorUpdated.accepted_value), Number(indicatorUpdated.min_value), Number(indicatorUpdated.max_value))
+    return indicator
+  }
 }
