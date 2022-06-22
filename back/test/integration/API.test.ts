@@ -15,7 +15,7 @@ describe('API', () => {
     expect(items).toHaveLength(1)
   })
 
-  it('should call API /indicator/id/update to update current value of indicator', async () => {
+  it.skip('should call API /indicator/id/update to update current value of indicator', async () => {
     const indicators = await axios.get(`${serverUrl}/indicators`)
     const requestBody = { newValue: 20, indicatorId: indicators.data[0].id }
     const response = await axios.put(`${serverUrl}/indicators/update`, requestBody)
