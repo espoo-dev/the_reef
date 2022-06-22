@@ -10,7 +10,7 @@ export class UpdateIndicatorValue {
 
   async execute (input: Input): Promise<Output> {
     const indicator = await this.indicatorRepository.get(input.indicatorId)
-    indicator.update(input.value)
+    indicator.update(input.newValue)
     const indicatorUpdated = await this.indicatorRepository.updateValue(indicator.id, indicator.currentValue)
 
     return {
@@ -23,7 +23,7 @@ export class UpdateIndicatorValue {
 
 type Input = {
   indicatorId: number
-  value: number
+  newValue: number
 }
 
 type Output = {

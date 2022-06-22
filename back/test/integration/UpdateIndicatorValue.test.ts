@@ -48,11 +48,11 @@ describe('Update current value of Indicator', () => {
 
     const input = {
       indicatorId: indicators[0].id,
-      value: 23
+      newValue: 23
     }
 
     const output = await updateIndicatorValue.execute(input)
-    expect(output.currentValue).toBe(input.value)
+    expect(output.currentValue).toBe(input.newValue)
     expect(output.isOk).toBeFalsy()
   })
 })
