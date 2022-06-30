@@ -1,9 +1,9 @@
-import { AddIndicatorToAquarium } from '@/application'
-import { Aquarium, Dimensions, Indicator } from '@/domain/entity'
-import RepositoryFactory from '@/domain/factory/RepositoryFactory'
-import { AquariumRepository, IndicatorRepository } from '@/domain/repository'
-import { PgPromiseConnectionAdapter } from '@/infra/database'
-import DatabaseRepositoryFactory from '@/infra/factory/DatabaseRepositoryFactory'
+import { AddIndicatorToAquarium } from '../application'
+import { Aquarium, Dimensions, Indicator } from '../domain/entity'
+import RepositoryFactory from '../domain/factory/RepositoryFactory'
+import { AquariumRepository, IndicatorRepository } from '../domain/repository'
+import { PgPromiseConnectionAdapter } from '../infra/database'
+import DatabaseRepositoryFactory from '../infra/factory/DatabaseRepositoryFactory'
 
 let connection = new PgPromiseConnectionAdapter()
 let aquariumRepository: AquariumRepository

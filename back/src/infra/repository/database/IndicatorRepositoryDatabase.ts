@@ -1,6 +1,6 @@
-import { Indicator } from '@/domain/entity'
-import { IndicatorRepository } from '@/domain/repository'
-import { Connection } from '@/infra/database'
+import { Indicator } from '../../../domain/entity'
+import { IndicatorRepository } from 'domain/repository'
+import { Connection } from 'infra/database'
 
 export class IndicatorRepositoryDatabase implements IndicatorRepository {
   constructor (readonly connection: Connection) {}

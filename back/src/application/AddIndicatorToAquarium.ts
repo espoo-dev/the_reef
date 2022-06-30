@@ -1,9 +1,9 @@
-import { Indicator } from '@/domain/entity'
-import RepositoryFactory from '@/domain/factory/RepositoryFactory'
-import { AquariumRepository, IndicatorRepository } from '@/domain/repository'
+import { Indicator } from 'domain/entity'
+import RepositoryFactory from 'domain/factory/RepositoryFactory'
+import { AquariumRepository, IndicatorRepository } from 'domain/repository'
 
 export class AddIndicatorToAquarium {
-  aquariumRepository: AquariumRepository;
+  aquariumRepository: AquariumRepository
   indicatorRepository: IndicatorRepository
 
   constructor (readonly repositoryFactory: RepositoryFactory) {

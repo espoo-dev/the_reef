@@ -1,11 +1,10 @@
-import './main/config/module-alias'
 import 'reflect-metadata'
 
-import { AquariumController, IndicatorController } from '@/infra/controller'
-import { PgPromiseConnectionAdapter } from '@/infra/database'
-import { ExpressAdapter } from '@/infra/http'
-import { AquariumRepositoryDatabase } from '@/infra/repository/database'
 import DatabaseRepositoryFactory from './infra/factory/DatabaseRepositoryFactory'
+import { ExpressAdapter } from './infra/http'
+import { PgPromiseConnectionAdapter } from './infra/database'
+import { AquariumRepositoryDatabase } from './infra/repository/database'
+import { AquariumController, IndicatorController } from './infra/controller'
 
 const http = new ExpressAdapter()
 const connection = new PgPromiseConnectionAdapter()

@@ -1,5 +1,5 @@
-import { Fish } from '@/domain/entity'
-import { AquariumRepository } from '@/domain/repository'
+import { Fish } from 'domain/entity'
+import { AquariumRepository } from 'domain/repository'
 
 export class AddFish {
   constructor (private readonly aquariumRepository: AquariumRepository) {}

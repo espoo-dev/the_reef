@@ -1,5 +1,6 @@
-import RepositoryFactory from '@/domain/factory/RepositoryFactory'
-import { AquariumRepository, IndicatorRepository } from '@/domain/repository'
+
+import RepositoryFactory from 'domain/factory/RepositoryFactory'
+import { AquariumRepository, IndicatorRepository } from 'domain/repository'
 import { Connection } from '../database'
 import { AquariumRepositoryDatabase } from '../repository/database'
 import { IndicatorRepositoryDatabase } from '../repository/database/IndicatorRepositoryDatabase'

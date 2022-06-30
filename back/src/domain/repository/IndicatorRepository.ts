@@ -1,4 +1,4 @@
-import { Indicator } from '@/domain/entity'
+import { Indicator } from 'domain/entity'
 
 export interface IndicatorRepository {
   save: (indicator: Indicator) => Promise<void>

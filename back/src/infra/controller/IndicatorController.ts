@@ -1,6 +1,6 @@
-import { UpdateIndicatorValue } from '@/application/UpdateIndicatorValue'
-import RepositoryFactory from '@/domain/factory/RepositoryFactory'
-import { Http } from '@/infra/http'
+import { UpdateIndicatorValue } from '../../application/UpdateIndicatorValue'
+import RepositoryFactory from 'domain/factory/RepositoryFactory'
+import { Http } from 'infra/http'
 
 export class IndicatorController {
   constructor (

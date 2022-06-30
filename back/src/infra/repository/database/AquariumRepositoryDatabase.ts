@@ -1,6 +1,6 @@
-import { Aquarium, Indicator } from '@/domain/entity'
-import { AquariumRepository } from '@/domain/repository'
-import { Connection } from '@/infra/database'
+import { Aquarium, Indicator } from '../../../domain/entity'
+import { AquariumRepository } from 'domain/repository'
+import { Connection } from 'infra/database'
 
 export class AquariumRepositoryDatabase implements AquariumRepository {
   constructor (readonly connection: Connection) {}

@@ -1,5 +1,5 @@
-import { AquariumRepository } from '@/domain/repository'
-import { Http } from '@/infra/http'
+import { AquariumRepository } from 'domain/repository'
+import { Http } from 'infra/http'
 
 export class AquariumController {
   constructor (

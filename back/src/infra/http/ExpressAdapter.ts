@@ -1,5 +1,5 @@
-import { Http } from '@/infra/http'
 import express from 'express'
+import { Http } from './Http'
 
 export class ExpressAdapter implements Http {
   private readonly app: any;

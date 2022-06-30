@@ -1,4 +1,4 @@
-import { Aquarium } from '@/domain/entity'
+import { Aquarium } from 'domain/entity'
 
 export interface AquariumRepository {
   save: (aquarium: Aquarium) => Promise<void>

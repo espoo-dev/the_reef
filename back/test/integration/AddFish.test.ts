@@ -1,6 +1,6 @@
-import { AddFish } from '@/application'
-import { Aquarium, Dimensions } from '@/domain/entity'
-import { AquariumRepositoryMemory } from '@/infra/repository/memory'
+import { AddFish } from '../application'
+import { Aquarium, Dimensions } from '../domain/entity'
+import { AquariumRepositoryMemory } from '../infra/repository/memory'
 
 describe('Add fish in aquarium', () => {
   it('should add a fish to a aquarium', async () => {

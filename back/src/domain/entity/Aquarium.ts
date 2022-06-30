@@ -1,4 +1,6 @@
-import { Dimensions, Fish, Indicator } from '@/domain/entity'
+import { Dimensions } from './Dimensions'
+import { Fish } from './Fish'
+import { Indicator } from './Indicator'
 
 export class Aquarium {
   fishs: Fish[] = [];

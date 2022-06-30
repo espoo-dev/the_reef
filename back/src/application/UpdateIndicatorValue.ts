@@ -1,5 +1,5 @@
-import RepositoryFactory from '@/domain/factory/RepositoryFactory'
-import { IndicatorRepository } from '@/domain/repository'
+import RepositoryFactory from 'domain/factory/RepositoryFactory'
+import { IndicatorRepository } from 'domain/repository'
 
 export class UpdateIndicatorValue {
   indicatorRepository: IndicatorRepository

@@ -1,4 +1,4 @@
-import { Indicator } from '@/domain/entity'
+import { Indicator } from '../../src/domain/entity/Indicator'
 
 interface IndicatorProps {
   id: number

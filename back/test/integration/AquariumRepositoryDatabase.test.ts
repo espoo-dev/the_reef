@@ -1,7 +1,7 @@
-import { Aquarium } from '@/domain/entity'
-import { AquariumRepository } from '@/domain/repository'
-import { Connection, PgPromiseConnectionAdapter } from '@/infra/database'
-import { AquariumRepositoryDatabase } from '@/infra/repository/database'
+import { Aquarium } from '../domain/entity'
+import { AquariumRepository } from '../domain/repository'
+import { Connection, PgPromiseConnectionAdapter } from '../infra/database'
+import { AquariumRepositoryDatabase } from '../infra/repository/database'
 
 let connection: Connection
 let aquariumRepository: AquariumRepository
