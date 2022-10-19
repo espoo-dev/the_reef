@@ -1,8 +1,8 @@
-import { Aquarium, Dimensions, Indicator } from '../domain/entity'
-import { AquariumRepository, IndicatorRepository } from '../domain/repository'
-import { Connection, PgPromiseConnectionAdapter } from '../infra/database'
-import { AquariumRepositoryDatabase } from '../infra/repository/database'
-import { IndicatorRepositoryDatabase } from '../infra/repository/database/IndicatorRepositoryDatabase'
+import { Aquarium, Dimensions, Indicator } from '../../src/domain/entity'
+import { AquariumRepository, IndicatorRepository } from '../../src/domain/repository'
+import { Connection, PgPromiseConnectionAdapter } from '../../src/infra/database'
+import { AquariumRepositoryDatabase } from '../../src/infra/repository/database'
+import { IndicatorRepositoryDatabase } from '../../src/infra/repository/database/IndicatorRepositoryDatabase'
 
 let connection: Connection
 let indicatorRepository: IndicatorRepository

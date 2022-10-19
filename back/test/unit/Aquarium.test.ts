@@ -1,4 +1,4 @@
-import { Aquarium, Dimensions, Fish, Indicator } from '../domain/entity'
+import { Aquarium, Dimensions, Fish, Indicator } from '../../src/domain/entity'
 
 describe('Aquarium', () => {
   const sut = (): Aquarium => {
