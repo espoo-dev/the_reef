@@ -1,6 +1,7 @@
 {
   "scripts": {
     "test": "jest --passWithNoTests --no-cache --runInBand",
+    "test:watch": "jest --passWithNoTests --no-cache --runInBand --watch",
     "test:coverage": "jest --passWithNoTests --no-cache --runInBand --coverage",
     "lint": "eslint --ext .ts src",
     "start": "node dist/src/main.js",
