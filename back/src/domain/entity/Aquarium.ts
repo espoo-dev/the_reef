@@ -58,7 +58,7 @@ export class Aquarium {
 
   removeCoral (name: string): void {
     const coralToRemove = this.corals.find(coral => coral.name === name)
-    if (!coralToRemove){
+    if (!coralToRemove) {
       throw new Error('Coral not found')
     }
     this.corals = this.corals.filter(coral => coral.name !== name)
