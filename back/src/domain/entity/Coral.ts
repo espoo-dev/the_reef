@@ -1,6 +1,6 @@
 export type Light = 'low' | 'medium' | 'high'
 export type Flow = 'weak' | 'medium' | 'strong'
-export type Depth = 'shallow' | 'medium'| 'deep' | 'indiferent'
+export type Depth = 'shallow' | 'medium'| 'deep' | 'indifferent'
 export type Difficulty = 'To newbies' | 'Need more careful' | 'Only experients aquarists'
 
 export class Coral {
