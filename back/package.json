@@ -10,7 +10,7 @@
     "build:clean": "rm -rf dist/ && tsc --outDir dist && yarn start",
     "deploy": "git subtree push --prefix back heroku master"
   },
-  "node": "16.10.x",
+  "node": "16.x.x",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
@@ -37,6 +37,6 @@
     "typescript": "^4.6.4"
   },
   "engines": {
-    "node": "16.10"
+    "node": "16.x"
   }
 }
