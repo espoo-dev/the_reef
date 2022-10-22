@@ -1,4 +1,4 @@
-import { Coral } from './Coral';
+import { Coral } from './Coral'
 import { Dimensions } from './Dimensions'
 import { Fish } from './Fish'
 import { Indicator } from './Indicator'
@@ -52,16 +52,15 @@ export class Aquarium {
     return this.indicators
   }
 
-  addCoral(newCoral: Coral): void {
+  addCoral (newCoral: Coral): void {
     this.corals.push(newCoral)
   }
 
-  removeCoral(name: string): void {
+  removeCoral (name: string): void {
     const coralToRemove = this.corals.find(coral => coral.name === name)
-    if(!coralToRemove){
+    if (!coralToRemove){
       throw new Error('Coral not found')
     }
     this.corals = this.corals.filter(coral => coral.name !== name)
   }
-  
 }
