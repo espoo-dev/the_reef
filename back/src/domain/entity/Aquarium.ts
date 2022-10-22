@@ -1,10 +1,12 @@
+import { Coral } from './Coral';
 import { Dimensions } from './Dimensions'
 import { Fish } from './Fish'
 import { Indicator } from './Indicator'
 
 export class Aquarium {
   fishs: Fish[] = [];
-  indicators: Indicator[] = []
+  indicators: Indicator[] = [];
+  corals: Coral[] = [];
 
   constructor (readonly id: number, readonly name: string, readonly dimensions?: Dimensions) {
   }
@@ -49,4 +51,17 @@ export class Aquarium {
   getIndicators (): Indicator[] {
     return this.indicators
   }
+
+  addCoral(newCoral: Coral): void {
+    this.corals.push(newCoral)
+  }
+
+  removeCoral(name: string): void {
+    const coralToRemove = this.corals.find(coral => coral.name === name)
+    if(!coralToRemove){
+      throw new Error('Coral not found')
+    }
+    this.corals = this.corals.filter(coral => coral.name !== name)
+  }
+  
 }
