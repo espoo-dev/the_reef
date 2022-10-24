@@ -1,4 +1,4 @@
-import { Aquarium, Dimensions, Fish, Indicator } from '../../src/domain/entity'
+import { Aquarium, Dimensions, Fish, Indicator, Coral } from '../../src/domain/entity'
 
 describe('Aquarium', () => {
   const sut = (): Aquarium => {
@@ -83,5 +83,27 @@ describe('Aquarium', () => {
       aquarium.addIndicator(indicator)
       expect(aquarium.getIndicators()).toContain(indicator)
     })
+  })
+  
+  describe('coral', () => {
+    it('should add a new coral', () => {
+      const aquarium = sut()
+      const coral = new Coral('Discosoma', ['low', 'medium'], ['weak', 'medium'], ['medium', 'deep'], 'To newbies')
+      aquarium.addCoral(coral)
+      expect(aquarium.corals).toContain(coral)
+    })
+
+    it('should remove a coral', () => {
+      const aquarium = sut()
+      const coral = new Coral('Discosoma', ['low', 'medium'], ['weak', 'medium'], ['medium', 'deep'], 'To newbies')
+      aquarium.addCoral(coral)
+      aquarium.removeCoral(coral.name)
+      expect(aquarium.corals).not.toContain(coral)
+    })
+
+    it('should return error when not found the coral', () => {
+      const aquarium = sut()
+      expect(() => aquarium.removeCoral('Palitoa')).toThrowError('Coral not found')
+    });
   })
 })
