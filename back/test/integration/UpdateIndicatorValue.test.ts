@@ -1,9 +1,9 @@
-import { UpdateIndicatorValue } from '../application/UpdateIndicatorValue'
-import { Indicator } from '../domain/entity'
-import RepositoryFactory from '../domain/factory/RepositoryFactory'
-import { IndicatorRepository } from '../domain/repository'
-import { PgPromiseConnectionAdapter } from '../infra/database'
-import DatabaseRepositoryFactory from '../infra/factory/DatabaseRepositoryFactory'
+import { UpdateIndicatorValue } from '../../src/application/UpdateIndicatorValue'
+import { Indicator } from '../../src/domain/entity'
+import RepositoryFactory from '../../src/domain/factory/RepositoryFactory'
+import { IndicatorRepository } from '../../src/domain/repository'
+import { PgPromiseConnectionAdapter } from '../../src/infra/database'
+import DatabaseRepositoryFactory from '../../src/infra/factory/DatabaseRepositoryFactory'
 
 const temperatureIndicator = {
   id: 1,
