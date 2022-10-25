@@ -25,4 +25,12 @@ describe('Fish',() => {
     let newFish = sut({name: fishName, litersRequired: 30, type: 'fresh'})
     expect(newFish.name).toBe(fishName) 
   });
+
+  it('should has the correct type', () => {
+    expect(fish.type).toBe(mockFish.type)
+  });
+
+  it('should has the correct liters required', () => {
+    expect(fish.litersRequired).toBe(mockFish.litersRequired)
+  });
 })
