@@ -21,10 +21,10 @@ export class AquariumController {
 }
 
 interface AddAquariumInput {
-  name: string,
+  name: string
   dimensions: {
-    length: number,
-    width: number,
+    length: number
+    width: number
     height: number
   }
 }
