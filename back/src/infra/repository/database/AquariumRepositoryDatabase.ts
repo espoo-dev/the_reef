@@ -9,8 +9,9 @@ export class AquariumRepositoryDatabase implements AquariumRepository {
     await this.connection.query('DELETE FROM aquariums WHERE id = $1', [idAquarium])
   }
 
-  async save (aquarium: Aquarium): Promise<void> {
-    await this.connection.query('INSERT INTO aquariums (name) VALUES ($1) RETURNING *', [aquarium.name])
+  async save (aquarium: Aquarium): Promise<Aquarium> {
+    const data = await this.connection.query('INSERT INTO aquariums (name) VALUES ($1) RETURNING *', [aquarium.name])
+    return new Aquarium(data[0].id, data[0].name)
   }
 
   async list (): Promise<Aquarium[]> {

@@ -3,12 +3,6 @@ import axios from 'axios'
 const serverUrl = `${process.env.SERVER_URL}:${process.env.PORT}`
 
 describe('API', () => {
-  it.skip('should call API /aquariums', async () => {
-    const response = await axios.get(`${serverUrl}/aquariums`)
-    const items = response.data
-    expect(items).toHaveLength(1)
-  })
-
   it.skip('should call API /indicators', async () => {
     const response = await axios.get(`${serverUrl}/indicators`)
     const items = response.data
@@ -22,4 +16,18 @@ describe('API', () => {
     const indicator = response.data
     expect(indicator.currentValue).toBe(requestBody.newValue)
   })
+
+  describe('Aquarium', () => {
+    it.skip('should call API /aquariums', async () => {
+      const response = await axios.get(`${serverUrl}/aquariums`)
+      const items = response.data
+      expect(items).toHaveLength(1)
+    })
+
+    it.skip('should call API POST /aquariums to add a new aquarium', async () => {
+      const requestBody = { name: 'IuryReef', dimensions: { length: 50, width: 40, height: 40 } }
+      const response = await axios.post(`${serverUrl}/aquariums`, requestBody)
+      expect(response.data.name).toBe(requestBody.name)
+    })
+  });
 })
