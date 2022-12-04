@@ -9,8 +9,8 @@ export class IndicatorRepositoryDatabase implements IndicatorRepository {
     await this.connection.query('DELETE FROM indicators WHERE id = $1', [idIndicator])
   }
 
-  async save (indicator: Indicator): Promise<void> {
-    await this.connection.query(`INSERT INTO indicators
+  async save (indicator: Indicator): Promise<Indicator> {
+    const data = await this.connection.query(`INSERT INTO indicators
     (
       name,
       aquarium_id,
@@ -30,6 +30,16 @@ export class IndicatorRepositoryDatabase implements IndicatorRepository {
       indicator.minValue,
       indicator.maxValue
     ])
+    return new Indicator(
+      data[0].id,
+      data[0].aquariumId,
+      data[0].name,
+      data[0].unit,
+      data[0].description,
+      data[0].currentValue,
+      data[0].acceptedValue,
+      data[0].minValue,
+      data[0].maxValue)
   }
 
   async list (): Promise<Indicator[]> {
