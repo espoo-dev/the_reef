@@ -16,8 +16,9 @@ export class AquariumRepositoryMemory implements AquariumRepository {
     })
   }
 
-  async save (aquarium: Aquarium): Promise<void> {
+  async save (aquarium: Aquarium): Promise<Aquarium> {
     this.aquariums.push(aquarium)
+    return aquarium
   }
 
   async list (): Promise<Aquarium[]> {
