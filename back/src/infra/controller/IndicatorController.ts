@@ -41,9 +41,9 @@ export class IndicatorController {
 
 interface AddIndicatorInput {
   aquariumId: number
-  name: string,
-  unit: string,
-  description: string,
+  name: string
+  unit: string
+  description: string
   currentValue: number
   acceptedValue: number
   minValue: number
