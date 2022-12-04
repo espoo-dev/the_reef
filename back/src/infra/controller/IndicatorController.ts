@@ -17,7 +17,7 @@ export class IndicatorController {
 
     http.on('post', '/indicators', async (params: any, body: AddIndicatorInput) => {
       const newIndicator = new Indicator(
-        body.id,
+        1,
         body.aquariumId,
         body.name,
         body.unit,
