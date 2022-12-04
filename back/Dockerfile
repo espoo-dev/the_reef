@@ -1,20 +1,21 @@
-FROM node:16-alpine AS builder
+FROM node:16-alpine as build-image
+WORKDIR /usr/src/app
 
-WORKDIR /usr/src/app/back
-ENV PATH /node_modules/.bin:$PATH
-
-COPY package.json /
-COPY package-lock.json /
-COPY yarn.lock /
-
+COPY yarn.lock ./
+COPY tsconfig.json ./
+COPY ./ ./
+RUN yarn add typescript
 RUN yarn install
-COPY . .
+RUN yarn build
+EXPOSE 8080
+CMD [ "yarn", "start" ]
 
-ENV PORT 8081
 
-RUN yarn run build
-COPY .env ./dist/
-
-EXPOSE 8081 5432
-
-CMD ["yarn", "start"]
+# FROM node:16-alpine
+# WORKDIR /usr/src/app
+# COPY yarn.lock ./
+# COPY --from=build-image ./usr/src/app/dist ./dist
+# RUN yarn install --production
+# COPY . .
+# EXPOSE 8080
+# CMD [ "yarn", "start" ]

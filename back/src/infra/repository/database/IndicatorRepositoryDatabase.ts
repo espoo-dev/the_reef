@@ -33,7 +33,7 @@ export class IndicatorRepositoryDatabase implements IndicatorRepository {
   }
 
   async list (): Promise<Indicator[]> {
-    const indicatorsData = await this.connection.query('SELECT * FROM indicators', [])
+    const indicatorsData = await this.connection.query('select * from indicators', [])
     const indicators: Indicator[] = []
     for (const indicatorData of indicatorsData) {
       indicators.push(new Indicator(
