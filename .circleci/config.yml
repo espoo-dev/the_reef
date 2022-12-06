@@ -34,7 +34,7 @@ jobs:
             ./tmp/cc-test-reporter format-coverage -t lcov -o tmp/codeclimate.frontend.json coverage/lcov.info
       - run:
           name: Generate build
-          command: yarn build
+          command: CI=false yarn build
       - run:
           name: Upload coverage results to Code Climate
           command: |
