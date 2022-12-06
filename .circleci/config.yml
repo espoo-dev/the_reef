@@ -8,7 +8,7 @@ orbs:
 jobs:
   front-ci:
     docker:
-      - image: cimg/node:14.1
+      - image: cimg/node:16.10
     working_directory: ~/repo/front
     steps:
       - checkout:
