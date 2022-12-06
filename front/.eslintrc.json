@@ -33,8 +33,12 @@
   },
   "rules": {
     "no-console": "warn",
-    "prettier/prettier": "error",
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "prettier/prettier": ["error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
   }
 }
