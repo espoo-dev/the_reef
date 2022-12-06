@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import LogoImg from '../../assets/logo.png';
 import { IndicatorProps } from '../../components/Indicator';
@@ -11,6 +11,7 @@ import {
   Container,
   CardsSection,
 } from './Dashboard.styles';
+import AxiosAdapter from 'infra/http/AxiosAdapter';
 
 const Dashboard = () => {
   const indicators: IndicatorProps[] = [
@@ -44,7 +45,6 @@ const Dashboard = () => {
       },
     },
   ];
-  const [tankSelected, setTankSelected] = useState<OptionDefault>({});
 
   const tanks = [
     {
@@ -59,6 +59,31 @@ const Dashboard = () => {
     },
   ];
 
+  const [tankSelected, setTankSelected] = useState<OptionDefault>(tanks[0]);
+
+  const [temperature, setTemperature] = useState(indicators[0]);
+
+  const http = new AxiosAdapter();
+
+  const loadIndicators = async () => {
+    const response = await http.get('https://myreef.fly.dev/indicators');
+    const { name, currentValue, minValue, maxValue, unit } = response[0];
+    setTemperature({
+      name,
+      unit,
+      value: currentValue,
+      alarm: {
+        condition: 'out_interval',
+        values: [minValue, maxValue],
+      },
+      icon: <FaTemperatureLow />,
+    });
+  };
+
+  useEffect(() => {
+    loadIndicators();
+  }, []);
+
   return (
     <div>
       <div>
@@ -72,7 +97,7 @@ const Dashboard = () => {
                   ${tankSelected.name}`}
                 </h1>
               ) : (
-                <h1>Selecione um tank</h1>
+                <h1>Selecione um reef</h1>
               )}
               {tankSelected.name && (
                 <h3>
@@ -91,12 +116,13 @@ const Dashboard = () => {
           options={tanks}
           option={tankSelected}
           setOptionSelected={setTankSelected}
-          // labelValue={'cor'}
         />
         <CardsSection>
-          {indicators.map((card) => (
+          {/* {indicators.map((card) => (
             <Indicator key={card.name} config={card} />
-          ))}
+          ))} */}
+
+          <Indicator key={temperature.name} config={temperature} />
         </CardsSection>
       </Container>
     </div>
