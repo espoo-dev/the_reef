@@ -4,14 +4,15 @@ import LogoImg from '../../assets/logo.png';
 import { IndicatorProps } from '../../components/Indicator';
 import { Indicator } from '../../components/Indicator';
 import { FaTemperatureLow, FaStrikethrough } from 'react-icons/fa';
-import { OptionDefault, Select } from '../../components/Select';
+import { Select } from '../../components/Select';
 import {
   HeaderSection,
   ImgMonitor,
   Container,
   CardsSection,
 } from './Dashboard.styles';
-import AxiosAdapter from 'infra/http/AxiosAdapter';
+import { Api } from 'infra/http/api';
+import { Aquarium } from 'entity/Aquarium';
 
 const Dashboard = () => {
   const indicators: IndicatorProps[] = [
@@ -46,27 +47,19 @@ const Dashboard = () => {
     },
   ];
 
-  const tanks = [
-    {
-      id: 1,
-      name: 'tank 01',
-      cor: 'aaa',
-    },
-    {
-      id: 2,
-      name: 'tank 02',
-      cor: 'bbb',
-    },
-  ];
-
-  const [tankSelected, setTankSelected] = useState<OptionDefault>(tanks[0]);
+  const [aquariums, setAquariums] = useState<Aquarium[]>();
+  const [tankSelected, setTankSelected] = useState<Aquarium>();
 
   const [temperature, setTemperature] = useState(indicators[0]);
 
-  const http = new AxiosAdapter();
+  const reefApi = new Api();
+
+  const loadAquariums = async () => {
+    setAquariums(await reefApi.get<Aquarium[]>('/aquariums'));
+  };
 
   const loadIndicators = async () => {
-    const response = await http.get('https://myreef.fly.dev/indicators');
+    const response = await reefApi.get<any[]>('/indicators');
     const { name, currentValue, minValue, maxValue, unit } = response[0];
     setTemperature({
       name,
@@ -82,6 +75,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     loadIndicators();
+    loadAquariums();
   }, []);
 
   return (
@@ -91,15 +85,15 @@ const Dashboard = () => {
         <div style={{ background: '#edfbfe' }}>
           <HeaderSection>
             <div>
-              {tankSelected.name ? (
+              {tankSelected?.name ? (
                 <h1>
                   {`Bem vindo ao monitoramento do
-                  ${tankSelected.name}`}
+                  ${tankSelected?.name}`}
                 </h1>
               ) : (
                 <h1>Selecione um reef</h1>
               )}
-              {tankSelected.name && (
+              {tankSelected?.name && (
                 <h3>
                   está <span style={{ color: '#fe7061' }}>tudo bem</span> por
                   aqui.
@@ -112,11 +106,7 @@ const Dashboard = () => {
       </div>
 
       <Container>
-        <Select
-          options={tanks}
-          option={tankSelected}
-          setOptionSelected={setTankSelected}
-        />
+        <Select options={aquariums} setOptionSelected={setTankSelected} />
         <CardsSection>
           {/* {indicators.map((card) => (
             <Indicator key={card.name} config={card} />
