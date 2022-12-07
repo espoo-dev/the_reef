@@ -13,12 +13,12 @@ export interface OptionDefault {
   [x: string]: string | number | undefined;
   name?: string;
 }
-interface SelectProps {
-  options: OptionDefault[];
+interface SelectProps<T = any> {
+  options: OptionDefault[] | T;
   labelValue?: string;
   keyValue?: string;
-  setOptionSelected: React.Dispatch<React.SetStateAction<OptionDefault>>;
-  option: OptionDefault;
+  setOptionSelected: React.Dispatch<React.SetStateAction<OptionDefault | T>>;
+  option?: OptionDefault;
 }
 
 export const Select = ({
@@ -37,7 +37,7 @@ export const Select = ({
   };
 
   const showChevron = () => {
-    if (options.length > 0) {
+    if (options && options.length > 0) {
       return open ? (
         <FaChevronUp />
       ) : (
@@ -51,8 +51,10 @@ export const Select = ({
     <SelectContainer ref={node}>
       <SelectMain data-testid="select-main" onClick={() => setOpen(!open)}>
         <ContainerSelected>
-          {options.length ? (
-            <span>{option[labelValue] ? option[labelValue] : 'Selecione'}</span>
+          {options && options.length ? (
+            <span>
+              {option && option[labelValue] ? option[labelValue] : 'Selecione'}
+            </span>
           ) : (
             <span>Nenhuma opção encontrada</span>
           )}
@@ -61,11 +63,12 @@ export const Select = ({
       </SelectMain>
       {open && (
         <ListOptions>
-          {options.map((option: OptionDefault) => (
-            <Option key={option[keyValue]} onClick={() => setOption(option)}>
-              {option[labelValue]}
-            </Option>
-          ))}
+          {options &&
+            options.map((option: OptionDefault) => (
+              <Option key={option[keyValue]} onClick={() => setOption(option)}>
+                {option[labelValue]}
+              </Option>
+            ))}
         </ListOptions>
       )}
     </SelectContainer>
