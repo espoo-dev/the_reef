@@ -14,15 +14,27 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
+#include <OneWire.h>
+#include <DallasTemperature.h>
 
 #ifndef STASSID
-#define STASSID "ssid"
-#define STAPSK  "password"
+#define STASSID "****"
+#define STAPSK  "****"
 #endif
 
 const char* ssid = STASSID;
 const char* password = STAPSK;
-String host = "http://myreef2.herokuapp.com/";
+String host = "https://myreef.fly.dev";
+
+// D4 = GPIO2
+const int oneWireBus = 2;
+
+// Setup a oneWire instance to communicate with any OneWire devices
+OneWire oneWire(oneWireBus);
+
+// Pass our oneWire reference to Dallas Temperature sensor 
+DallasTemperature sensors(&oneWire);
+
 bool sended = false;
 
 void setup() {
@@ -57,28 +69,46 @@ void setup() {
   gmtime_r(&now, &timeinfo);
   Serial.print("Current time: ");
   Serial.print(asctime(&timeinfo));
+
+  // Start the DS18B20 sensor
+  sensors.begin();
 }
 
-void sendPost() {
-  if (!sended) {
-    WiFiClient client;
-    HTTPClient http;
-    http.begin(client, host + "/sensor/1/update");
-    http.addHeader("Content-Type", "application/json");
-    http.addHeader("Accept", "application/json");
-    http.addHeader("Authorization", "Token token=f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8");
-    int httpResponseCode = http.POST("{\"value\":\"20\"}");
+void sendPost(float temperature) {
+//  if (!sended) {
+    WiFiClientSecure client;
+    client.setInsecure(); //the magic line, use with caution
+    HTTPClient https;
+    https.begin(client, "https://myreef.fly.dev/indicators/update");
+    https.addHeader("Content-Type", "application/json");
+//    http.addHeader("Accept", "application/json");
+//    http.addHeader("Authorization", "Token token=f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8");
+
+//    String requestBody = "{\"newValue\":\"22\", \"indicatorId\":\"1\"}";
+
+    String requestBody = "{\"newValue\":\"" + String(temperature) + "\", \"indicatorId\":\"1\"}";
+    
+    int httpResponseCode = https.PUT(requestBody);
+    Serial.print(requestBody);
     Serial.print("HTTP Response code: ");
     Serial.println(httpResponseCode);
-    http.end();
-    sended = true;
-  }
+    https.end();
+//    sended = true;
+//  }
 }
 
 void loop() {
 
- if (WiFi.status() == WL_CONNECTED && !sended) {
-  sendPost();
+ sensors.requestTemperatures(); 
+ float temperatureC = sensors.getTempCByIndex(0);
+ float temperatureF = sensors.getTempFByIndex(0);
+ Serial.print(temperatureC);
+ Serial.println("ºC");
+
+ if (WiFi.status() == WL_CONNECTED) {
+  sendPost(temperatureC);
  }
+
+ delay(120000);
   
 }
