@@ -6,9 +6,10 @@ import {
   ValueTitle,
   NameIndicator,
   IconContainer,
+  Loader,
 } from './Indicator.styles';
 import { IconType } from 'react-icons/lib';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 export interface IndicatorProps {
   value: number;
   name: string;
@@ -19,6 +20,7 @@ export interface IndicatorProps {
   };
   danger?: boolean;
   icon?: ReactElement<IconType>;
+  loading?: boolean;
 }
 
 interface config {
@@ -26,7 +28,12 @@ interface config {
 }
 
 export const Indicator = (props: config) => {
-  const { name, value, unit, alarm, icon } = props.config;
+  const { name, value, unit, alarm, icon, loading } = props.config;
+  const [loadingState, setLoadingState] = useState<boolean>(false);
+
+  useEffect(() => {
+    setLoadingState(loading || false);
+  }, [loading]);
 
   const checkAlarm = (): boolean => {
     if (alarm && alarm.values && alarm.values.length) {
@@ -65,7 +72,7 @@ export const Indicator = (props: config) => {
     <CardMonitor danger={checkAlarm()} key={name}>
       <ContainerCard>
         <ValueTitle>
-          <span>{value}</span>
+          {loadingState ? <Loader /> : <span>{value}</span>}
         </ValueTitle>
         {icon && (
           <IconContainer data-testid="icon" danger={checkAlarm()}>

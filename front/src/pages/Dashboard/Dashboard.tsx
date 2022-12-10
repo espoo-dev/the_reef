@@ -18,13 +18,14 @@ const Dashboard = () => {
   const indicators: IndicatorProps[] = [
     {
       value: 27,
-      unit: 'graus',
-      name: 'temperatura',
+      unit: 'celsius',
+      name: 'Temparature',
       alarm: {
         condition: 'out_interval',
         values: [26, 29],
       },
       icon: <FaTemperatureLow />,
+      loading: true,
     },
     {
       value: 1023,
@@ -70,6 +71,7 @@ const Dashboard = () => {
         values: [minValue, maxValue],
       },
       icon: <FaTemperatureLow />,
+      loading: false,
     });
   };
 
