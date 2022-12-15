@@ -46,7 +46,10 @@ describe('Add indicator in aquarium', () => {
     }
 
     const output = await addIndicatorToAquarium.execute(input)
-    expect(output).toBeUndefined()
+    expect(output).toEqual({
+      statusCode: 200,
+      data: null
+    })
   })
 })
 

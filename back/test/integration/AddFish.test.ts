@@ -19,6 +19,9 @@ describe('Add fish in aquarium', () => {
     }
 
     const output = await addFish.execute(input)
-    expect(output).toBeUndefined()
+    expect(output).toEqual({
+      statusCode: 200,
+      data: null
+    })
   })
 })
