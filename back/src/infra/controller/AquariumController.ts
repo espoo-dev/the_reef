@@ -1,9 +1,9 @@
-import { ListAquariumsController } from '../../application'
-import { AquariumRepository } from '../../domain/contracts/repository'
-import { setupListAquariums } from '../../domain/usecases'
-import { Http } from '../http/Http'
+import { ListAquariumsController } from '@/application'
+import { AquariumRepository } from '@/domain/contracts/repository'
+import { setupListAquariums } from '@/domain/usecases'
+import { Http } from '@/infra/http'
 
-export default class AquariumController {
+export class AquariumController {
   constructor (
     readonly http: Http,
     readonly aquariumRepository: AquariumRepository
