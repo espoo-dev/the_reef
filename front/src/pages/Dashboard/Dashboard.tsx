@@ -4,12 +4,13 @@ import LogoImg from '../../assets/logo.png';
 import { IndicatorProps } from '../../components/Indicator';
 import { Indicator } from '../../components/Indicator';
 import { FaTemperatureLow, FaStrikethrough } from 'react-icons/fa';
-import { Select } from '../../components/Select';
+import { AiOutlineReload } from 'react-icons/ai';
 import {
   HeaderSection,
   ImgMonitor,
   Container,
   CardsSection,
+  Actions,
 } from './Dashboard.styles';
 import { Api } from 'infra/http/api';
 import { Aquarium } from 'entity/Aquarium';
@@ -55,8 +56,16 @@ const Dashboard = () => {
 
   const reefApi = new Api();
 
+  const reloadIndicators = () => {
+    setTemperature({ ...temperature, loading: true });
+    loadIndicators();
+  };
+
   const loadAquariums = async () => {
     setAquariums(await reefApi.get<Aquarium[]>('/aquariums'));
+    if (aquariums?.length) {
+      setTankSelected(aquariums[0]);
+    }
   };
 
   const loadIndicators = async () => {
@@ -87,20 +96,12 @@ const Dashboard = () => {
         <div style={{ background: '#edfbfe' }}>
           <HeaderSection>
             <div>
-              {tankSelected?.name ? (
-                <h1>
-                  {`Bem vindo ao monitoramento do
-                  ${tankSelected?.name}`}
-                </h1>
-              ) : (
-                <h1>Selecione um reef</h1>
-              )}
-              {tankSelected?.name && (
-                <h3>
-                  está <span style={{ color: '#fe7061' }}>tudo bem</span> por
-                  aqui.
-                </h3>
-              )}
+              <h2>Iury Reef</h2>
+              <h3>
+                {temperature.danger
+                  ? 'A temperatura não está boa!'
+                  : 'Está tudo bem por aqui.'}{' '}
+              </h3>
             </div>
             <ImgMonitor src={LogoImg} alt="Shark Good" />
           </HeaderSection>
@@ -108,12 +109,17 @@ const Dashboard = () => {
       </div>
 
       <Container>
-        <Select options={aquariums} setOptionSelected={setTankSelected} />
-        <CardsSection>
-          {/* {indicators.map((card) => (
-            <Indicator key={card.name} config={card} />
-          ))} */}
+        {/* <Select options={aquariums} setOptionSelected={setTankSelected} /> */}
 
+        <Actions>
+          <AiOutlineReload
+            size={30}
+            onClick={reloadIndicators}
+            cursor="pointer"
+          />
+        </Actions>
+
+        <CardsSection>
           <Indicator key={temperature.name} config={temperature} />
         </CardsSection>
       </Container>
