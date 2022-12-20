@@ -25,6 +25,22 @@ export const ImgMonitor = styled.img`
   }
 `;
 
+export const Actions = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px 0px;
+  align-items: center;
+  gap: 6px;
+
+  svg {
+    fill: ${theme.pallete.primary.main};
+  }
+
+  span {
+    color: ${theme.pallete.primary.main};
+  }
+`;
+
 export const CardsSection = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
