@@ -1,4 +1,4 @@
-import { Aquarium, Dimensions, Fish, Indicator, Coral } from '../../src/domain/entity'
+import { Aquarium, Dimensions, Fish, Indicator, Coral, Fan } from '../../src/domain/entity'
 
 describe('Aquarium', () => {
   const sut = (): Aquarium => {
@@ -84,7 +84,7 @@ describe('Aquarium', () => {
       expect(aquarium.getIndicators()).toContain(indicator)
     })
   })
-  
+
   describe('coral', () => {
     it('should add a new coral', () => {
       const aquarium = sut()
@@ -105,5 +105,14 @@ describe('Aquarium', () => {
       const aquarium = sut()
       expect(() => aquarium.removeCoral('Palitoa')).toThrowError('Coral not found')
     });
+  })
+
+  describe('fans', () => {
+    it('should add a new fan', () => {
+      const aquarium = sut()
+      const fan = new Fan('Sump Fan')
+      aquarium.addFan(fan)
+      expect(aquarium.getFans()).toContain(fan)
+    })
   })
 })
