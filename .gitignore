@@ -26,3 +26,4 @@ yarn-error.log*
 arduino.env
 .vscode/c_cpp_properties.json
 .vscode/arduino.json
+back/tips.md
