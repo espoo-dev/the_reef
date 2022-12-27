@@ -1,6 +1,6 @@
 import { Coral } from './Coral'
 import { Dimensions } from './Dimensions'
-import { Fan } from './Fan';
+import { Fan } from './Fan'
 import { Fish } from './Fish'
 import { Indicator } from './Indicator'
 

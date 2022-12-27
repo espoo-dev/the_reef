@@ -7,7 +7,7 @@ export class Fan {
     readonly aquariumId: number,
     on: boolean = false
   ) {
-    this.on = on;
+    this.on = on
   }
 
   turnOn (): void {

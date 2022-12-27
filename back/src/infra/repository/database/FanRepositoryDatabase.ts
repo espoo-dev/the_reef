@@ -5,7 +5,7 @@ import { FanRepository } from 'domain/repository'
 export class FanRepositoryDatabase implements FanRepository {
   constructor (readonly connection: Connection) {}
 
-  private tableName = 'fans'
+  private readonly tableName = 'fans'
 
   async remove (idIndicator: number): Promise<void> {
     await this.connection.query(`DELETE FROM ${this.tableName} WHERE id = $1`, [idIndicator])
@@ -18,7 +18,7 @@ export class FanRepositoryDatabase implements FanRepository {
       aquarium_id
     ) VALUES ($1, $2) RETURNING *`, [
       fan.name,
-      fan.aquariumId,
+      fan.aquariumId
     ])
     return new Fan(
       data[0].id,
