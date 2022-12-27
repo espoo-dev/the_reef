@@ -1,5 +1,6 @@
 import { Coral } from './Coral'
 import { Dimensions } from './Dimensions'
+import { Fan } from './Fan'
 import { Fish } from './Fish'
 import { Indicator } from './Indicator'
 
@@ -7,6 +8,7 @@ export class Aquarium {
   fishs: Fish[] = [];
   indicators: Indicator[] = [];
   corals: Coral[] = [];
+  fans: Fan[] = [];
 
   constructor (readonly id: number, readonly name: string, readonly dimensions?: Dimensions) {
   }
@@ -62,5 +64,13 @@ export class Aquarium {
       throw new Error('Coral not found')
     }
     this.corals = this.corals.filter(coral => coral.name !== name)
+  }
+
+  addFan (fan: Fan): void {
+    this.fans.push(fan)
+  }
+
+  getFans (): Fan[] {
+    return this.fans
   }
 }
