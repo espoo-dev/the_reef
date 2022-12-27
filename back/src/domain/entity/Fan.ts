@@ -1,9 +1,13 @@
 export class Fan {
-  name: string;
   on: boolean = false;
 
-  constructor (name: string) {
-    this.name = name
+  constructor (
+    readonly id: number,
+    readonly name: string,
+    readonly aquariumId: number,
+    on: boolean = false
+  ) {
+    this.on = on;
   }
 
   turnOn (): void {

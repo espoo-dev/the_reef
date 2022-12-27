@@ -110,7 +110,7 @@ describe('Aquarium', () => {
   describe('fans', () => {
     it('should add a new fan', () => {
       const aquarium = sut()
-      const fan = new Fan('Sump Fan')
+      const fan = new Fan(1, 'Sump Fan', aquarium.id, false)
       aquarium.addFan(fan)
       expect(aquarium.getFans()).toContain(fan)
     })

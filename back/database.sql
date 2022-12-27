@@ -15,3 +15,11 @@ CREATE TABLE indicators (
   max_value numeric NOT NULL,
   created_at timestamp NOT NULL DEFAULT NOW()
 );
+
+CREATE TABLE fans (
+  id serial PRIMARY KEY,
+  aquarium_id INT NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  "on" BOOL NOT NULL DEFAULT FALSE,
+  created_at timestamp NOT NULL DEFAULT NOW()
+);
