@@ -54,6 +54,7 @@ describe('Update current value of Indicator', () => {
     const output = await updateIndicatorValue.execute(input)
     expect(output.currentValue).toBe(input.newValue)
     expect(output.isOk).toBeFalsy()
+    expect(output.currentValue).toBeDefined()
   })
 })
 
