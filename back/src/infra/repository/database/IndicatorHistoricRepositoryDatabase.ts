@@ -2,7 +2,7 @@ import { IndicatorHistoricRepository } from 'domain/repository'
 import { Connection } from 'infra/database'
 
 export class IndicatorHistoricRepositoryDatabase implements IndicatorHistoricRepository {
-  private databaseName = 'indicator_historics'
+  private readonly databaseName = 'indicator_historics'
   constructor (readonly connection: Connection) {}
 
   async save (idIndicator: number, value: number): Promise<number> {
