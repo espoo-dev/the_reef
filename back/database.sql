@@ -23,3 +23,10 @@ CREATE TABLE fans (
   "on" BOOL NOT NULL DEFAULT FALSE,
   created_at timestamp NOT NULL DEFAULT NOW()
 );
+
+CREATE TABLE indicator_historics (
+  id serial PRIMARY KEY,
+  indicator_id INT NOT NULL,
+  "value" numeric NOT NULL,
+  created_at timestamp NOT NULL DEFAULT NOW()
+);
