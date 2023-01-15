@@ -14,6 +14,20 @@ export class IndicatorHistoricRepositoryDatabase implements IndicatorHistoricRep
     return historicId[0].id
   }
 
+  async list (idIndicator: number): Promise<Array<{created_at: string, value: number}>> {
+    const historic = await this.connection.query(`SELECT * FROM ${this.databaseName}
+    WHERE indicator_id=$1 and created_at::date >= (current_date - '2 day' ::interval)::date order by created_at asc`, [idIndicator])
+
+    const formated: Array<{created_at: string, value: number}> = []
+    historic.forEach((element: any) => {
+      formated.push({
+        value: element.value,
+        created_at: element.created_at
+      })
+    })
+    return formated
+  }
+
   async clean (): Promise<void> {
     await this.connection.query(`DELETE FROM ${this.databaseName}`, [])
   }

@@ -9,6 +9,7 @@ export class IndicatorController {
     readonly repositoryFactory: RepositoryFactory
   ) {
     const indicatorRepository = repositoryFactory.createIndicatorRepository()
+    const indicatorHistoricRepository = repositoryFactory.createIndicatorHistoricRepository()
 
     http.on('get', '/indicators', async () => {
       const output = await indicatorRepository.list()
@@ -34,6 +35,11 @@ export class IndicatorController {
     http.on('put', '/indicators/update', async (params: any, body: any) => {
       const updateIndicatorValue = new UpdateIndicatorValue(repositoryFactory)
       const output = await updateIndicatorValue.execute(body)
+      return output
+    })
+
+    http.on('get', '/indicator/:id/historic', async (req: any) => {
+      const output = await indicatorHistoricRepository.list(req.id)
       return output
     })
   }

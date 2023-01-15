@@ -14,6 +14,7 @@ import {
 } from './Dashboard.styles';
 import { Api } from 'infra/http/api';
 import { Aquarium } from 'entity/Aquarium';
+import { ReefChart } from 'components/ReefChart';
 
 const Dashboard = () => {
   const indicators: IndicatorProps[] = [
@@ -51,6 +52,9 @@ const Dashboard = () => {
 
   const [aquariums, setAquariums] = useState<Aquarium[]>();
   const [tankSelected, setTankSelected] = useState<Aquarium>();
+  const [historic, setHistoric] = useState<
+    { created_at: string; value: number }[]
+  >([]);
 
   const [temperature, setTemperature] = useState(indicators[0]);
 
@@ -70,7 +74,7 @@ const Dashboard = () => {
 
   const loadIndicators = async () => {
     const response = await reefApi.get<any[]>('/indicators');
-    const { name, currentValue, minValue, maxValue, unit } = response[0];
+    const { name, currentValue, minValue, maxValue, unit, id } = response[0];
     setTemperature({
       name,
       unit,
@@ -82,6 +86,16 @@ const Dashboard = () => {
       icon: <FaTemperatureLow />,
       loading: false,
     });
+
+    loadHistoric(id);
+  };
+
+  const loadHistoric = async (indicatorId: number) => {
+    const response = await reefApi.get<{ created_at: string; value: number }[]>(
+      `/indicator/${indicatorId}/historic`
+    );
+
+    setHistoric(response);
   };
 
   useEffect(() => {
@@ -122,6 +136,9 @@ const Dashboard = () => {
         <CardsSection>
           <Indicator key={temperature.name} config={temperature} />
         </CardsSection>
+        <div style={{ marginTop: '50px' }}>
+          <ReefChart values={historic} />
+        </div>
       </Container>
     </div>
   );
