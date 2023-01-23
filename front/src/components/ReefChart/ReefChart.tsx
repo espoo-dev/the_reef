@@ -14,8 +14,19 @@ interface DayValues {
   value: number;
 }
 
+const getFormattedDate = (date: Date): string => {
+  return `${date.getDate()}/${
+    date.getMonth() + 1
+  } ${date.getHours()}:${date.getMinutes()}`;
+};
+
 export const ReefChart = (props: { values: DayValues[] }) => {
-  const data: DayValues[] = props.values;
+  const chartData = props.values.map((point) => {
+    return {
+      created_at: getFormattedDate(new Date(point.created_at)),
+      value: point.value,
+    };
+  });
 
   return (
     <div>
@@ -26,7 +37,7 @@ export const ReefChart = (props: { values: DayValues[] }) => {
         minHeight={200}
       >
         <LineChart
-          data={data}
+          data={chartData}
           margin={{
             top: 5,
             right: 30,
