@@ -11,10 +11,12 @@ import {
   Container,
   CardsSection,
   Actions,
+  EquipmentSection,
 } from './Dashboard.styles';
 import { Api } from 'infra/http/api';
 import { Aquarium } from 'entity/Aquarium';
 import { ReefChart } from 'components/ReefChart';
+import Equipment from 'components/Equipment/Equipment';
 
 const Dashboard = () => {
   const indicators: IndicatorProps[] = [
@@ -132,6 +134,16 @@ const Dashboard = () => {
             cursor="pointer"
           />
         </Actions>
+
+        <EquipmentSection>
+          <Equipment name={'Fan Sump'} />
+          {/* <Equipment name={'Fan Sump'} />
+          <Equipment name={'Fan Sump'} />
+          <Equipment name={'Fan Sump'} />
+          <Equipment name={'Fan Sump'} />
+          <Equipment name={'Fan Sump'} />
+          <Equipment name={'Fan Sump'} /> */}
+        </EquipmentSection>
 
         <CardsSection>
           <Indicator key={temperature.name} config={temperature} />
