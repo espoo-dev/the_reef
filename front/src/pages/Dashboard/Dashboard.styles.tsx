@@ -41,6 +41,13 @@ export const Actions = styled.div`
   }
 `;
 
+export const EquipmentSection = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 3fr));
+  grid-gap: 20px;
+  margin-bottom: 20px;
+`;
+
 export const CardsSection = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
