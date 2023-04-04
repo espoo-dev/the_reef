@@ -47,4 +47,19 @@ describe('API', () => {
       expect(response.data.name).toBe(requestBody.name)
     })
   });
+
+  describe('Fan', () => {
+    it.skip('should call API /fans', async () => {
+      const response = await axios.get(`${serverUrl}/fans`)
+      const items = response.data
+      expect(items).toHaveLength(1)
+    })
+
+    it.skip('should call API POST /fans to add a new aquarium', async () => {
+      const requestBody = { name: 'Sump Fun', aquarium_id: 46 }
+      const response = await axios.post(`${serverUrl}/fans`, requestBody)
+      expect(response.data.name).toBe(requestBody.name)
+      expect(response.data.aquarium_id).toBe(requestBody.aquarium_id)
+    })
+  });
 })
