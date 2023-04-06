@@ -17,6 +17,7 @@ import { Api } from 'infra/http/api';
 import { Aquarium } from 'entity/Aquarium';
 import { ReefChart } from 'components/ReefChart';
 import Equipment from 'components/Equipment/Equipment';
+import { Fan } from 'entity/Fan';
 
 const Dashboard = () => {
   const indicators: IndicatorProps[] = [
@@ -59,12 +60,14 @@ const Dashboard = () => {
   >([]);
 
   const [temperature, setTemperature] = useState(indicators[0]);
+  const [fans, setFans] = useState<Fan[]>();
 
   const reefApi = new Api();
 
   const reloadIndicators = () => {
     setTemperature({ ...temperature, loading: true });
     loadIndicators();
+    loadFans();
   };
 
   const loadAquariums = async () => {
@@ -100,9 +103,15 @@ const Dashboard = () => {
     setHistoric(response);
   };
 
+  const loadFans = async () => {
+    const response = await reefApi.get<Fan[]>('/fans');
+    setFans(response);
+  };
+
   useEffect(() => {
     loadIndicators();
     loadAquariums();
+    loadFans();
   }, []);
 
   return (
@@ -136,13 +145,15 @@ const Dashboard = () => {
         </Actions>
 
         <EquipmentSection>
-          <Equipment name={'Fan Sump'} />
-          {/* <Equipment name={'Fan Sump'} />
-          <Equipment name={'Fan Sump'} />
-          <Equipment name={'Fan Sump'} />
-          <Equipment name={'Fan Sump'} />
-          <Equipment name={'Fan Sump'} />
-          <Equipment name={'Fan Sump'} /> */}
+          {fans &&
+            fans.length &&
+            fans.map((fan, index) => (
+              <Equipment
+                name={fan.name}
+                key={`equipament-${index}`}
+                status={fan.on}
+              />
+            ))}
         </EquipmentSection>
 
         <CardsSection>
