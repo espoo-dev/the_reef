@@ -3,7 +3,7 @@ import 'reflect-metadata'
 import DatabaseRepositoryFactory from './infra/factory/DatabaseRepositoryFactory'
 import { ExpressAdapter } from './infra/http'
 import { PgPromiseConnectionAdapter } from './infra/database'
-import { AquariumRepositoryDatabase, FanRepositoryDatabase } from './infra/repository/database'
+import { AquariumRepositoryDatabase } from './infra/repository/database'
 import { AquariumController, FanController, IndicatorController } from './infra/controller'
 
 const http = new ExpressAdapter()
@@ -11,11 +11,10 @@ const connection = new PgPromiseConnectionAdapter()
 
 const aquariumRepository = new AquariumRepositoryDatabase(connection)
 const repositoryFactory = new DatabaseRepositoryFactory(connection)
-const fanRepository = new FanRepositoryDatabase(connection)
 
 new AquariumController(http, aquariumRepository)
 new IndicatorController(http, repositoryFactory)
-new FanController(http, fanRepository)
+new FanController(http, repositoryFactory)
 
 http.on('get', '/', () => {
   return {
