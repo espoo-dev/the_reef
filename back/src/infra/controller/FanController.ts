@@ -1,7 +1,6 @@
 import RepositoryFactory from '../../domain/factory/RepositoryFactory'
 import { InputUpdateFanOn, UpdateFanOn } from '../../application/UpdateFanOn'
 import { Fan } from '../../domain/entity'
-import { FanRepository } from 'domain/repository'
 import { Http } from 'infra/http'
 
 export class FanController {
@@ -26,7 +25,7 @@ export class FanController {
       const updateFanOn = new UpdateFanOn(repositoryFactory)
       const output = await updateFanOn.execute({
         fanId: body.fanId,
-        on: body.on,
+        on: body.on
       })
       return output
     })
