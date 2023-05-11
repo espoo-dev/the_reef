@@ -13,7 +13,7 @@ export class Api implements Http {
     return this.adapter.post(this.host + url, data);
   }
 
-  async put(url: string, data: any): Promise<any> {
+  async put(url: string, data: any): Promise<void> {
     return this.adapter.put(this.host + url, data);
   }
 }
