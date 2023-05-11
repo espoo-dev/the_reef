@@ -6,4 +6,5 @@ export interface FanRepository {
   get: (idFan: number) => Promise<Fan>
   remove: (idFan: number) => Promise<void>
   clean: () => Promise<void>
+  updateOn: (fanId: number, on: boolean) => Promise<Fan>
 }

@@ -50,4 +50,10 @@ export class FanRepositoryDatabase implements FanRepository {
   async clean (): Promise<void> {
     await this.connection.query(`DELETE FROM ${this.tableName}`, [])
   }
+
+  async updateOn (fanId: number, on: boolean): Promise<Fan> {
+    const [fanUpdated] = await this.connection.query(`UPDATE ${this.tableName} SET "on" = $1 WHERE id = $2 returning *`, [on, fanId])
+    const fan = new Fan(fanUpdated.id, fanUpdated.name, fanUpdated.aquariumId, fanUpdated.on)
+    return fan
+  }
 }

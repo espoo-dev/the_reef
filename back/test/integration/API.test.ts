@@ -61,5 +61,11 @@ describe('API', () => {
       expect(response.data.name).toBe(requestBody.name)
       expect(response.data.aquarium_id).toBe(requestBody.aquarium_id)
     })
+
+    it.skip('should call API PUT /fans/update_on to update fan to off', async () => {
+      const requestBody = { fanId: 68, on: false }
+      const response = await axios.put(`${serverUrl}/fans/update_on`, requestBody)
+      expect(response.data.on).toBe(requestBody.on)
+    })
   });
 })

@@ -15,7 +15,7 @@ const fanRepository = new FanRepositoryDatabase(connection)
 
 new AquariumController(http, aquariumRepository)
 new IndicatorController(http, repositoryFactory)
-new FanController(http, fanRepository)
+new FanController(http, repositoryFactory)
 
 http.on('get', '/', () => {
   return {

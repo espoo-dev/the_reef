@@ -1,7 +1,7 @@
 import RepositoryFactory from 'domain/factory/RepositoryFactory'
-import { AquariumRepository, IndicatorHistoricRepository, IndicatorRepository } from 'domain/repository'
+import { AquariumRepository, FanRepository, IndicatorHistoricRepository, IndicatorRepository } from 'domain/repository'
 import { Connection } from '../database'
-import { IndicatorHistoricRepositoryDatabase, AquariumRepositoryDatabase } from '../repository/database'
+import { IndicatorHistoricRepositoryDatabase, AquariumRepositoryDatabase, FanRepositoryDatabase } from '../repository/database'
 import { IndicatorRepositoryDatabase } from '../repository/database/IndicatorRepositoryDatabase'
 
 export default class DatabaseRepositoryFactory implements RepositoryFactory {
@@ -16,5 +16,9 @@ export default class DatabaseRepositoryFactory implements RepositoryFactory {
 
   createIndicatorHistoricRepository (): IndicatorHistoricRepository {
     return new IndicatorHistoricRepositoryDatabase(this.connection)
+  }
+
+  createFanRepository (): FanRepository {
+    return new FanRepositoryDatabase(this.connection)
   }
 }
