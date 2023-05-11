@@ -11,4 +11,9 @@ export default class AxiosAdapter implements Http {
     const response = await axios({ method: 'post', url, data });
     return response.data;
   }
+
+  async put(url: string, data: any): Promise<any> {
+    const response = await axios({ method: 'put', url, data });
+    return response.data;
+  }
 }

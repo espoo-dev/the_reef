@@ -12,4 +12,8 @@ export class Api implements Http {
   async post(url: string, data: any): Promise<any> {
     return this.adapter.post(this.host + url, data);
   }
+
+  async put(url: string, data: any): Promise<any> {
+    return this.adapter.put(this.host + url, data);
+  }
 }
