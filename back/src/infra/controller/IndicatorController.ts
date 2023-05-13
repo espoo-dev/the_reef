@@ -38,9 +38,8 @@ export class IndicatorController {
       return output
     })
 
-    http.on('get', '/indicator/:id/historic', async (req: any) => {
-      const output = await indicatorHistoricRepository.list(req.id)
-      return output
+    http.on('get', '/indicator/:id/historic', async (req: { id: number }) => {
+      return await indicatorHistoricRepository.list({ indicatorID: req.id })
     })
   }
 }

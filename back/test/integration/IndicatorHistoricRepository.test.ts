@@ -50,14 +50,13 @@ const saveIndicator = async (): Promise<void> => {
 }
 
 describe('IndicatorHistoricRepository', () => {
-  it('should return all historic by indicator index from database', async () => {
+  it('should return the hourly average of the indicator index', async () => {
     await saveIndicator()
     const indicators = await indicatorRepository.list()
-    const indicatorId = indicators[0].id;
-    const newValue = 28.3;
-    indicatorHistoricRepository.save(indicatorId, newValue)
-    const historic = await indicatorHistoricRepository.list(indicators[0].id)
-    expect(historic[0].value).toBe(String(newValue))
+    const indicatorID = indicators[0].id
+    await indicatorHistoricRepository.save(indicatorID, 10)
+    const historic = await indicatorHistoricRepository.list({ indicatorID: indicatorID })
+    expect(historic[0].hour).toBe(String("0h"))
   })
 })
 
