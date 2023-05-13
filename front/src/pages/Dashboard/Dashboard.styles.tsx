@@ -50,8 +50,8 @@ export const EquipmentSection = styled.div`
 
 export const CardsSection = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 0.3fr));
+  grid-gap: 10px;
 `;
 
 export const CardMonitor = styled.div`

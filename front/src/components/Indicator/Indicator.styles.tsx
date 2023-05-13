@@ -45,7 +45,6 @@ export const CardMonitor = styled.div<Props>`
   display: flex;
   flex-direction: column;
   border-radius: ${theme.borderRadius};
-  box-shadow: ${theme.boxShadow};
   border: 1px solid ${theme.borderColor};
 
   ${(props) =>

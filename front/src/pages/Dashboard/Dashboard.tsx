@@ -19,6 +19,11 @@ import { ReefChart } from 'components/ReefChart';
 import Equipment from 'components/Equipment/Equipment';
 import { Fan } from 'entity/Fan';
 
+interface PropsHistoric {
+  created_at: string;
+  value: number;
+}
+
 const Dashboard = () => {
   const indicators: IndicatorProps[] = [
     {
@@ -55,9 +60,7 @@ const Dashboard = () => {
 
   const [aquariums, setAquariums] = useState<Aquarium[]>();
   const [tankSelected, setTankSelected] = useState<Aquarium>();
-  const [historic, setHistoric] = useState<
-    { created_at: string; value: number }[]
-  >([]);
+  const [historic, setHistoric] = useState<PropsHistoric[]>([]);
 
   const [temperature, setTemperature] = useState(indicators[0]);
   const [fans, setFans] = useState<Fan[]>();
@@ -96,10 +99,9 @@ const Dashboard = () => {
   };
 
   const loadHistoric = async (indicatorId: number) => {
-    const response = await reefApi.get<{ created_at: string; value: number }[]>(
+    const response = await reefApi.get<PropsHistoric[]>(
       `/indicator/${indicatorId}/historic`
     );
-
     setHistoric(response);
   };
 
