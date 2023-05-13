@@ -31,18 +31,18 @@ export class IndicatorHistoricRepositoryDatabase implements IndicatorHistoricRep
       GROUP BY h
       ORDER BY h ASC`, [params.indicatorID])
 
-    const formated: IndicatorListHistoric.Model = [{ 
+    const formated: IndicatorListHistoric.Model = [{
       hour: '',
       today: 0,
-      yesterday: 0,
+      yesterday: 0
     }]
-    
+
     formated.splice(0, 1)
     historic.forEach((element: any) => {
       formated.push({
         hour: element.hour,
         today: Number(element.today),
-        yesterday: Number(element.yesterday),
+        yesterday: Number(element.yesterday)
       })
     })
     return formated

@@ -1,4 +1,4 @@
-import { IndicatorHistoricModel } from "domain/models"
+import { IndicatorHistoricModel } from 'domain/models'
 
 export interface IndicatorHistoricRepository {
   save: (indicatorID: number, newValue: number) => Promise<number>
