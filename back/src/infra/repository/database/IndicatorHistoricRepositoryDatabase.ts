@@ -24,10 +24,8 @@ export class IndicatorHistoricRepositoryDatabase implements IndicatorHistoricRep
         COALESCE(ROUND(AVG(IH.value) FILTER (WHERE EXTRACT('hour' FROM IH.created_at) = datas.h AND IH.created_at::DATE = (NOW()-'1 DAY'::INTERVAL)::DATE), 2), 0) AS yesterday,
         COALESCE(ROUND(AVG(IH.value) FILTER (WHERE EXTRACT('hour' FROM IH.created_at) = datas.h AND IH.created_at::DATE = NOW()::DATE), 2), 0) AS today
       FROM datas, ${this.databaseName} IH
-      WHERE indicator_id = $1
-        AND DATE_TRUNC('DAY', IH.created_at::DATE) 
-        BETWEEN (NOW() - '2 DAYS'::INTERVAL)::DATE
-        AND NOW()::DATE
+      WHERE IH.created_at::DATE BETWEEN (NOW() - '2 DAYS'::INTERVAL)::DATE AND NOW()::DATE
+        AND indicator_id = $1
       GROUP BY h
       ORDER BY h ASC`, [params.indicatorID])
 
