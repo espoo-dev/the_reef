@@ -2,7 +2,7 @@ import { IndicatorHistoricModel } from 'domain/models'
 
 export interface IndicatorHistoricRepository {
   save: (indicatorID: number, newValue: number) => Promise<number>
-  list: (params: IndicatorListHistoric.Params) => Promise<IndicatorListHistoric.Model>
+  list: (params: IndicatorListHistoric.Params) => Promise<IndicatorListHistoric.Model[]>
   clean: () => Promise<void>
 }
 

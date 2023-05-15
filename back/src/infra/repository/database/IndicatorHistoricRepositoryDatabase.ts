@@ -14,7 +14,7 @@ export class IndicatorHistoricRepositoryDatabase implements IndicatorHistoricRep
     return historicId[0].id
   }
 
-  async list (params: IndicatorListHistoric.Params): Promise<IndicatorListHistoric.Model> {
+  async list (params: IndicatorListHistoric.Params): Promise<IndicatorListHistoric.Model[]> {
     const historic = await this.connection.query(`
       WITH datas AS (
         SELECT EXTRACT('hour' FROM hh) AS h
@@ -29,7 +29,7 @@ export class IndicatorHistoricRepositoryDatabase implements IndicatorHistoricRep
       GROUP BY h
       ORDER BY h ASC`, [params.indicatorID])
 
-    let formated!: IndicatorListHistoric.Model
+    const formated: IndicatorListHistoric.Model[] = []
     historic.forEach((element: any) => {
       formated.push({ hour: element.hour, today: Number(element.today), yesterday: Number(element.yesterday) })
     })
