@@ -1,15 +1,19 @@
-import { IndicatorHistoricModel } from 'domain/models'
-
 export interface IndicatorHistoricRepository {
-  save: (indicatorID: number, newValue: number) => Promise<number>
-  list: (params: IndicatorListHistoric.Params) => Promise<IndicatorListHistoric.Model[]>
+  save: (indicatorId: number, newValue: number) => Promise<number>
+  list: (indicatorId: number) => Promise<IndicatorHistoric.ListModel>
+  historic: (indicatorId: number) => Promise<IndicatorHistoric.HistoricModel>
   clean: () => Promise<void>
 }
 
-export namespace IndicatorListHistoric {
-  export type Params = {
-    indicatorID: number
-  }
+export namespace IndicatorHistoric {
+  export type HistoricModel = Array<{
+    hour: string
+    yesterday: number
+    today: number
+  }>
 
-  export type Model = IndicatorHistoricModel
+  export type ListModel = Array<{
+    created_at: string,
+    value: number
+  }>
 }

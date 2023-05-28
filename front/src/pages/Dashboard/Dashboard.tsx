@@ -15,11 +15,20 @@ import {
 } from './Dashboard.styles';
 import { Api } from 'infra/http/api';
 import { Aquarium } from 'entity/Aquarium';
-import { ReefChart } from 'components/ReefChart';
+import { ReefChartList, ReefChartHistoric } from 'components';
 import Equipment from 'components/Equipment/Equipment';
 import { Fan } from 'entity/Fan';
 
-type PropsHistoric = [{ hour: string; yesterday: number; today: number }];
+type PropsHistoricChart = Array<{
+  hour: string;
+  yesterday: number;
+  today: number;
+}>;
+
+type PropsHistoricList = Array<{
+  created_at: string;
+  value: number;
+}>;
 
 const Dashboard = () => {
   const indicators: IndicatorProps[] = [
@@ -56,8 +65,9 @@ const Dashboard = () => {
   ];
 
   const [aquariums, setAquariums] = useState<Aquarium[]>();
-  const [tankSelected, setTankSelected] = useState<Aquarium>();
-  const [historic, setHistoric] = useState<PropsHistoric>();
+  const [_, setTankSelected] = useState<Aquarium>();
+  const [indicatorHist, setIndicatorHist] = useState<PropsHistoricChart>([]);
+  const [indicatorList, setIndicatorList] = useState<PropsHistoricList>([]);
 
   const [temperature, setTemperature] = useState(indicators[0]);
   const [fans, setFans] = useState<Fan[]>();
@@ -92,14 +102,22 @@ const Dashboard = () => {
       loading: false,
     });
 
-    loadHistoric(id);
+    loadHistoricChart(id);
+    loadListChart(id);
   };
 
-  const loadHistoric = async (indicatorId: number) => {
-    const response = await reefApi.get<PropsHistoric>(
-      `/indicator/${indicatorId}/historic`
+  const loadListChart = async (indicatorID: number) => {
+    const response = await reefApi.get<PropsHistoricList>(
+      `/indicator/${indicatorID}/list`
     );
-    setHistoric(response);
+    setIndicatorList(response);
+  };
+
+  const loadHistoricChart = async (indicatorID: number) => {
+    const response = await reefApi.get<PropsHistoricChart>(
+      `/indicator/${indicatorID}/historic`
+    );
+    setIndicatorHist(response);
   };
 
   const loadFans = async () => {
@@ -159,7 +177,8 @@ const Dashboard = () => {
           <Indicator key={temperature.name} config={temperature} />
         </CardsSection>
 
-        <ReefChart data={historic} />
+        <ReefChartHistoric data={indicatorHist} />
+        <ReefChartList values={indicatorList} />
       </Container>
     </div>
   );

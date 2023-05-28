@@ -1,7 +1,7 @@
 import { XAxis, Tooltip, ResponsiveContainer, Area, AreaChart } from 'recharts';
 
-export const ReefChart = (params: {
-  data: [{ hour: string; yesterday: number; today: number }] | undefined;
+export const ReefChartHistoric = (params: {
+  data: Array<{ hour: string; yesterday: number; today: number }>;
 }) => {
   return (
     <ResponsiveContainer
@@ -40,4 +40,4 @@ export const ReefChart = (params: {
   );
 };
 
-export default ReefChart;
+export default ReefChartHistoric;
