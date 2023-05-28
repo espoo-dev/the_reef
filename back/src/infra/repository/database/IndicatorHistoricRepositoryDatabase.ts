@@ -48,7 +48,7 @@ export class IndicatorHistoricRepositoryDatabase implements IndicatorHistoricRep
     })
     return formated
   }
-  
+
   async clean (): Promise<void> {
     await this.connection.query(`DELETE FROM ${this.databaseName}`, [])
   }

@@ -13,7 +13,7 @@ export namespace IndicatorHistoric {
   }>
 
   export type ListModel = Array<{
-    created_at: string,
+    created_at: string
     value: number
   }>
 }
