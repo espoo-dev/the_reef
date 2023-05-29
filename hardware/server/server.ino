@@ -1,16 +1,3 @@
-/*
-    HTTP over TLS (HTTPS) example sketch
-
-    This example demonstrates how to use
-    WiFiClientSecure class to access HTTPS API.
-    We fetch and display the status of
-    esp8266/Arduino project continuous integration
-    build.
-
-    Created by Ivan Grokhotkov, 2015.
-    This example is in public domain.
-*/
-
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
@@ -24,10 +11,26 @@
 
 const char* ssid = STASSID;
 const char* password = STAPSK;
+const int minuteInMilis = 60000;
+const int minutes = 5;
+
+const float maxTemperature = 28 ;
+const float idealTemperature = 27;
+
 String host = "https://myreef.fly.dev";
+
 
 // D4 = GPIO2
 const int oneWireBus = 2;
+
+// FAN CONFIG
+// D7 = GPI13
+const int fanPin = 13;
+
+// D8 = GPI15
+const int fanPinForce = 15;
+
+bool fanOn = false;
 
 // Setup a oneWire instance to communicate with any OneWire devices
 OneWire oneWire(oneWireBus);
@@ -38,6 +41,13 @@ DallasTemperature sensors(&oneWire);
 bool sended = false;
 
 void setup() {
+  // preparing GPIOs
+  pinMode(fanPin, OUTPUT);
+  digitalWrite(fanPin, LOW);
+
+  pinMode(fanPinForce, OUTPUT);
+  digitalWrite(fanPinForce, LOW);
+  
   Serial.begin(115200);
   Serial.println();
   Serial.print("Connecting to ");
@@ -54,37 +64,16 @@ void setup() {
   Serial.println(WiFi.localIP());
   Serial.println(host);
 
-  // Set time via NTP, as required for x.509 validation
-  configTime(3 * 3600, 0, "pool.ntp.org", "time.nist.gov");
-
-  Serial.print("Waiting for NTP time sync: ");
-  time_t now = time(nullptr);
-  while (now < 8 * 3600 * 2) {
-    delay(500);
-    Serial.print(".");
-    now = time(nullptr);
-  }
-  Serial.println("");
-  struct tm timeinfo;
-  gmtime_r(&now, &timeinfo);
-  Serial.print("Current time: ");
-  Serial.print(asctime(&timeinfo));
-
   // Start the DS18B20 sensor
   sensors.begin();
 }
 
 void sendPost(float temperature) {
-//  if (!sended) {
     WiFiClientSecure client;
     client.setInsecure(); //the magic line, use with caution
     HTTPClient https;
     https.begin(client, "https://myreef.fly.dev/indicators/update");
     https.addHeader("Content-Type", "application/json");
-//    http.addHeader("Accept", "application/json");
-//    http.addHeader("Authorization", "Token token=f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8");
-
-//    String requestBody = "{\"newValue\":\"22\", \"indicatorId\":\"1\"}";
 
     String requestBody = "{\"newValue\":\"" + String(temperature) + "\", \"indicatorId\":\"1\"}";
     
@@ -93,22 +82,44 @@ void sendPost(float temperature) {
     Serial.print("HTTP Response code: ");
     Serial.println(httpResponseCode);
     https.end();
-//    sended = true;
-//  }
+}
+
+void checkToggleFan(float temperature) {
+
+  if (fanOn) {
+    Serial.println("FAN ON!");
+  }
+  
+  if (fanOn && temperature <= idealTemperature) {
+    digitalWrite(fanPin, LOW);
+    digitalWrite(fanPinForce, LOW);
+    fanOn = false;
+    Serial.println("Desligou a fan");
+    return;
+  }
+
+  if (temperature > maxTemperature) {
+    digitalWrite(fanPin, HIGH);
+    delay(5000);
+    digitalWrite(fanPinForce, HIGH);
+    fanOn = true;
+    Serial.println("Ligou a fan");
+    return;
+  }
 }
 
 void loop() {
 
  sensors.requestTemperatures(); 
  float temperatureC = sensors.getTempCByIndex(0);
- float temperatureF = sensors.getTempFByIndex(0);
  Serial.print(temperatureC);
  Serial.println("ºC");
 
  if (WiFi.status() == WL_CONNECTED) {
-  sendPost(temperatureC);
+  sendPost(temperatureC); 
  }
 
- delay(120000);
-  
+ checkToggleFan(temperatureC);
+
+ delay(minutes * minuteInMilis);
 }
