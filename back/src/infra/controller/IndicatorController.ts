@@ -28,19 +28,20 @@ export class IndicatorController {
         body.minValue,
         body.maxValue
       )
-      const output = await indicatorRepository.save(newIndicator)
-      return output
+      return await indicatorRepository.save(newIndicator)
     })
 
     http.on('put', '/indicators/update', async (params: any, body: any) => {
       const updateIndicatorValue = new UpdateIndicatorValue(repositoryFactory)
-      const output = await updateIndicatorValue.execute(body)
-      return output
+      return await updateIndicatorValue.execute(body)
     })
 
-    http.on('get', '/indicator/:id/historic', async (req: any) => {
-      const output = await indicatorHistoricRepository.list(req.id)
-      return output
+    http.on('get', '/indicator/:id/list', async (req: { id: number }) => {
+      return await indicatorHistoricRepository.list(req.id)
+    })
+
+    http.on('get', '/indicator/:id/historic', async (req: { id: number }) => {
+      return await indicatorHistoricRepository.historic(req.id)
     })
   }
 }

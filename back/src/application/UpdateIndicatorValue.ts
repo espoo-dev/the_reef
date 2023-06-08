@@ -10,7 +10,7 @@ export class UpdateIndicatorValue {
     this.indicatorHistoricRepository = repositoryFactory.createIndicatorHistoricRepository()
   }
 
-  async execute (input: Input): Promise<Output> {
+  async execute (input: UpdateIndicatorValue.Input): Promise<UpdateIndicatorValue.Output> {
     const indicator = await this.indicatorRepository.get(input.indicatorId)
     indicator.update(input.newValue)
     const indicatorUpdated = await this.indicatorRepository.updateValue(indicator.id, indicator.currentValue)
@@ -25,14 +25,16 @@ export class UpdateIndicatorValue {
   }
 }
 
-type Input = {
-  indicatorId: number
-  newValue: number
-}
+export namespace UpdateIndicatorValue {
+  export type Input = {
+    indicatorId: number
+    newValue: number
+  }
 
-type Output = {
-  indicatorId: number
-  currentValue: number
-  isOk: boolean
-  historic_id: number
+  export type Output = {
+    indicatorId: number
+    currentValue: number
+    isOk: boolean
+    historic_id: number
+  }
 }

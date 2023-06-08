@@ -3,9 +3,7 @@ import {
   Line,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from 'recharts';
 
@@ -20,7 +18,7 @@ const getFormattedDate = (date: Date): string => {
   } ${date.getHours()}:${date.getMinutes()}`;
 };
 
-export const ReefChart = (props: { values: DayValues[] }) => {
+export const ReefChartList = (props: { values: DayValues[] }) => {
   const chartData = props.values.map((point) => {
     return {
       created_at: getFormattedDate(new Date(point.created_at)),
@@ -29,23 +27,22 @@ export const ReefChart = (props: { values: DayValues[] }) => {
   });
 
   return (
-    <div>
+    <div style={{ marginTop: 50 }}>
       <ResponsiveContainer
         width="100%"
         height="100%"
         maxHeight={300}
-        minHeight={200}
+        minHeight={250}
       >
         <LineChart
           data={chartData}
           margin={{
-            top: 5,
+            top: 50,
             right: 30,
-            left: 20,
-            bottom: 5,
+            left: -30,
+            bottom: 0,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="created_at" />
           <YAxis type="number" domain={['auto', 'auto']} />
           <Tooltip
@@ -53,7 +50,6 @@ export const ReefChart = (props: { values: DayValues[] }) => {
               color: '#000',
             }}
           />
-          <Legend />
           <Line
             type="monotone"
             dataKey="value"
@@ -65,5 +61,3 @@ export const ReefChart = (props: { values: DayValues[] }) => {
     </div>
   );
 };
-
-export default ReefChart;
