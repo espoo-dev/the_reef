@@ -10,10 +10,20 @@ describe('API', () => {
       expect(items).toHaveLength(1)
     })
 
+    it.skip('should return 403 when call API /indicator/id/update without token', async () => {
+      const indicators = await axios.get(`${serverUrl}/indicators`)
+      const requestBody = { newValue: 20, indicatorId: indicators.data[0].id }
+      try {
+        await axios.put(`${serverUrl}/indicators/update`, requestBody)
+      } catch (error: any) {
+        expect(error.response.status).toBe(403)
+      }
+    })
+
     it.skip('should call API /indicator/id/update to update current value of indicator', async () => {
       const indicators = await axios.get(`${serverUrl}/indicators`)
       const requestBody = { newValue: 20, indicatorId: indicators.data[0].id }
-      const response = await axios.put(`${serverUrl}/indicators/update`, requestBody)
+      const response = await axios.put(`${serverUrl}/indicators/update`, requestBody, {headers: { 'authorization': process.env.SECRET_KEY || ''}})
       const indicator = response.data
       expect(indicator.currentValue).toBe(requestBody.newValue)
     })
