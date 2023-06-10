@@ -7,10 +7,12 @@
 #ifndef STASSID
 #define STASSID "****"
 #define STAPSK  "****"
+#define SECRET "****"
 #endif
 
 const char* ssid = STASSID;
 const char* password = STAPSK;
+const char* secretKey = SECRET;
 const int minuteInMilis = 60000;
 const int minutes = 5;
 
@@ -74,6 +76,7 @@ void sendPost(float temperature) {
     HTTPClient https;
     https.begin(client, "https://myreef.fly.dev/indicators/update");
     https.addHeader("Content-Type", "application/json");
+    https.addHeader("authorization", secretKey);
 
     String requestBody = "{\"newValue\":\"" + String(temperature) + "\", \"indicatorId\":\"1\"}";
     
