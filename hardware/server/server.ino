@@ -87,6 +87,27 @@ void sendPost(float temperature) {
     https.end();
 }
 
+void changeFanStatus() {
+    WiFiClientSecure client;
+    client.setInsecure(); //the magic line, use with caution
+    HTTPClient https;
+    https.begin(client, "https://myreef.fly.dev/fans/update_on");
+    https.addHeader("Content-Type", "application/json");
+    https.addHeader("authorization", secretKey);
+
+    char requestBody[50];  // Ajuste o tamanho do array conforme necessário
+
+    strcpy(requestBody, "{\"on\":\"");
+    strcat(requestBody, fanOn ? "true" : "false");  // Converter booleano em string
+    strcat(requestBody, "\", \"fanId\":\"1\"}");
+    
+    int httpResponseCode = https.PUT(requestBody);
+    Serial.print(requestBody);
+    Serial.print("HTTP Response code: ");
+    Serial.println(httpResponseCode);
+    https.end();
+}
+
 void checkToggleFan(float temperature) {
 
   if (fanOn) {
@@ -97,6 +118,7 @@ void checkToggleFan(float temperature) {
     digitalWrite(fanPin, LOW);
     digitalWrite(fanPinForce, LOW);
     fanOn = false;
+    changeFanStatus();
     Serial.println("Desligou a fan");
     return;
   }
@@ -106,6 +128,7 @@ void checkToggleFan(float temperature) {
     delay(5000);
     digitalWrite(fanPinForce, HIGH);
     fanOn = true;
+    changeFanStatus();
     Serial.println("Ligou a fan");
     return;
   }
