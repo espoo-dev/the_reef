@@ -2,9 +2,9 @@ import {
   LineChart,
   Line,
   XAxis,
-  YAxis,
   Tooltip,
   ResponsiveContainer,
+  CartesianGrid,
 } from 'recharts';
 
 interface DayValues {
@@ -27,37 +27,35 @@ export const ReefChartList = (props: { values: DayValues[] }) => {
   });
 
   return (
-    <div style={{ marginTop: 50 }}>
-      <ResponsiveContainer
-        width="100%"
-        height="100%"
-        maxHeight={300}
-        minHeight={250}
+    <ResponsiveContainer
+      width="100%"
+      height="100%"
+      maxHeight={250}
+      minHeight={150}
+    >
+      <LineChart
+        data={chartData}
+        margin={{
+          top: 10,
+          right: 10,
+          left: 10,
+          bottom: 10,
+        }}
       >
-        <LineChart
-          data={chartData}
-          margin={{
-            top: 50,
-            right: 30,
-            left: -30,
-            bottom: 0,
+        <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+        <XAxis dataKey="created_at" interval={10} />
+        <Tooltip
+          contentStyle={{
+            color: '#000',
           }}
-        >
-          <XAxis dataKey="created_at" />
-          <YAxis type="number" domain={['auto', 'auto']} />
-          <Tooltip
-            contentStyle={{
-              color: '#000',
-            }}
-          />
-          <Line
-            type="monotone"
-            dataKey="value"
-            stroke="red"
-            activeDot={{ r: 8 }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
+        />
+        <Line
+          type="monotone"
+          dataKey="value"
+          stroke="red"
+          activeDot={{ r: 8 }}
+        />
+      </LineChart>
+    </ResponsiveContainer>
   );
 };

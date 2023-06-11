@@ -1,4 +1,11 @@
-import { XAxis, Tooltip, ResponsiveContainer, Area, AreaChart } from 'recharts';
+import {
+  XAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Bar,
+  BarChart,
+  CartesianGrid,
+} from 'recharts';
 
 export const ReefChartHistoric = (params: {
   data: Array<{ hour: string; yesterday: number; today: number }>;
@@ -7,35 +14,39 @@ export const ReefChartHistoric = (params: {
     <ResponsiveContainer
       width="100%"
       height="100%"
-      maxHeight={450}
-      minHeight={350}
+      maxHeight={250}
+      minHeight={150}
     >
-      <AreaChart
+      <BarChart
         data={params.data}
         margin={{
-          top: 50,
-          right: 30,
-          left: 30,
-          bottom: 0,
+          top: 10,
+          right: 10,
+          left: 10,
+          bottom: 10,
         }}
       >
-        <XAxis dataKey="hour" />
-        <Tooltip />
-        <Area
+        <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+        <XAxis dataKey="hour" interval={2} />
+        <Tooltip
+          contentStyle={{
+            color: '#000',
+          }}
+        />
+        <Bar
           type="monotone"
           dataKey="yesterday"
-          stroke="#c1c2de"
-          fill="#c1c2de"
-          activeDot={{ r: 8 }}
+          stroke="#fab6a0"
+          fill="#fab6a0"
         />
-        <Area
+        <Bar
+          animationBegin={3}
           type="monotone"
           dataKey="today"
-          stroke="#0510eb"
-          fill="#0510eb"
-          activeDot={{ r: 8 }}
+          stroke="red"
+          fill="red"
         />
-      </AreaChart>
+      </BarChart>
     </ResponsiveContainer>
   );
 };

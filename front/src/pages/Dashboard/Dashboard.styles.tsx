@@ -6,10 +6,11 @@ export const HeaderSection = styled.div`
   max-width: ${theme.maxWidth};
   margin: auto;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   color: ${theme.pallete.secondary.main};
   padding: 30px;
+  background: ${theme.pallete.common.background};
+  border-radius: 0 0 15px 15px;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     flex-direction: column;
@@ -17,18 +18,9 @@ export const HeaderSection = styled.div`
   }
 `;
 
-export const ImgMonitor = styled.img`
-  width: 300px;
-
-  @media (min-width: ${theme.breakpoints.tablet}) {
-    height: 100%;
-  }
-`;
-
 export const Actions = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin: 10px 0px;
   align-items: center;
   gap: 6px;
 
@@ -42,10 +34,12 @@ export const Actions = styled.div`
 `;
 
 export const EquipmentSection = styled.div`
+  border-top: 1px solid ${theme.pallete.common.gray};
+  padding-top: 25px;
+
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 3fr));
-  grid-gap: 20px;
-  margin-bottom: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 2fr));
+  grid-gap: 10px;
 `;
 
 export const CardsSection = styled.div`

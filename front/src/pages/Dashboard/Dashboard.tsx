@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
-import Header from '../../components/Header/Header';
-import LogoImg from '../../assets/logo.png';
 import { IndicatorProps } from '../../components/Indicator';
 import { Indicator } from '../../components/Indicator';
 import { FaTemperatureLow, FaStrikethrough } from 'react-icons/fa';
 import { AiOutlineReload } from 'react-icons/ai';
 import {
   HeaderSection,
-  ImgMonitor,
   Container,
   CardsSection,
   Actions,
@@ -133,52 +130,65 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div>
-        <Header />
-        <div style={{ background: '#edfbfe' }}>
-          <HeaderSection>
-            <div>
-              <h2>Iury Reef</h2>
-              <h3>
-                {temperature.danger
-                  ? 'A temperatura não está boa!'
-                  : 'Está tudo bem por aqui.'}{' '}
-              </h3>
-            </div>
-            <ImgMonitor src={LogoImg} alt="Shark Good" />
-          </HeaderSection>
+      <HeaderSection>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div>
+            <h1>🪸 MyReef</h1>
+            <p>
+              {temperature.danger
+                ? 'A temperatura não está boa!'
+                : 'Está tudo bem por aqui.'}{' '}
+            </p>
+          </div>
+
+          <Actions>
+            <AiOutlineReload
+              size={30}
+              onClick={reloadIndicators}
+              cursor="pointer"
+            />
+          </Actions>
         </div>
-      </div>
+        <div>
+          <EquipmentSection>
+            {fans &&
+              fans.length &&
+              fans.map((fan, index) => (
+                <Equipment
+                  name={fan.name}
+                  key={`equipament-${index}`}
+                  status={fan.on}
+                />
+              ))}
+          </EquipmentSection>
+        </div>
+      </HeaderSection>
 
       <Container>
         {/* <Select options={aquariums} setOptionSelected={setTankSelected} /> */}
-
-        <Actions>
-          <AiOutlineReload
-            size={30}
-            onClick={reloadIndicators}
-            cursor="pointer"
-          />
-        </Actions>
-
-        <EquipmentSection>
-          {fans &&
-            fans.length &&
-            fans.map((fan, index) => (
-              <Equipment
-                name={fan.name}
-                key={`equipament-${index}`}
-                status={fan.on}
-              />
-            ))}
-        </EquipmentSection>
 
         <CardsSection>
           <Indicator key={temperature.name} config={temperature} />
         </CardsSection>
 
-        <ReefChartHistoric data={indicatorHist} />
-        <ReefChartList values={indicatorList} />
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 10fr))',
+            marginTop: '50px',
+            gap: '10px',
+          }}
+        >
+          <ReefChartList values={indicatorList} />
+          <ReefChartHistoric data={indicatorHist} />
+        </div>
       </Container>
     </div>
   );

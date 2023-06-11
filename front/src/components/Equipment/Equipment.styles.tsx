@@ -5,9 +5,9 @@ import { defaultTheme as theme } from '../../main/theme';
 export const EquipmentContainer = styled.div`
   border: 1px solid ${theme.pallete.common.gray};
   color: ${theme.pallete.secondary.main};
-  border-radius: 6px;
+  background: ${theme.pallete.common.white};
+  border-radius: ${theme.borderRadius};
   padding: 14px;
-  max-width: 200px;
 
   display: flex;
   justify-content: space-between;
