@@ -36,4 +36,5 @@ Client:
 https://myreef.vercel.app/
 
 API:
-[https://myreef2.herokuapp.com/](https://myreef.fly.dev/)https://myreef.fly.dev/
+https://myreef.fly.dev/
+
