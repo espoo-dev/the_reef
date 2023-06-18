@@ -140,7 +140,7 @@ const Dashboard = () => {
           }}
         >
           <div>
-            <h1>🪸 MyReef</h1>
+            <h1>MyReef</h1>
             <p>
               {temperature.danger
                 ? 'A temperatura não está boa!'
