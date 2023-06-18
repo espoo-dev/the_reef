@@ -29,6 +29,18 @@ describe('API', () => {
       expect(indicator.currentValue).toBe(requestBody.newValue)
     })
 
+    it('should response 403 when authorization is wrong', async () => {
+      const indicators = await axios.get(`${serverUrl}/indicators`)
+      const requestBody = { newValue: 20, indicatorId: indicators.data[0].id }
+      try {
+        await axios.put(`${serverUrl}/indicators/update`, requestBody, {
+          headers: { 'authorization': 'wrong-authorization'}
+        })
+      } catch (error: any) {
+        expect(error.response.status).toBe(403)
+      }
+    })
+
     it.skip('should call API POST /indicators to add a new Indicator', async () => {
       const newIndicator = {
         aquariumId: 1,

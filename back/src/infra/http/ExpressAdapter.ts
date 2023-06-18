@@ -19,7 +19,7 @@ export class ExpressAdapter implements Http {
         }
       })
 
-      if (!req.headers.authorization && req.method === 'PUT') {
+      if (req.headers.authorization !== process.env.SECRET_KEY && req.method === 'PUT') {
         return res.status(403).json({ error: 'No credentials sent!' })
       }
       next()
