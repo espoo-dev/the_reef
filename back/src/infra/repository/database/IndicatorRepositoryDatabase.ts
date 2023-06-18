@@ -43,7 +43,20 @@ export class IndicatorRepositoryDatabase implements IndicatorRepository {
   }
 
   async list (): Promise<Indicator[]> {
-    const indicatorsData = await this.connection.query('select * from indicators', [])
+    const indicatorsData = await this.connection.query(`
+      SELECT 
+        id,
+        aquarium_id,
+        "name",
+        unit, 
+        description,
+        current_value,
+        accepted_value,
+        min_value,
+        max_value,
+        TO_CHAR(created_at, 'DD/MM/YY HH24:MI:SS') AS created_at 
+      FROM indicators`, [])
+
     const indicators: Indicator[] = []
     for (const indicatorData of indicatorsData) {
       indicators.push(new Indicator(
@@ -55,7 +68,8 @@ export class IndicatorRepositoryDatabase implements IndicatorRepository {
         Number(indicatorData.current_value),
         Number(indicatorData.accepted_value),
         Number(indicatorData.min_value),
-        Number(indicatorData.max_value)
+        Number(indicatorData.max_value),
+        indicatorData.created_at,
       ))
     }
     return indicators

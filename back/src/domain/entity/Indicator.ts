@@ -10,7 +10,8 @@ export class Indicator {
     currentValue: number,
     readonly acceptedValue: number,
     readonly minValue = acceptedValue,
-    readonly maxValue = acceptedValue
+    readonly maxValue = acceptedValue,
+    readonly created_at?: string
   ) {
     this.currentValue = currentValue
   }
