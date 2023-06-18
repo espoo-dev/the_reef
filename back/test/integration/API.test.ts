@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { factoryHeader } from './mocks/mountHeaders';
 
 const serverUrl = `${process.env.SERVER_URL}:${process.env.PORT}`
 
@@ -23,7 +24,7 @@ describe('API', () => {
     it.skip('should call API /indicator/id/update to update current value of indicator', async () => {
       const indicators = await axios.get(`${serverUrl}/indicators`)
       const requestBody = { newValue: 20, indicatorId: indicators.data[0].id }
-      const response = await axios.put(`${serverUrl}/indicators/update`, requestBody, {headers: { 'authorization': process.env.SECRET_KEY || ''}})
+      const response = await axios.put(`${serverUrl}/indicators/update`, requestBody, factoryHeader())
       const indicator = response.data
       expect(indicator.currentValue).toBe(requestBody.newValue)
     })
@@ -76,6 +77,14 @@ describe('API', () => {
       const requestBody = { fanId: 68, on: false }
       const response = await axios.put(`${serverUrl}/fans/update_on`, requestBody)
       expect(response.data.on).toBe(requestBody.on)
+    })
+
+    it.skip('should call update_on fan to off with string value', async () => {
+      const responseFans = await axios.get(`${serverUrl}/fans`)
+      const fanToUpdate = responseFans.data[0].id;
+      const requestBody = { fanId: fanToUpdate, on: "false" }
+      const response = await axios.put(`${serverUrl}/fans/update_on`, requestBody, factoryHeader())
+      expect(response.data.on).toBe(false)
     })
   });
 })

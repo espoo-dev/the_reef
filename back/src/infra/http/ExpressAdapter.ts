@@ -12,6 +12,13 @@ export class ExpressAdapter implements Http {
       res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
       res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
 
+      const bodyParams = Object.keys(req.body);
+      bodyParams.forEach((key) => {
+        if (req.body[key] === 'false') {
+          req.body[key] = false;
+        }
+      });
+
       if (!req.headers.authorization && req.method === 'PUT') {
         return res.status(403).json({ error: 'No credentials sent!' })
       }
