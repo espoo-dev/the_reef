@@ -69,7 +69,7 @@ export class IndicatorRepositoryDatabase implements IndicatorRepository {
         Number(indicatorData.accepted_value),
         Number(indicatorData.min_value),
         Number(indicatorData.max_value),
-        indicatorData.created_at,
+        indicatorData.created_at
       ))
     }
     return indicators
