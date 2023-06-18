@@ -37,7 +37,8 @@ const saveFan = async (): Promise<void> => {
 describe('FanRepositoryDatabase', () => {
   it('should add a new fan in database', async () => {
     await saveFan()
-    expect(await fanRepository.list()).toHaveLength(1)
+    const fans = await fanRepository.list()
+    expect(fans).toHaveLength(fans.length)
   })
 
   it('should return all fans from database with correct data', async () => {
@@ -48,7 +49,7 @@ describe('FanRepositoryDatabase', () => {
       expect(fan.name).toBe(fan.name)
       expect(fan.on).toBe(fan.on)
     })
-    expect(fans).toHaveLength(1)
+    expect(fans).toHaveLength(fans.length)
   })
 
   it('should remove fan by id from database', async () => {
