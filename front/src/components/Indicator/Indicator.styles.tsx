@@ -61,7 +61,8 @@ export const Description = styled.div`
   color: ${theme.pallete.secondary.contrastText};
   font-size: 12px;
   margin-top: 12px;
-  text-align: left;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const ValueTitle = styled.div`

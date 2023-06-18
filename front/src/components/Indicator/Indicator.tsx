@@ -10,6 +10,7 @@ import {
 } from './Indicator.styles';
 import { IconType } from 'react-icons/lib';
 import { ReactElement, useEffect, useState } from 'react';
+
 export interface IndicatorProps {
   value: number;
   name: string;
@@ -21,6 +22,7 @@ export interface IndicatorProps {
   danger?: boolean;
   icon?: ReactElement<IconType>;
   loading?: boolean;
+  created_at: string;
 }
 
 interface config {
@@ -28,7 +30,7 @@ interface config {
 }
 
 export const Indicator = (props: config) => {
-  const { name, value, unit, alarm, icon, loading } = props.config;
+  const { name, value, unit, alarm, icon, loading, created_at } = props.config;
   const [loadingState, setLoadingState] = useState<boolean>(false);
 
   useEffect(() => {
@@ -85,6 +87,7 @@ export const Indicator = (props: config) => {
       </NameIndicator>
       <Description>
         <span>{name}</span> {checkAlarm() && <span>{mountDescription()}</span>}
+        <i>{created_at}</i>
       </Description>
     </CardMonitor>
   );
