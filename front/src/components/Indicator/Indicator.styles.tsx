@@ -62,6 +62,9 @@ export const Description = styled.div`
   font-size: 12px;
   margin-top: 12px;
   text-align: left;
+
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const ValueTitle = styled.div`

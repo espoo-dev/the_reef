@@ -42,6 +42,7 @@ const Dashboard = () => {
       },
       icon: <FaTemperatureLow />,
       loading: true,
+      last_update: new Date().toDateString(),
     },
     {
       value: 1023,
@@ -52,6 +53,7 @@ const Dashboard = () => {
         values: [1024, 1026],
       },
       icon: <FaStrikethrough />,
+      last_update: new Date().toDateString(),
     },
     {
       value: 0.06,
@@ -61,6 +63,7 @@ const Dashboard = () => {
         condition: '>',
         values: [0.12],
       },
+      last_update: new Date().toDateString(),
     },
   ];
 
@@ -89,7 +92,8 @@ const Dashboard = () => {
 
   const loadIndicators = async () => {
     const response = await reefApi.get<any[]>('/indicators');
-    const { name, currentValue, minValue, maxValue, unit, id } = response[0];
+    const { name, currentValue, minValue, maxValue, unit, id, last_update } =
+      response[0];
     setTemperature({
       name,
       unit,
@@ -100,6 +104,7 @@ const Dashboard = () => {
       },
       icon: <FaTemperatureLow />,
       loading: false,
+      last_update: last_update,
     });
 
     loadHistoricChart(id);
@@ -177,7 +182,6 @@ const Dashboard = () => {
           <Indicator key={temperature.name} config={temperature} />
         </CardsSection>
 
-        <ReefChartHistoric data={indicatorHist} />
         <ReefChartList values={indicatorList} />
       </Container>
     </div>

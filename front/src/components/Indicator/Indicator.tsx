@@ -10,6 +10,7 @@ import {
 } from './Indicator.styles';
 import { IconType } from 'react-icons/lib';
 import { ReactElement, useEffect, useState } from 'react';
+
 export interface IndicatorProps {
   value: number;
   name: string;
@@ -21,6 +22,7 @@ export interface IndicatorProps {
   danger?: boolean;
   icon?: ReactElement<IconType>;
   loading?: boolean;
+  last_update: string;
 }
 
 interface config {
@@ -28,7 +30,7 @@ interface config {
 }
 
 export const Indicator = (props: config) => {
-  const { name, value, unit, alarm, icon, loading } = props.config;
+  const { name, value, unit, alarm, icon, loading, last_update } = props.config;
   const [loadingState, setLoadingState] = useState<boolean>(false);
 
   useEffect(() => {
@@ -68,6 +70,18 @@ export const Indicator = (props: config) => {
     }
   };
 
+  const formatDate = (date: string) => {
+    const dataObj = new Date(date);
+
+    const day = String(dataObj.getDate()).padStart(2, '0');
+    const month = String(dataObj.getMonth() + 1).padStart(2, '0');
+    const year = String(dataObj.getFullYear()).slice(2);
+    const hours = String(dataObj.getHours()).padStart(2, '0');
+    const minutes = String(dataObj.getMinutes()).padStart(2, '0');
+
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
+  };
+
   return (
     <CardMonitor danger={checkAlarm()} key={name}>
       <ContainerCard>
@@ -84,7 +98,11 @@ export const Indicator = (props: config) => {
         <span>{unit}</span>
       </NameIndicator>
       <Description>
-        <span>{name}</span> {checkAlarm() && <span>{mountDescription()}</span>}
+        <div>
+          <span>{name}</span>{' '}
+          {checkAlarm() && <span>{mountDescription()}</span>}
+        </div>
+        <span>{formatDate(last_update)}</span>
       </Description>
     </CardMonitor>
   );

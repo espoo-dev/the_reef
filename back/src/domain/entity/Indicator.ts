@@ -1,5 +1,6 @@
 export class Indicator {
   currentValue: number
+  last_update!: string;
 
   constructor (
     readonly id: number,

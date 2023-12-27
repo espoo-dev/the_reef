@@ -19,8 +19,9 @@ export class IndicatorRepositoryDatabase implements IndicatorRepository {
       current_value,
       accepted_value,
       min_value,
-      max_value
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`, [
+      max_value,
+      last_update
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, NOW()) RETURNING *`, [
       indicator.name,
       indicator.aquariumId,
       indicator.unit,
@@ -46,7 +47,7 @@ export class IndicatorRepositoryDatabase implements IndicatorRepository {
     const indicatorsData = await this.connection.query('select * from indicators', [])
     const indicators: Indicator[] = []
     for (const indicatorData of indicatorsData) {
-      indicators.push(new Indicator(
+      const indicator = new Indicator(
         indicatorData.id,
         indicatorData.aquarium_id,
         indicatorData.name,
@@ -56,7 +57,10 @@ export class IndicatorRepositoryDatabase implements IndicatorRepository {
         Number(indicatorData.accepted_value),
         Number(indicatorData.min_value),
         Number(indicatorData.max_value)
-      ))
+      )
+
+      indicator.last_update = indicatorData.last_update
+      indicators.push(indicator)
     }
     return indicators
   }
@@ -72,7 +76,7 @@ export class IndicatorRepositoryDatabase implements IndicatorRepository {
   }
 
   async updateValue (idIndicator: number, value: number): Promise<Indicator> {
-    const [indicatorUpdated] = await this.connection.query('UPDATE indicators SET current_value = $1 WHERE id = $2 returning *', [value, idIndicator])
+    const [indicatorUpdated] = await this.connection.query('UPDATE indicators SET current_value = $1, last_update = NOW() WHERE id = $2 returning *', [value, idIndicator])
     const indicator = new Indicator(indicatorUpdated.id, indicatorUpdated.aquarium_id, indicatorUpdated.name, indicatorUpdated.unit, indicatorUpdated.description, Number(indicatorUpdated.current_value), Number(indicatorUpdated.accepted_value), Number(indicatorUpdated.min_value), Number(indicatorUpdated.max_value))
     return indicator
   }

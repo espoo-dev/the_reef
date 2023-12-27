@@ -17,7 +17,8 @@ const temperature = {
   currentValue: 27,
   acceptedValue: 26,
   minValue: 25,
-  maxValue: 27
+  maxValue: 27,
+  last_update: '2023-12-17'
 }
 
 beforeEach(async () => {
@@ -60,6 +61,7 @@ describe('IndicatorRepositoryDatabase', () => {
       expect(indicator.acceptedValue).toBe(temperature.acceptedValue)
       expect(indicator.minValue).toBe(temperature.minValue)
       expect(indicator.maxValue).toBe(temperature.maxValue)
+      expect(indicator.last_update).toBeDefined()
     })
     expect(indicators).toHaveLength(1)
   })
