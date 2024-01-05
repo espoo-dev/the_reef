@@ -13,7 +13,8 @@ CREATE TABLE indicators (
   accepted_value numeric NOT NULL,
   min_value numeric NOT NULL,
   max_value numeric NOT NULL,
-  created_at timestamp NOT NULL DEFAULT NOW()
+  created_at timestamp NOT NULL DEFAULT NOW(),
+  last_update timestamp NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE fans (
