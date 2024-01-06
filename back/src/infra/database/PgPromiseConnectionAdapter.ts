@@ -5,7 +5,6 @@ export class PgPromiseConnectionAdapter implements Connection {
   pgp: any;
 
   constructor () {
-    console.log('process.env.DATABASE_URL -> ', process.env.DATABASE_URL);
     this.pgp = pgp()(process.env.DATABASE_URL ?? 'postgres://postgres:123456@localhost:5432/myreef')
   }
 
