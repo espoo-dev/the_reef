@@ -2,7 +2,7 @@ import AxiosAdapter from './AxiosAdapter';
 import Http from './http';
 
 export class Api implements Http {
-  private host = 'https://myreef.fly.dev';
+  private host = 'https://myreef.onrender.com';
   private adapter = new AxiosAdapter();
 
   async get<T>(url: string): Promise<T> {
