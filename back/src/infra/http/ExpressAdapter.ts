@@ -1,10 +1,13 @@
 import express from 'express'
 import { Http } from './Http'
+import { IAuth } from './IAuth'
 
 export class ExpressAdapter implements Http {
   private readonly app: any;
+  private readonly authService: IAuth
 
-  constructor () {
+  constructor (authService: IAuth) {
+    this.authService = authService
     this.app = express()
     this.app.use(express.json())
     this.app.use(function (req: any, res: any, next: any) {
@@ -34,6 +37,20 @@ export class ExpressAdapter implements Http {
     this.app[method](this.parseUrl(url), async function (req: any, res: any) {
       const output = await callback(req.params, req.body)
       res.json(output)
+    })
+  }
+
+  secure (method: string, url: string, callback: Function): void {
+    const auth = this.authService
+    this.app[method](this.parseUrl(url), async function (req: any, res: any) {
+      try {
+        if (auth.can(req.headers.authorization?.split(' ')[1])) {
+          const output = await callback(req.params, req.body)
+          res.json(output)
+        }
+      } catch (error) {
+        res.status(401).json({ message: 'Invalid token' })
+      }
     })
   }
 
