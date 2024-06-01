@@ -4,7 +4,7 @@ import DatabaseRepositoryFactory from './infra/factory/DatabaseRepositoryFactory
 import { ExpressAdapter } from './infra/http'
 import { PgPromiseConnectionAdapter } from './infra/database'
 import { AquariumRepositoryDatabase } from './infra/repository/database'
-import { AquariumController, FanController, IndicatorController } from './infra/controller'
+import { AquariumController, BuoyController, FanController, IndicatorController } from './infra/controller'
 
 const http = new ExpressAdapter()
 const connection = new PgPromiseConnectionAdapter()
@@ -15,6 +15,7 @@ const repositoryFactory = new DatabaseRepositoryFactory(connection)
 new AquariumController(http, aquariumRepository)
 new IndicatorController(http, repositoryFactory)
 new FanController(http, repositoryFactory)
+new BuoyController(http, repositoryFactory)
 
 http.on('get', '/', () => {
   return {
