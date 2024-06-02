@@ -95,60 +95,6 @@ RSpec.describe Oauth::Actors::FindOrCreateUser, type: :actor do
       end
     end
 
-    context "when oauth_provider is 'strava' and user exists" do
-      it "is successful" do
-        auth = OmniAuth::AuthHash.new(
-          provider: "strava",
-          uid: "929ef6ef-b11f-38c9-111b-accd67a258b2"
-        )
-        result = described_class.result(auth: auth)
-
-        expect(result.success?).to be true
-      end
-
-      it "doesn't create a new user" do
-        auth = OmniAuth::AuthHash.new(
-          provider: "strava",
-          uid: "929ef6ef-b11f-38c9-111b-accd67a258b2"
-        )
-        email = "#{auth.uid}@strava_unknown_email.com"
-        create(:user, email: email)
-
-        expect { described_class.result(auth: auth) }.not_to change(User, :count)
-      end
-    end
-
-    context "when oauth_provider is 'strava' and user doesn't exist" do
-      it "is successful" do
-        auth = OmniAuth::AuthHash.new(
-          provider: "strava",
-          uid: "929ef6ef-b11f-38c9-111b-accd67a258b2"
-        )
-        result = described_class.result(auth: auth)
-
-        expect(result.success?).to be true
-      end
-
-      it "creates a new user" do
-        auth = OmniAuth::AuthHash.new(
-          provider: "strava",
-          uid: "929ef6ef-b11f-38c9-111b-accd67a258b2"
-        )
-
-        expect { described_class.result(auth: auth) }.to change(User, :count).by(1)
-      end
-
-      it "creates a new user with auth info" do
-        auth = OmniAuth::AuthHash.new(
-          provider: "strava",
-          uid: "929ef6ef-b11f-38c9-111b-accd67a258b2"
-        )
-        result = described_class.result(auth: auth)
-
-        expect(result.user.email).to include(auth.uid)
-      end
-    end
-
     context "when auth attributes is invalid" do
       it "is failure" do
         auth = OmniAuth::AuthHash.new(

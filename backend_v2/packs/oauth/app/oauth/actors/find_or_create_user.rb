@@ -5,7 +5,6 @@ module Oauth
     class FindOrCreateUser < Actor
       ALLOWED_PROVIDERS_HASH = {
         github: "github",
-        strava: "strava"
       }.freeze
 
       input :auth, type: OmniAuth::AuthHash
@@ -26,16 +25,9 @@ module Oauth
         case oauth_provider
         when ALLOWED_PROVIDERS_HASH[:github]
           find_or_create_user(auth, ALLOWED_PROVIDERS_HASH[:github], auth.info.email)
-        when ALLOWED_PROVIDERS_HASH[:strava]
-          find_or_create_user(auth, ALLOWED_PROVIDERS_HASH[:strava], strava_generated_email(auth))
         else
           fail!(error: :invalid_oauth_provider)
         end
-      end
-
-      # :reek:UtilityFunction
-      def strava_generated_email(oauth_provider)
-        "#{oauth_provider.uid}@strava_unknown_email.com"
       end
 
       def find_or_create_user(oauth_provider_data, oauth_provider, email)

@@ -7,10 +7,6 @@ module Oauth
         oauth_sign_in
       end
 
-      def strava
-        oauth_sign_in
-      end
-
       def oauth_sign_in
         result = Oauth::Actors::FindOrCreateUser.result(auth: omniauth_env)
 

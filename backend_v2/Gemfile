@@ -65,9 +65,6 @@ gem "rswag"
 # Simple, efficient background processing for Ruby [https://github.com/sidekiq/sidekiq]
 gem "sidekiq"
 
-# Elasticsearch with chewy [https://github.com/toptal/chewy]
-gem "chewy"
-
 # Active Model Serializer [https://github.com/rails-api/active_model_serializers]
 gem "active_model_serializers"
 
@@ -81,9 +78,6 @@ gem "omniauth-rails_csrf_protection"
 
 # GitHub strategy for OmniAuth
 gem "omniauth-github"
-
-# GitHub strategy for Strava
-gem "omniauth-strava"
 
 # Packages sturcture support
 gem "packwerk"
@@ -132,9 +126,6 @@ group :development do
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
-  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  gem "spring"
-
   # Annotate Rails classes with schema and routes info
   gem "annotate"
 end
@@ -147,5 +138,4 @@ group :test do
   gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 5.0"
   gem "simplecov", require: false
-  gem "spring-commands-rspec"
 end

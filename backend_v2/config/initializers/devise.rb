@@ -264,11 +264,6 @@ Devise.setup do |config|
   config.omniauth :github, ENV.fetch("GITHUB_CLIENT_ID", nil), ENV.fetch("GITHUB_CLIENT_SECRET", nil),
     scope: "user,public_repo"
 
-  config.omniauth :strava, ENV.fetch("STRAVA_CLIENT_ID", nil).to_i, ENV.fetch("STRAVA_CLIENT_SECRET", nil),
-    scope: "profile:read_all", token_params: {
-      client_id: ENV.fetch("STRAVA_CLIENT_ID", nil),
-      client_secret: ENV.fetch("STRAVA_CLIENT_SECRET", nil)
-    }
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
