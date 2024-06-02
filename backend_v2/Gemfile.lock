@@ -227,8 +227,6 @@ GEM
       activesupport (>= 6.1)
     graphiql-rails (1.10.0)
       railties
-    graphql (2.3.4)
-      base64
     hashie (5.0.0)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
@@ -595,7 +593,6 @@ DEPENDENCIES
   dry-validation
   factory_bot_rails
   graphiql-rails
-  graphql
   importmap-rails
   jbuilder
   kaminari

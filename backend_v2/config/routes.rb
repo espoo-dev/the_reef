@@ -9,8 +9,6 @@ Rails.application.routes.draw do
     root to: "users#index"
   end
   extend OauthRoutes
-  mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql" if Rails.env.development?
-  post "/graphql", to: "graphql#execute"
   mount Sidekiq::Web => "/sidekiq"
   mount Rswag::Ui::Engine => "/api-docs"
   mount Rswag::Api::Engine => "/api-docs"
