@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# This script looks for code offenses using linters
+# You can run it with `bin/lint`
+
+set -e
+
+echo "============================================"
+echo "== Looking for code offenses with Rubocop =="
+echo "============================================"
+bundle exec rubocop -A
+
+echo "============================================"
+echo "== Looking for code smells with Reek =="
+echo "============================================"
+bundle exec reek

@@ -1,0 +1,91 @@
+version: "3"
+
+x-app: &app
+  build:
+    context: .
+    args:
+      RUBY_VERSION: "3.3.1"
+      PG_MAJOR: "15"
+      NODE_MAJOR: "18"
+  environment: &env
+    NODE_ENV: ${NODE_ENV:-development}
+  tmpfs:
+    - /tmp
+    - /app/tmp/pids
+
+x-backend: &backend
+  <<: *app
+  stdin_open: true
+  tty: true
+  environment: &backend_environment
+    <<: *env
+  volumes:
+    - .:/app
+    - backend_data:/usr/local/bundle
+  depends_on: &backend_depends_on
+    database:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+
+services:
+  database:
+    hostname: database-app-container
+    image: postgres:15
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - database-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: pg_isready -U postgres -h 127.0.0.1
+      interval: 5s
+  elasticsearch:
+    image: elasticsearch:8.10.2
+    environment:
+      - "discovery.type=single-node"
+      - "cluster.name=elasticsearch-rails"
+      - "cluster.routing.allocation.disk.threshold_enabled=false"
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+      - ELASTIC_PASSWORD=pwd123
+      - xpack.security.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+  web:
+    <<: *backend
+    hostname: web-app-container
+    ports:
+      - "3000:3000"
+    depends_on:
+      elasticsearch:
+        condition: service_started
+      sidekiq:
+        condition: service_started
+  sidekiq:
+    <<: *backend
+    hostname: sidekiq-app-container
+    command: /app/bin/bundle exec sidekiq
+  redis:
+    image: docker.io/redis:latest
+    hostname: redis
+    command: redis-server
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: redis-cli ping
+      interval: 1s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  backend_data:
+  database-data:
+    driver: local
+  elasticsearch_data:

@@ -1,0 +1,7 @@
+# config/chewy.yml
+# separate environment configs
+test:
+  host: "<%= ENV['ELASTICSEARCH_HOST'] %>"
+  prefix: 'test'
+development:
+  host: "<%= ENV['ELASTICSEARCH_HOST'] %>"

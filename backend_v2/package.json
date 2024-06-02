@@ -1,0 +1,15 @@
+{
+  "name": "rails_boilerplate",
+  "version": "1.0.0",
+  "description": "- Docker - Docker-compose",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

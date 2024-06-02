@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# This script runs lint and scan scripts
+# You can run it with `bin/analyze`
+
+set -e
+
+bin/lint
+bin/scan
