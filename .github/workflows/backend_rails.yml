@@ -1,0 +1,85 @@
+name: Backend_v2 CI
+on: [pull_request]
+
+jobs:
+  lint:
+    name: Linters
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend_v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          working-directory: backend_v2
+
+      - name: Lint files
+        run: bin/lint
+
+  scan:
+    name: Security Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          working-directory: backend_v2
+
+      - name: Scan code vulnerabilities
+        run: bin/scan
+        working-directory: backend_v2
+
+  test:
+    name: Test
+    defaults:
+      run:
+        working-directory: backend_v2
+    needs:
+      - lint
+      - scan
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgres://postgres:example@localhost:5432/app_test
+    services:
+      postgres:
+        image: postgres:14.2
+        ports: ["5432:5432"]
+        env:
+          POSTGRES_DB: app_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: example
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          working-directory: backend_v2
+
+      - name: Install postgres client
+        run: sudo apt-get install libpq-dev
+
+      - name: Create database structure
+        run: RAILS_ENV=test bin/rails db:create db:migrate
+
+      - name: Configure sysctl limits
+        run: |
+          sudo swapoff -a
+          sudo sysctl -w vm.swappiness=1
+          sudo sysctl -w fs.file-max=262144
+          sudo sysctl -w vm.max_map_count=262144
+
+      - name: Run tests
+        run: bundle exec bin/rspec spec --format progress -P ./*/**/*_spec.rb
