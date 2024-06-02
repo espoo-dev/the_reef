@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# This script scans code vulnerabilites
+# You can run it with `bin/scan`
+
+set -e
+
+echo "=================================================="
+echo "== Scanning code vulnerabiliities with brakeman =="
+echo "=================================================="
+
+bundle exec brakeman

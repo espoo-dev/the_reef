@@ -1,0 +1,41 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+servers:
+- url: http://localhost:3000
+components:
+  schemas:
+    SignInPayload:
+      type: object
+      properties:
+        token:
+          type: string
+    SignInRequestBody:
+      type: object
+      properties:
+        email:
+          type: string
+          example: admin@email.com
+        password:
+          type: string
+          example: password
+paths:
+  /users/tokens/sign_in:
+    post:
+      summary: Sign in
+      tags:
+        - Sign in
+      responses:
+        '200':
+          description: JWT Token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignInPayload'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignInRequestBody'
