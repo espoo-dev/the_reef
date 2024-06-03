@@ -4,7 +4,7 @@ module Oauth
   module Actors
     class FindOrCreateUser < Actor
       ALLOWED_PROVIDERS_HASH = {
-        github: "github",
+        github: "github"
       }.freeze
 
       input :auth, type: OmniAuth::AuthHash
