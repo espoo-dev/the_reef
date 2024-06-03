@@ -7,6 +7,7 @@ RSpec.describe Aquarium do
 
   describe "relationships" do
     it { is_expected.to belong_to(:user) }
+    it { is_expected.to have_one(:dimension).dependent(:destroy) }
   end
 
   describe "validations" do

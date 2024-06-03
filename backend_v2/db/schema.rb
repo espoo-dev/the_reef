@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_03_194806) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_03_205320) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,6 +38,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_03_194806) do
     t.index ["previous_refresh_token"], name: "index_devise_api_tokens_on_previous_refresh_token"
     t.index ["refresh_token"], name: "index_devise_api_tokens_on_refresh_token"
     t.index ["resource_owner_type", "resource_owner_id"], name: "index_devise_api_tokens_on_resource_owner"
+  end
+
+  create_table "dimensions", force: :cascade do |t|
+    t.integer "height_cm"
+    t.integer "width_cm"
+    t.integer "length_cm"
+    t.datetime "deleted_at"
+    t.bigint "aquarium_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["aquarium_id"], name: "index_dimensions_on_aquarium_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -68,4 +79,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_03_194806) do
   end
 
   add_foreign_key "aquaria", "users"
+  add_foreign_key "dimensions", "aquaria"
 end
