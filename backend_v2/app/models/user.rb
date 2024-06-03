@@ -31,4 +31,5 @@ class User < ApplicationRecord
     :omniauthable, omniauth_providers: %i[github]
 
   validates :email, uniqueness: { case_sensitive: false }
+  has_many :aquaria, dependent: :destroy
 end
