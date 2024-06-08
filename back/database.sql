@@ -31,3 +31,13 @@ CREATE TABLE indicator_historics (
   "value" numeric NOT NULL,
   created_at timestamp NOT NULL DEFAULT NOW()
 );
+
+CREATE TABLE buoys (
+  id serial PRIMARY KEY,
+  aquarium_id INT NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  current_value BOOL NOT NULL,
+  created_at timestamp NOT NULL DEFAULT NOW(),
+  last_update timestamp NOT NULL DEFAULT NOW()
+);
