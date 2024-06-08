@@ -9,7 +9,6 @@
 #  description                     :string           not null
 #  name                            :string           not null
 #  publish_data_to_server_interval :datetime         not null
-#  status                          :boolean          default(FALSE), not null
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #  aquarium_id                     :bigint           not null
@@ -25,9 +24,9 @@
 class OnOffSensor < ApplicationRecord
   belongs_to :aquarium
   has_one :on_off_actuator, dependent: :destroy
+  has_many :current_on_off_values, dependent: :destroy
 
   validates :name, presence: true
   validates :description, presence: true
   validates :publish_data_to_server_interval, presence: true
-  validates :status, inclusion: { in: [true, false] }
 end
