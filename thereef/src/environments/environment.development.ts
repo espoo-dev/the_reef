@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'https://pokeapi.co/api/v2/'
+  apiUrl: 'https://the-reef.onrender.com/api/v1/'
 };

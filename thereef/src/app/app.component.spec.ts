@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 import { SensorRepository } from '../infrastructure/repositories/SensorRepository';
 import { Sensor } from '../domain/models/Sensor';
 
-// Mock do SensorRepository
 jest.mock('../infrastructure/repositories/SensorRepository');
 
 describe('AppComponent', () => {

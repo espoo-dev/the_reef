@@ -13,4 +13,8 @@ export class ApiService implements Http {
   get<T>(url: string) {
     return this.http.get<T>(this.apiBaseUrl + url);
   }
+
+  post<T>(url: string, body: any) {
+    return this.http.post<T>(this.apiBaseUrl + url, body);
+  }
 }

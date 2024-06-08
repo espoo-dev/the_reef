@@ -63,7 +63,7 @@
         <img src="/images/logo.svg" alt="The Reef Logo"> <span>The Reef</span>
       </div>
       <div class="form-box">
-        <reef-input [placeholder]="'usuário'" (valueChanged)="handleForm('user', $event)"></reef-input>
+        <reef-input [placeholder]="'email'" (valueChanged)="handleForm('email', $event)"></reef-input>
         <reef-input [placeholder]="'senha'" (valueChanged)="handleForm('password', $event)"></reef-input>
 
         <reef-button label="Entrar" (clicked)="login()"></reef-button>

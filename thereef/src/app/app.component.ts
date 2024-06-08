@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SensorRepository } from '../infrastructure/repositories/SensorRepository';
-import { Sensor } from '../domain/models/Sensor';
 import { ReefButtonComponent } from './components/reef-button/reef-button.component';
 import { ReefInputComponent } from './components/reef-input/reef-input.component';
+import { LoginForm } from '../domain/repositories/UserRepository';
+import { UserRepository } from '../infrastructure/repositories/UserRepository';
 
 @Component({
   selector: 'app-root',
@@ -12,24 +12,24 @@ import { ReefInputComponent } from './components/reef-input/reef-input.component
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'thereef';
-  sensorList: Sensor[] = [];
+  loginForm: LoginForm = {
+    email: '',
+    password: ''
+  };
 
-  constructor(private sensorRepository: SensorRepository){}
+  constructor(private userRepository: UserRepository){}
 
   login() {
-    console.log('login -> ');
-  }
 
-  handleForm(field: string, value: string) {
-    console.log('value -> ', value);
-  }
-
-  ngOnInit(){
-    this.sensorRepository.getSensors()
+    this.userRepository.signIn(this.loginForm)
       .subscribe((response) => {
         console.log('response -> ', response);
       })
+  }
+
+  handleForm(field: keyof LoginForm, value: string) {
+    this.loginForm[field] = value;
   }
 }
