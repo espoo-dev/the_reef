@@ -29,15 +29,12 @@ const int oneWireBus = 2;
 // D7 = GPI13
 const int fanPin = 13;
 
-// D8 = GPI15
-const int fanPinForce = 15;
-
 bool fanOn = false;
 
 // Setup a oneWire instance to communicate with any OneWire devices
 OneWire oneWire(oneWireBus);
 
-// Pass our oneWire reference to Dallas Temperature sensor 
+// Pass our oneWire reference to Dallas Temperature sensor
 DallasTemperature sensors(&oneWire);
 
 bool sended = false;
@@ -47,9 +44,6 @@ void setup() {
   pinMode(fanPin, OUTPUT);
   digitalWrite(fanPin, LOW);
 
-  pinMode(fanPinForce, OUTPUT);
-  digitalWrite(fanPinForce, LOW);
-  
   Serial.begin(115200);
   Serial.println();
   Serial.print("Connecting to ");
@@ -79,7 +73,7 @@ void sendPost(float temperature) {
     https.addHeader("authorization", secretKey);
 
     String requestBody = "{\"newValue\":\"" + String(temperature) + "\", \"indicatorId\":\"1\"}";
-    
+
     int httpResponseCode = https.PUT(requestBody);
     Serial.print(requestBody);
     Serial.print("HTTP Response code: ");
@@ -87,7 +81,7 @@ void sendPost(float temperature) {
     https.end();
 }
 
-void changeFanStatus() {
+void publishFunStatusChange() {
     WiFiClientSecure client;
     client.setInsecure(); //the magic line, use with caution
     HTTPClient https;
@@ -100,7 +94,7 @@ void changeFanStatus() {
     strcpy(requestBody, "{\"on\":\"");
     strcat(requestBody, fanOn ? "true" : "false");  // Converter booleano em string
     strcat(requestBody, "\", \"fanId\":\"1\"}");
-    
+
     int httpResponseCode = https.PUT(requestBody);
     Serial.print(requestBody);
     Serial.print("HTTP Response code: ");
@@ -113,12 +107,11 @@ void checkToggleFan(float temperature) {
   if (fanOn) {
     Serial.println("FAN ON!");
   }
-  
+
   if (fanOn && temperature <= idealTemperature) {
     digitalWrite(fanPin, LOW);
-    digitalWrite(fanPinForce, LOW);
     fanOn = false;
-    changeFanStatus();
+    publishFunStatusChange();
     Serial.println("Desligou a fan");
     return;
   }
@@ -126,9 +119,8 @@ void checkToggleFan(float temperature) {
   if (temperature > maxTemperature) {
     digitalWrite(fanPin, HIGH);
     delay(5000);
-    digitalWrite(fanPinForce, HIGH);
     fanOn = true;
-    changeFanStatus();
+    publishFunStatusChange();
     Serial.println("Ligou a fan");
     return;
   }
@@ -136,13 +128,13 @@ void checkToggleFan(float temperature) {
 
 void loop() {
 
- sensors.requestTemperatures(); 
+ sensors.requestTemperatures();
  float temperatureC = sensors.getTempCByIndex(0);
  Serial.print(temperatureC);
  Serial.println("ºC");
 
  if (WiFi.status() == WL_CONNECTED) {
-  sendPost(temperatureC); 
+  sendPost(temperatureC);
  }
 
  checkToggleFan(temperatureC);
