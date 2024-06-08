@@ -7,10 +7,10 @@ import { ApiService } from "../instances/api";
   providedIn: 'root'
 })
 export class SensorRepository implements SensorRepositoryI {
-  private path = '/sensors'
+  private path = 'pokemon'
   constructor(private apiService: ApiService){}
 
   getSensors() {
-    return this.apiService.get<Sensor>(this.path);
+    return this.apiService.get<Sensor[]>(this.path);
   };
 }

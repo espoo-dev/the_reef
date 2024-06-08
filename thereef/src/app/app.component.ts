@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SensorRepository } from '../infrastructure/repositories/SensorRepository';
+import { Sensor } from '../domain/models/Sensor';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import { SensorRepository } from '../infrastructure/repositories/SensorRepositor
 })
 export class AppComponent implements OnInit {
   title = 'thereef';
+  sensorList: Sensor[] = [];
 
   constructor(private sensorRepository: SensorRepository){}
 
