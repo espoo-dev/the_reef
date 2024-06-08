@@ -23,6 +23,7 @@
 class Aquarium < ApplicationRecord
   belongs_to :user
   has_one :dimension, dependent: :destroy
+  has_one :embedded_server, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { scope: :user_id }
 end
