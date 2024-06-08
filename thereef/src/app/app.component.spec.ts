@@ -1,29 +1,52 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { AppComponent } from './app.component';
+import { SensorRepository } from '../infrastructure/repositories/SensorRepository';
+import { Sensor } from '../domain/models/Sensor';
+
+// Mock do SensorRepository
+jest.mock('../infrastructure/repositories/SensorRepository');
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let sensorRepository: jest.Mocked<SensorRepository>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      declarations: [AppComponent],
+      providers: [
+        SensorRepository,
+      ]
     }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    sensorRepository = TestBed.inject(SensorRepository) as jest.Mocked<SensorRepository>;
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
-  it(`should have the 'thereef' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('thereef');
-  });
+  it('should call getSensors on ngOnInit and log response', () => {
+    const dummySensors: Sensor[] = [
+      { id: 'a2134', name: 'Sensor 1', value: true },
+      { id: '12323', name: 'Sensor 2', value: true }
+    ];
+    const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, thereef');
+    sensorRepository.getSensors.mockReturnValue(of(dummySensors));
+
+    component.ngOnInit();
+
+    expect(sensorRepository.getSensors).toHaveBeenCalled();
+    expect(consoleSpy).toHaveBeenCalledWith('response -> ', dummySensors);
+
+    consoleSpy.mockRestore();
   });
 });
