@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_08_083820) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_08_085638) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,6 +61,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_08_083820) do
     t.index ["aquarium_id"], name: "index_embedded_servers_on_aquarium_id"
   end
 
+  create_table "on_off_sensors", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.datetime "publish_data_to_server_interval", null: false
+    t.datetime "deleted_at"
+    t.bigint "aquarium_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["aquarium_id"], name: "index_on_off_sensors_on_aquarium_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -91,4 +102,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_08_083820) do
   add_foreign_key "aquaria", "users"
   add_foreign_key "dimensions", "aquaria"
   add_foreign_key "embedded_servers", "aquaria"
+  add_foreign_key "on_off_sensors", "aquaria"
 end
