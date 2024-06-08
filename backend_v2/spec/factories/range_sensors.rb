@@ -2,31 +2,34 @@
 
 # == Schema Information
 #
-# Table name: on_off_sensors
+# Table name: range_sensors
 #
 #  id                              :bigint           not null, primary key
 #  deleted_at                      :datetime
 #  description                     :string           not null
+#  max_value                       :decimal(, )      not null
+#  min_value                       :decimal(, )      not null
 #  name                            :string           not null
 #  publish_data_to_server_interval :datetime         not null
-#  status                          :boolean          default(FALSE), not null
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #  aquarium_id                     :bigint           not null
 #
 # Indexes
 #
-#  index_on_off_sensors_on_aquarium_id  (aquarium_id)
+#  index_range_sensors_on_aquarium_id  (aquarium_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (aquarium_id => aquaria.id)
 #
-class OnOffSensor < ApplicationRecord
-  belongs_to :aquarium
-
-  validates :name, presence: true
-  validates :description, presence: true
-  validates :publish_data_to_server_interval, presence: true
-  validates :status, inclusion: { in: [true, false] }
+FactoryBot.define do
+  factory :range_sensor do
+    sequence(:name) { |n| "Sensor #{n}" }
+    sequence(:description) { |n| "Description #{n}" }
+    publish_data_to_server_interval { Time.zone.now }
+    min_value { 1.0 }
+    max_value { 10.0 }
+    aquarium
+  end
 end

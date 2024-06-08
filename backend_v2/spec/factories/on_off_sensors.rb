@@ -9,7 +9,7 @@
 #  description                     :string           not null
 #  name                            :string           not null
 #  publish_data_to_server_interval :datetime         not null
-#  status                          :boolean          not null
+#  status                          :boolean          default(FALSE), not null
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #  aquarium_id                     :bigint           not null
