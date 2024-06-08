@@ -64,6 +64,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_08_085638) do
   create_table "on_off_sensors", force: :cascade do |t|
     t.string "name", null: false
     t.string "description", null: false
+    t.boolean "status", null: false
     t.datetime "publish_data_to_server_interval", null: false
     t.datetime "deleted_at"
     t.bigint "aquarium_id", null: false
