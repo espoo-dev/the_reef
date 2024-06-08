@@ -9,7 +9,6 @@
 #  description                     :string           not null
 #  name                            :string           not null
 #  publish_data_to_server_interval :datetime         not null
-#  status                          :boolean          default(FALSE), not null
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #  aquarium_id                     :bigint           not null
@@ -26,7 +25,6 @@ FactoryBot.define do
   factory :on_off_sensor do
     sequence(:name) { |n| "Sensor #{n}" }
     sequence(:description) { |n| "Description #{n}" }
-    status { true }
     publish_data_to_server_interval { Time.zone.now }
     aquarium
   end

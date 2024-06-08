@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_08_094317) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_08_100106) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_08_094317) do
     t.datetime "updated_at", null: false
     t.index ["user_id", "name"], name: "index_aquaria_on_user_id_and_name", unique: true
     t.index ["user_id"], name: "index_aquaria_on_user_id"
+  end
+
+  create_table "current_on_off_values", force: :cascade do |t|
+    t.boolean "value", default: false, null: false
+    t.datetime "deleted_at"
+    t.bigint "on_off_sensor_id"
+    t.bigint "on_off_actuator_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["on_off_actuator_id"], name: "index_current_on_off_values_on_on_off_actuator_id"
+    t.index ["on_off_sensor_id"], name: "index_current_on_off_values_on_on_off_sensor_id"
   end
 
   create_table "devise_api_tokens", force: :cascade do |t|
@@ -80,7 +91,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_08_094317) do
   create_table "on_off_sensors", force: :cascade do |t|
     t.string "name", null: false
     t.string "description", null: false
-    t.boolean "status", default: false, null: false
     t.datetime "publish_data_to_server_interval", null: false
     t.datetime "deleted_at"
     t.bigint "aquarium_id", null: false
@@ -130,6 +140,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_08_094317) do
   end
 
   add_foreign_key "aquaria", "users"
+  add_foreign_key "current_on_off_values", "on_off_actuators"
+  add_foreign_key "current_on_off_values", "on_off_sensors"
   add_foreign_key "dimensions", "aquaria"
   add_foreign_key "embedded_servers", "aquaria"
   add_foreign_key "on_off_actuators", "aquaria"
