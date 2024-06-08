@@ -11,6 +11,7 @@ RSpec.describe Aquarium do
     it { is_expected.to have_one(:embedded_server).dependent(:destroy) }
     it { is_expected.to have_many(:on_off_sensors).dependent(:destroy) }
     it { is_expected.to have_many(:range_sensors).dependent(:destroy) }
+    it { is_expected.to have_many(:on_off_actuators).dependent(:destroy) }
   end
 
   describe "validations" do

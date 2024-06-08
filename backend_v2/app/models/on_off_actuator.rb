@@ -2,34 +2,39 @@
 
 # == Schema Information
 #
-# Table name: range_sensors
+# Table name: on_off_actuators
 #
 #  id                              :bigint           not null, primary key
 #  deleted_at                      :datetime
 #  description                     :string           not null
-#  max_value                       :decimal(, )      not null
-#  min_value                       :decimal(, )      not null
+#  embedded_actuator_pin           :integer          not null
 #  name                            :string           not null
 #  publish_data_to_server_interval :datetime         not null
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #  aquarium_id                     :bigint           not null
+#  on_off_sensor_id                :bigint           not null
+#  range_sensor_id                 :bigint           not null
 #
 # Indexes
 #
-#  index_range_sensors_on_aquarium_id  (aquarium_id)
+#  index_on_off_actuators_on_aquarium_id       (aquarium_id)
+#  index_on_off_actuators_on_on_off_sensor_id  (on_off_sensor_id)
+#  index_on_off_actuators_on_range_sensor_id   (range_sensor_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (aquarium_id => aquaria.id)
+#  fk_rails_...  (on_off_sensor_id => on_off_sensors.id)
+#  fk_rails_...  (range_sensor_id => range_sensors.id)
 #
-class RangeSensor < ApplicationRecord
+class OnOffActuator < ApplicationRecord
   belongs_to :aquarium
-  has_one :on_off_actuator, dependent: :destroy
+  belongs_to :on_off_sensor
+  belongs_to :range_sensor
 
   validates :name, presence: true
   validates :description, presence: true
   validates :publish_data_to_server_interval, presence: true
-  validates :min_value, presence: true, numericality: { less_than: :max_value }
-  validates :max_value, presence: true, numericality: { greater_than: :min_value }
+  validates :embedded_actuator_pin, presence: true
 end

@@ -3,6 +3,11 @@
 require "rails_helper"
 
 RSpec.describe RangeSensor do
+  describe "relationships" do
+    it { is_expected.to belong_to(:aquarium) }
+    it { is_expected.to have_one(:on_off_actuator).dependent(:destroy) }
+  end
+
   describe "validations" do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:description) }
