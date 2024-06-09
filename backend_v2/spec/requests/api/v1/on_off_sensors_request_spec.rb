@@ -28,7 +28,8 @@ RSpec.describe "Api::V1::OnOffSensors" do
               id: on_off_sensor.id,
               name: on_off_sensor.name,
               description: on_off_sensor.description,
-              on_off_values: []
+              on_off_values: [],
+              current_on_off_value: nil
             }.with_indifferent_access
           ]
 
@@ -89,7 +90,13 @@ RSpec.describe "Api::V1::OnOffSensors" do
                   value: second_on_off_value.value,
                   created_at: second_on_off_value.created_at.strftime("%Y-%m-%d %H:%M:%S")
                 }
-              ]
+              ],
+              current_on_off_value:
+                {
+                  id: third_on_off_value.id,
+                  value: third_on_off_value.value,
+                  created_at: third_on_off_value.created_at.strftime("%Y-%m-%d %H:%M:%S")
+                }
             }.with_indifferent_access
           ]
           expect(response.parsed_body).to eq(expected_response)
