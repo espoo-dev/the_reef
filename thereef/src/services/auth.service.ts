@@ -8,6 +8,7 @@ import { User } from "../domain/models/User";
 export interface IAuthService {
   login: (body: LoginForm) => Observable<User | null>;
   setSession: (token: string) => void;
+  getToken: () => string | null;
   logout: () => void;
 }
 
@@ -15,6 +16,8 @@ export interface IAuthService {
   providedIn: 'root',
 })
 export class AuthService implements IAuthService {
+  private tokenKey: string = 'token';
+
   constructor(
     private userRepository: UserRepository,
     private toastr: ToastrService
@@ -34,10 +37,14 @@ export class AuthService implements IAuthService {
   }
 
   setSession(token: string): void {
-    localStorage.setItem('token', token);
+    localStorage.setItem(this.tokenKey, token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
   }
 
   logout(): void {
-    localStorage.removeItem('token');
+    localStorage.removeItem(this.tokenKey);
   }
 }
