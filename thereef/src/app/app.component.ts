@@ -4,6 +4,7 @@ import { ReefButtonComponent } from './components/reef-button/reef-button.compon
 import { ReefInputComponent } from './components/reef-input/reef-input.component';
 import { LoginForm } from '../domain/repositories/UserRepository';
 import { UserRepository } from '../infrastructure/repositories/UserRepository';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -19,14 +20,18 @@ export class AppComponent {
     password: ''
   };
 
-  constructor(private userRepository: UserRepository){}
+  constructor(private userRepository: UserRepository, private toastr: ToastrService){}
 
   login() {
-
     this.userRepository.signIn(this.loginForm)
-      .subscribe((response) => {
-        console.log('response -> ', response);
-      })
+      .subscribe(
+        (response) => {
+        this.toastr.success('Bem vindo!', 'Você está logado');
+        },
+        error => {
+          this.toastr.error('Ooops!', error.error.error_description[0]);
+        }
+    )
   }
 
   handleForm(field: keyof LoginForm, value: string) {
