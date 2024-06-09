@@ -7,7 +7,7 @@ export type User = {
   resource_owner: ResourceOwner
 }
 
-type ResourceOwner = {
+export type ResourceOwner = {
   id: number,
   email: string,
   created_at: string,

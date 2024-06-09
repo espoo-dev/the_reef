@@ -1,6 +1,5 @@
 <style>
   :host {
-
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -45,31 +44,14 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  .main {
+    width: 100%;
+    height: 100%;
+  }
 </style>
 
 <main class="main">
-  <div class="content">
-    <div class="left-side">
-      <div class="logo">
-        <img src="/images/logo.svg" alt="The Reef Logo"> <span>The Reef</span>
-      </div>
-      <div class="form-box">
-        <reef-input [inputValue]="loginForm.email" [placeholder]="'email'" (valueChanged)="handleForm('email', $event)"></reef-input>
-        <reef-input [inputValue]="loginForm.password" [placeholder]="'senha'" (valueChanged)="handleForm('password', $event)"></reef-input>
-
-        <reef-button label="Entrar" [disabled]="loadingLogin" (clicked)="login()"></reef-button>
-      </div>
-    </div>
-    <div class="right-side">
-      <div class="box-image">
-        <div class="image-banner"></div>
-        <div class="footer-sign-up">
-          <span><b>Se inscreva</b> e participe</span>
-          <reef-button label="Cadastrar" (clicked)="login()" type="secondary"></reef-button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <router-outlet />
 </main>
 
-<router-outlet />

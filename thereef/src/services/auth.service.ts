@@ -2,14 +2,16 @@ import { Injectable } from "@angular/core";
 import { LoginForm } from "../domain/repositories/UserRepository";
 import { ToastrService } from "ngx-toastr";
 import { UserRepository } from "../infrastructure/repositories/UserRepository";
-import { Observable, catchError, of, tap } from "rxjs";
+import { Observable, catchError, map, of, tap } from "rxjs";
 import { User } from "../domain/models/User";
+import { Router } from "@angular/router";
 
 export interface IAuthService {
   login: (body: LoginForm) => Observable<User | null>;
   setSession: (token: string) => void;
   getToken: () => string | null;
   logout: () => void;
+  isLoggedIn: () => Observable<boolean>;
 }
 
 @Injectable({
@@ -20,7 +22,8 @@ export class AuthService implements IAuthService {
 
   constructor(
     private userRepository: UserRepository,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   login(loginForm: LoginForm): Observable<User | null> {
@@ -28,6 +31,7 @@ export class AuthService implements IAuthService {
       tap((response: User) => {
         this.toastr.success('Bem vindo!');
         this.setSession(response.token);
+        this.router.navigate(['/home']);
       }),
       catchError((error: any) => {
         this.toastr.error('Oops!', error.error.error_description[0]);
@@ -42,6 +46,17 @@ export class AuthService implements IAuthService {
 
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
+  }
+
+  isLoggedIn(): Observable<boolean> {
+    if (!this.getToken()) {
+      return of(false);
+    }
+
+    return this.userRepository.info().pipe(
+      map(() => true),
+      catchError(() => of(false))
+    )
   }
 
   logout(): void {

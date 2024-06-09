@@ -1,8 +1,9 @@
 import { Observable } from "rxjs";
-import { User } from "../models/User";
+import { ResourceOwner, User } from "../models/User";
 
 export interface UserRepositoryI {
   signIn: (body: LoginForm) => Observable<User>;
+  info: () => Observable<ResourceOwner | null>
 }
 
 export interface LoginForm {

@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="content">
+    <div class="left">
+      <div class="logo">
+        <img src="/images/logo.svg" alt="The Reef Logo"> <span>The Reef</span>
+      </div>
+      <div class="left-inner">
+        <reef-input [inputValue]="loginForm.email" [placeholder]="'email'" (valueChanged)="handleForm('email', $event)"></reef-input>
+        <reef-input [inputValue]="loginForm.password" [placeholder]="'senha'" (valueChanged)="handleForm('password', $event)"></reef-input>
+
+        <reef-button label="Entrar" [disabled]="loadingLogin" (clicked)="login()"></reef-button>
+      </div>
+    </div>
+    <div class="right">
+      <div class="box-image">
+        <div class="image-banner"></div>
+        <div class="footer-sign-up">
+          <span><b>Se inscreva</b> e participe</span>
+          <reef-button label="Cadastrar" (clicked)="login()" type="secondary"></reef-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

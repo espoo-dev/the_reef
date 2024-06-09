@@ -1,0 +1,113 @@
+.container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  background-color: white;
+  padding: 22px;
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  box-shadow: 0px 0px 3px -2px rgba(0, 0, 0, 0.98);
+  border-radius: 10px;
+  margin: 20px;
+  gap: 22px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  img {
+    height: 60px;
+    width: 60px;
+  }
+
+  span {
+    font-weight: 500;
+  }
+}
+
+.box-image {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.image-banner {
+  height: 490px;
+  background-size: cover;
+  background-image: url('/images/fish.png');
+  background-position: center;
+  border-radius: 10px;
+  z-index: 2;
+}
+
+.footer-sign-up {
+  padding: 12px;
+  padding-top: 16px;
+  margin-top: -8px;
+  background-color: #023778;
+  color: #fff;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  z-index: 1;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  gap: 8px;
+}
+
+.left-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  justify-content: center;
+
+  reef-button {
+    margin-top: 30px;
+  }
+}
+
+.right {
+  width: 40%;
+}
+
+@media screen and (max-width: 650px) {
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 0px;
+
+    .left {
+      gap: 80px;
+      width: 100%;
+      padding: 0px 40px;
+    }
+    // display: flex;
+    // height: 90%;
+  }
+
+  .footer-sign-up {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .right {
+    display: none;
+  }
+}
