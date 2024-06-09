@@ -30,6 +30,10 @@ class OnOffValue < ApplicationRecord
   validate :belongs_to_one_parent
   validate :cannot_belong_to_both
 
+  scope :by_user, lambda { |user|
+                    joins(on_off_sensor: { aquarium: :user }).where(users: { id: user.id })
+                  }
+
   private
 
   def possible_parents

@@ -44,4 +44,32 @@ RSpec.describe OnOffValue do
       end
     end
   end
+
+  describe "scopes" do
+    describe ".by_user" do
+      let!(:user) { create(:user) }
+      let!(:other_user) { create(:user) }
+      let!(:aquarium) { create(:aquarium, user: user) }
+      let!(:other_aquarium) { create(:aquarium, user: other_user) }
+      let!(:sensor) { create(:on_off_sensor, aquarium: aquarium) }
+      let!(:other_sensor) { create(:on_off_sensor, aquarium: other_aquarium) }
+      let!(:on_off_value) { create(:on_off_value, on_off_sensor: sensor, on_off_actuator: nil) }
+      let!(:other_on_off_value) { create(:on_off_value, on_off_sensor: other_sensor, on_off_actuator: nil) }
+
+      it "returns on_off_values for the given user" do
+        expect(described_class.by_user(user)).to include(on_off_value)
+        expect(described_class.by_user(user)).not_to include(other_on_off_value)
+      end
+
+      it "does not return on_off_values for other users" do
+        expect(described_class.by_user(other_user)).to include(other_on_off_value)
+        expect(described_class.by_user(other_user)).not_to include(on_off_value)
+      end
+
+      it "returns an empty result when the user has no on_off_values" do
+        new_user = create(:user)
+        expect(described_class.by_user(new_user)).to be_empty
+      end
+    end
+  end
 end
