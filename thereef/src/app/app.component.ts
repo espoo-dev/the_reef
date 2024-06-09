@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ReefButtonComponent } from './components/reef-button/reef-button.component';
 import { ReefInputComponent } from './components/reef-input/reef-input.component';
 import { LoginForm } from '../domain/repositories/UserRepository';
-import { UserRepository } from '../infrastructure/repositories/UserRepository';
-import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -16,22 +15,20 @@ import { ToastrService } from 'ngx-toastr';
 export class AppComponent {
   title = 'thereef';
   loginForm: LoginForm = {
-    email: '',
-    password: ''
+    email: 'admin@email.com',
+    password: 'password'
   };
 
-  constructor(private userRepository: UserRepository, private toastr: ToastrService){}
+  loadingLogin = false;
+
+  constructor(private authService: AuthService){}
 
   login() {
-    this.userRepository.signIn(this.loginForm)
-      .subscribe(
-        (response) => {
-        this.toastr.success('Bem vindo!', 'Você está logado');
-        },
-        error => {
-          this.toastr.error('Ooops!', error.error.error_description[0]);
-        }
-    )
+    this.loadingLogin = true;
+    this.authService.login(this.loginForm)
+      .subscribe(_ => {
+        this.loadingLogin = false;
+      })
   }
 
   handleForm(field: keyof LoginForm, value: string) {

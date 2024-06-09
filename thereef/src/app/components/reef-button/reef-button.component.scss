@@ -22,4 +22,9 @@ button {
   &:hover {
     background-color: #183d44;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: #959595;
+  }
 }

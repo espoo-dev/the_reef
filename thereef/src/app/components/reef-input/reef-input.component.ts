@@ -10,9 +10,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class ReefInputComponent {
   @Input() placeholder: string = '';
-  @Output() valueChanged: EventEmitter<string> = new EventEmitter();
+  @Input() inputValue!: string;
 
-  inputValue!: string;
+  @Output() valueChanged: EventEmitter<string> = new EventEmitter();
 
   onInputChange(): void {
     this.valueChanged.emit(this.inputValue);

@@ -9,8 +9,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ReefButtonComponent {
   @Input() label: string = '';
-  @Output() clicked: EventEmitter<void> = new EventEmitter();
+  @Input() disabled: boolean = false;
   @Input() type: 'primary' | 'secondary' = 'primary';
+
+  @Output() clicked: EventEmitter<void> = new EventEmitter();
 
   onClick(): void {
     this.clicked.emit();

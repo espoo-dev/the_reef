@@ -1,12 +1,3 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 <style>
   :host {
 
@@ -63,10 +54,10 @@
         <img src="/images/logo.svg" alt="The Reef Logo"> <span>The Reef</span>
       </div>
       <div class="form-box">
-        <reef-input [placeholder]="'email'" (valueChanged)="handleForm('email', $event)"></reef-input>
-        <reef-input [placeholder]="'senha'" (valueChanged)="handleForm('password', $event)"></reef-input>
+        <reef-input [inputValue]="loginForm.email" [placeholder]="'email'" (valueChanged)="handleForm('email', $event)"></reef-input>
+        <reef-input [inputValue]="loginForm.password" [placeholder]="'senha'" (valueChanged)="handleForm('password', $event)"></reef-input>
 
-        <reef-button label="Entrar" (clicked)="login()"></reef-button>
+        <reef-button label="Entrar" [disabled]="loadingLogin" (clicked)="login()"></reef-button>
       </div>
     </div>
     <div class="right-side">
