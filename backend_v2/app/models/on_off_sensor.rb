@@ -24,7 +24,7 @@
 class OnOffSensor < ApplicationRecord
   belongs_to :aquarium
   has_one :on_off_actuator, dependent: :destroy
-  has_many :current_on_off_values, dependent: :destroy
+  has_many :on_off_values, dependent: :destroy
 
   validates :name, presence: true
   validates :description, presence: true
