@@ -12,6 +12,7 @@ class UserDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     admin: Field::Boolean,
+    password: Field::String,
     aquaria: Field::HasMany,
     email: Field::String,
     created_at: Field::DateTime,
