@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: current_on_off_values
+# Table name: on_off_values
 #
 #  id                 :bigint           not null, primary key
 #  deleted_at         :datetime
@@ -14,8 +14,8 @@
 #
 # Indexes
 #
-#  index_current_on_off_values_on_on_off_actuator_id  (on_off_actuator_id)
-#  index_current_on_off_values_on_on_off_sensor_id    (on_off_sensor_id)
+#  index_on_off_values_on_on_off_actuator_id  (on_off_actuator_id)
+#  index_on_off_values_on_on_off_sensor_id    (on_off_sensor_id)
 #
 # Foreign Keys
 #

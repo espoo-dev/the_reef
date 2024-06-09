@@ -26,7 +26,7 @@
 class RangeSensor < ApplicationRecord
   belongs_to :aquarium
   has_one :on_off_actuator, dependent: :destroy
-  has_many :current_numeric_values, dependent: :destroy
+  has_many :numeric_values, dependent: :destroy
 
   validates :name, presence: true
   validates :description, presence: true

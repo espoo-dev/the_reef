@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe CurrentNumericValue do
+RSpec.describe NumericValue do
   describe "relationship" do
     it { is_expected.to belong_to(:range_sensor) }
   end
