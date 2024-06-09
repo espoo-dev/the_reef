@@ -5,6 +5,13 @@ require "sidekiq/web"
 Rails.application.routes.draw do
   namespace :admin do
     resources :users
+    resources :aquaria
+    resources :dimensions
+    resources :embedded_servers
+    resources :on_off_actuators
+    resources :on_off_sensors
+    resources :on_off_values
+    resources :range_sensors
 
     root to: "users#index"
   end

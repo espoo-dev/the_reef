@@ -2,7 +2,7 @@
 
 require "administrate/base_dashboard"
 
-class UserDashboard < Administrate::BaseDashboard
+class OnOffValueDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -11,9 +11,9 @@ class UserDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    admin: Field::Boolean,
-    aquaria: Field::HasMany,
-    email: Field::String,
+    on_off_actuator: Field::BelongsTo,
+    on_off_sensor: Field::BelongsTo,
+    value: Field::Boolean,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -25,18 +25,18 @@ class UserDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    admin
-    email
-    aquaria
+    value
+    on_off_sensor
+    on_off_actuator
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    admin
-    aquaria
-    email
+    on_off_actuator
+    on_off_sensor
+    value
     created_at
     updated_at
   ].freeze
@@ -45,10 +45,9 @@ class UserDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    admin
-    aquaria
-    email
-    password
+    on_off_actuator
+    on_off_sensor
+    value
   ].freeze
 
   # COLLECTION_FILTERS
@@ -63,10 +62,10 @@ class UserDashboard < Administrate::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how users are displayed
+  # Overwrite this method to customize how on off values are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(user)
-    user.email
-  end
+  # def display_resource(on_off_value)
+  #   "OnOffValue ##{on_off_value.id}"
+  # end
 end

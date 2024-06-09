@@ -2,7 +2,7 @@
 
 require "administrate/base_dashboard"
 
-class UserDashboard < Administrate::BaseDashboard
+class OnOffSensorDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -11,9 +11,12 @@ class UserDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    admin: Field::Boolean,
-    aquaria: Field::HasMany,
-    email: Field::String,
+    name: Field::String,
+    description: Field::String,
+    aquarium: Field::BelongsTo,
+    on_off_actuator: Field::HasOne,
+    on_off_values: Field::HasMany,
+    publish_data_to_server_interval: Field::DateTime,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -25,19 +28,20 @@ class UserDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    admin
-    email
-    aquaria
+    name
+    description
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    admin
-    aquaria
-    email
-    created_at
+    name
+    description
+    publish_data_to_server_interval
+    aquarium
+    on_off_actuator
+    on_off_values
     updated_at
   ].freeze
 
@@ -45,10 +49,10 @@ class UserDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    admin
-    aquaria
-    email
-    password
+    aquarium
+    description
+    name
+    publish_data_to_server_interval
   ].freeze
 
   # COLLECTION_FILTERS
@@ -63,10 +67,10 @@ class UserDashboard < Administrate::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how users are displayed
+  # Overwrite this method to customize how on off sensors are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(user)
-    user.email
+  def display_resource(on_off_sensor)
+    on_off_sensor.name
   end
 end

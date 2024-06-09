@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# :reek:InstanceVariableAssumption
 class OnOffSensorSerializer < ActiveModel::Serializer
   attributes :id, :name, :description, :on_off_values, :current_on_off_value
 
