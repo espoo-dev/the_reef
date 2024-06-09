@@ -97,10 +97,16 @@
     width: 100%;
     align-items: center;
     gap: 16px;
+
+    height: 96%;
   }
 
   .footer-sign-up {
     flex-direction: column;
     gap: 16px;
+  }
+
+  .right-side {
+    display: none;
   }
 }
