@@ -128,3 +128,6 @@ GraphQL/ArgumentDescription:
 
 GraphQL/FieldDescription:
   Enabled: false
+
+FactoryBot/FactoryAssociationWithStrategy:
+  Enabled: false
