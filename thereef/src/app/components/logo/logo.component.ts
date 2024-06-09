@@ -11,5 +11,5 @@ export class LogoComponent {
   @Input() outFillColor: string = '#fb93a8';
   @Input() innerFillColor: string = '#e5faff';
 
-  size = 70;
+  size = 46;
 }
