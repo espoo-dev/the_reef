@@ -23,9 +23,14 @@
 #
 FactoryBot.define do
   factory :on_off_sensor do
+    transient do
+      user { create(:user) }
+    end
+
     sequence(:name) { |n| "Sensor #{n}" }
     sequence(:description) { |n| "Description #{n}" }
     publish_data_to_server_interval { Time.zone.now }
-    aquarium
+
+    aquarium { association :aquarium, user: }
   end
 end

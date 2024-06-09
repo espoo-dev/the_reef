@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: current_numeric_values
+# Table name: numeric_values
 #
 #  id              :bigint           not null, primary key
 #  deleted_at      :datetime
@@ -13,15 +13,14 @@
 #
 # Indexes
 #
-#  index_current_numeric_values_on_range_sensor_id  (range_sensor_id)
+#  index_numeric_values_on_range_sensor_id  (range_sensor_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (range_sensor_id => range_sensors.id)
 #
-FactoryBot.define do
-  factory :current_numeric_value do
-    sequence(:value) { |n| n * 1.0 }
-    range_sensor
-  end
+class NumericValue < ApplicationRecord
+  belongs_to :range_sensor
+
+  validates :value, presence: true, numericality: true
 end

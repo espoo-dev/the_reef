@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: current_on_off_values
+# Table name: on_off_values
 #
 #  id                 :bigint           not null, primary key
 #  deleted_at         :datetime
@@ -14,21 +14,25 @@
 #
 # Indexes
 #
-#  index_current_on_off_values_on_on_off_actuator_id  (on_off_actuator_id)
-#  index_current_on_off_values_on_on_off_sensor_id    (on_off_sensor_id)
+#  index_on_off_values_on_on_off_actuator_id  (on_off_actuator_id)
+#  index_on_off_values_on_on_off_sensor_id    (on_off_sensor_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (on_off_actuator_id => on_off_actuators.id)
 #  fk_rails_...  (on_off_sensor_id => on_off_sensors.id)
 #
-class CurrentOnOffValue < ApplicationRecord
+class OnOffValue < ApplicationRecord
   belongs_to :on_off_sensor, optional: true
   belongs_to :on_off_actuator, optional: true
 
   validates :value, inclusion: { in: [true, false] }
   validate :belongs_to_one_parent
   validate :cannot_belong_to_both
+
+  scope :by_user, lambda { |user|
+                    joins(on_off_sensor: { aquarium: :user }).where(users: { id: user.id })
+                  }
 
   private
 

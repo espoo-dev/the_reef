@@ -7,7 +7,7 @@ RSpec.describe OnOffActuator do
     it { is_expected.to belong_to(:aquarium) }
     it { is_expected.to belong_to(:on_off_sensor) }
     it { is_expected.to belong_to(:range_sensor) }
-    it { is_expected.to have_many(:current_on_off_values).dependent(:destroy) }
+    it { is_expected.to have_many(:on_off_values).dependent(:destroy) }
   end
 
   describe "validations" do

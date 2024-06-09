@@ -5,8 +5,6 @@ require "rails_helper"
 RSpec.describe "Users" do
   describe "GET /api/v1/users" do
     context "when user authenticated" do
-      let(:token) { api_token(user) }
-
       context "when user is authorized" do
         let!(:user) { create(:user, admin: true) }
 
