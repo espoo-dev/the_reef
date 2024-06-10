@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { MenuComponent } from '../../components/menu/menu.component';
-import { SensorComponent, SensorStatusType, SensorType } from '../../components/sensor/sensor.component';
+import { SensorComponent, SensorType } from '../../components/sensor/sensor.component';
+import { AquariaRepository } from '../../../infrastructure/repositories/AquariaRepository';
+import { tap } from 'rxjs';
+import { Aquaria } from '../../../domain/models/Aquaria';
 
 @Component({
   selector: 'app-home',
@@ -48,4 +51,18 @@ export class HomeComponent {
       status: 'success'
     },
   ];
+  public aquaria!: Aquaria;
+
+  constructor(private aquariaRepository: AquariaRepository){}
+
+  loadAquariums() {
+    this.aquariaRepository.list()
+      .subscribe((response) => {
+        this.aquaria = response[0];
+      })
+  }
+
+  ngOnInit() {
+    this.loadAquariums();
+  }
 }

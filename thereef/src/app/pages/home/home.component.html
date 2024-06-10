@@ -15,18 +15,29 @@
         </div>
       </div>
 
-      <div class="sensors-grid-container">
+      <div>
+        <div class="aqua-info">
+          @if (aquaria) {
+            🦈 <span>{{aquaria.name}} Monitor</span>
+          } @else {
+            <p>Loading..</p>
+          }
+        </div>
 
-        @for (sensor of sensors; track sensor.value) {
-          <reef-sensor
-            [value]="sensor.value"
-            [name]="sensor.name"
-            [lastUpdate]="sensor.lastUpdate"
-            [status]="sensor.status">
-          </reef-sensor>
-        }
+        <div class="sensors-grid-container">
 
+          @for (sensor of sensors; track sensor.value) {
+            <reef-sensor
+              [value]="sensor.value"
+              [name]="sensor.name"
+              [lastUpdate]="sensor.lastUpdate"
+              [status]="sensor.status">
+            </reef-sensor>
+          }
+
+        </div>
       </div>
+
 
     </div>
   </div>
