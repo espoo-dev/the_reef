@@ -24,6 +24,19 @@
           }
         </div>
 
+        <div class="aqua-info">
+          @for (onOffSensor of onOffSensors; track $index) {
+            <div style="background: red; padding: 20px;">
+              <div>
+                <span>{{onOffSensor.name}}</span>
+              </div>
+              <div>
+                <span>Status: {{onOffSensor.current_on_off_value.value}}</span>
+              </div>
+            </div>
+          }
+        </div>
+
         <div class="sensors-grid-container">
 
           @for (sensor of sensors; track sensor.value) {

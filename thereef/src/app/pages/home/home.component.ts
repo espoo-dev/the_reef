@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { MenuComponent } from '../../components/menu/menu.component';
 import { SensorComponent, SensorType } from '../../components/sensor/sensor.component';
 import { AquariaRepository } from '../../../infrastructure/repositories/AquariaRepository';
-import { tap } from 'rxjs';
 import { Aquaria } from '../../../domain/models/Aquaria';
+import { OnOffSensorRepository } from '../../../infrastructure/repositories/OnOffSensorRepository';
+import { OnOffSensor } from '../../../domain/models/OnOffSensor';
 
 @Component({
   selector: 'app-home',
@@ -52,13 +53,30 @@ export class HomeComponent {
     },
   ];
   public aquaria!: Aquaria;
+  public boyuStatus!: any;
+  public onOffSensors: OnOffSensor[] = [];
+  private valuesToHistoric = 2;
 
-  constructor(private aquariaRepository: AquariaRepository){}
+  constructor(
+    private aquariaRepository: AquariaRepository,
+    private onOffSensorRepository: OnOffSensorRepository
+  ){}
+
+  loadOnOffSensors(){
+    this.onOffSensorRepository.list({
+      values_amount: this.valuesToHistoric
+    })
+      .subscribe((response) => {
+        this.onOffSensors = response;
+      })
+  }
 
   loadAquariums() {
     this.aquariaRepository.list()
       .subscribe((response) => {
         this.aquaria = response[0];
+
+        this.loadOnOffSensors();
       })
   }
 
