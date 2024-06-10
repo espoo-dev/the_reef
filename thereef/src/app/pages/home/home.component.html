@@ -15,23 +15,16 @@
         </div>
       </div>
 
-      <div class="sensors">
+      <div class="sensors-grid-container">
 
-        <div class="sensor success">
-          <span class="title">27.88 °C</span>
-          <div class="bottom-info">
-            <span>Temperatura</span>
-            <span>09/06/24 19:28</span>
-          </div>
-        </div>
-
-        <div class="sensor danger">
-          <span class="title">27.88 °C</span>
-          <div class="bottom-info">
-            <span>Temperatura</span>
-            <span>09/06/24 19:28</span>
-          </div>
-        </div>
+        @for (sensor of sensors; track sensor.value) {
+          <reef-sensor
+            [value]="sensor.value"
+            [name]="sensor.name"
+            [lastUpdate]="sensor.lastUpdate"
+            [status]="sensor.status">
+          </reef-sensor>
+        }
 
       </div>
 

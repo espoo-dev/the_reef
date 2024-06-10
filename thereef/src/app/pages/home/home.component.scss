@@ -56,50 +56,12 @@
 
 p {
   color: #cfffff;
-  // font-size: 16px;
 }
 
-// Sensors
-
-.sensors {
-  display: flex;
-  gap: 22px;
-}
-
-.sensor {
-  padding: 20px 40px;
-  border-radius: 10px;
-  -webkit-box-shadow: 31px 26px 34px 0px rgba(0,0,0,0.13);
-  -moz-box-shadow: 31px 26px 34px 0px rgba(0,0,0,0.13);
-  box-shadow: 31px 26px 34px 0px rgba(0,0,0,0.13);
-  min-width: 280px;
-  max-width: 300px;
-
-  justify-content: space-between;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 32px;
-
-  .title {
-    font-weight: bold;
-    font-size: 20px;
-  }
-
-  &.success {
-    background: linear-gradient(90deg, rgba(22,174,180,1) 8%, rgba(75,234,199,1) 100%);
-  }
-
-  &.danger {
-    background: rgb(244,134,150);
-    background: linear-gradient(90deg, rgba(244,134,150,1) 8%, rgba(254,166,158,1) 100%);
-  }
-
-  .bottom-info {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
+.sensors-grid-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 @media screen and (max-width: 1000px) {
