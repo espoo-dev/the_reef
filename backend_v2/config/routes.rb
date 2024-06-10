@@ -29,5 +29,6 @@ Rails.application.routes.draw do
   end
   devise_scope :user do
     post "/api/v1/tokens", to: "devise/api/tokens#sign_in", as: "api_v1_sign_in_user_token"
+    post "/api/v1/tokens/info", to: "devise/api/tokens#info", as: "api_v1_info_user_token"
   end
 end
