@@ -33,6 +33,9 @@ en:
   dry_validation:
     errors:
       rules:
+        name:
+          key?: "Name is missing"
+          filled?: "Name must be filled"
         email:
           key?: "Email is missing"
           filled?: "Email must be filled"

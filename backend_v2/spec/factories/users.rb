@@ -9,7 +9,7 @@
 #  deleted_at             :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  name                   :string           not null
+#  name                   :string
 #  oauth_provider         :string
 #  oauth_uid              :string
 #  remember_created_at    :datetime

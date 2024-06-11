@@ -30,7 +30,7 @@ module Api
       end
 
       def user_create_contract
-        UserContracts::Create.call(permitted_params(:email, :password))
+        UserContracts::Create.call(permitted_params(:name, :email, :password))
       end
 
       def page

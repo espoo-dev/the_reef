@@ -86,7 +86,8 @@ RSpec.describe "Users" do
         let(:user_params) do
           {
             email: "user@email.com",
-            password: "password"
+            password: "password",
+            name: "user"
           }
         end
 
@@ -104,7 +105,8 @@ RSpec.describe "Users" do
           let(:user_params) do
             {
               email: user.email,
-              password: "password"
+              password: "password",
+              name: user.name
             }
           end
 
@@ -120,7 +122,7 @@ RSpec.describe "Users" do
           let(:user_params) { {} }
 
           let(:expected_response) do
-            { error: "Email is missing, Password is missing" }
+            { error: "Name is missing, Email is missing, Password is missing" }
           end
 
           it { expect(json_response).to match(expected_response) }
@@ -134,6 +136,7 @@ RSpec.describe "Users" do
 
       let(:user_params) do
         {
+          name: "name",
           email: "user@email.com",
           password: "password"
         }
