@@ -82,13 +82,14 @@ RSpec.describe "Api::V1::OnOffSensors" do
               description: on_off_sensor.description,
               on_off_values: [
                 {
-                  id: third_on_off_value.id,
-                  value: third_on_off_value.value,
-                  created_at: third_on_off_value.created_at.strftime("%Y-%m-%d %H:%M:%S")
-                }, {
                   id: second_on_off_value.id,
                   value: second_on_off_value.value,
                   created_at: second_on_off_value.created_at.strftime("%Y-%m-%d %H:%M:%S")
+                },
+                {
+                  id: third_on_off_value.id,
+                  value: third_on_off_value.value,
+                  created_at: third_on_off_value.created_at.strftime("%Y-%m-%d %H:%M:%S")
                 }
               ],
               current_on_off_value:
