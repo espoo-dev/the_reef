@@ -15,6 +15,7 @@ class UserDashboard < Administrate::BaseDashboard
     password: Field::String,
     aquaria: Field::HasMany,
     email: Field::String,
+    name: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -28,16 +29,17 @@ class UserDashboard < Administrate::BaseDashboard
     id
     admin
     email
-    aquaria
+    name
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
+    name
+    email
     admin
     aquaria
-    email
     created_at
     updated_at
   ].freeze
@@ -46,10 +48,11 @@ class UserDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    admin
-    aquaria
+    name
     email
     password
+    admin
+    aquaria
   ].freeze
 
   # COLLECTION_FILTERS
