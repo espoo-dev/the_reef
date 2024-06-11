@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { LogoComponent } from '../logo/logo.component';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -30,6 +30,8 @@ export class MenuComponent {
     }
   ];
 
+  public isScrolled = false;
+
   constructor(private router: Router){}
 
   changeMenu(selectedOption: MenuItem): void {
@@ -39,4 +41,10 @@ export class MenuComponent {
 
     this.router.navigate([selectedOption.link]);
   }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 50;
+  }
+
 }

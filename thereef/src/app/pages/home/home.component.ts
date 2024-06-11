@@ -5,11 +5,12 @@ import { AquariaRepository } from '../../../infrastructure/repositories/AquariaR
 import { Aquaria } from '../../../domain/models/Aquaria';
 import { OnOffSensorRepository } from '../../../infrastructure/repositories/OnOffSensorRepository';
 import { OnOffSensor } from '../../../domain/models/OnOffSensor';
+import { OnOffSensorComponent } from '../../components/on-off-sensor/on-off-sensor.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MenuComponent, SensorComponent],
+  imports: [MenuComponent, SensorComponent, OnOffSensorComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
