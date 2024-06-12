@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: %i[index create]
       resources :on_off_sensors, only: %i[index]
+      resources :range_sensors, only: %i[index]
       resources :aquaria, only: %i[index]
     end
   end

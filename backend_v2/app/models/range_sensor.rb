@@ -33,4 +33,8 @@ class RangeSensor < ApplicationRecord
   validates :publish_data_to_server_interval, presence: true
   validates :min_value, presence: true, numericality: { less_than: :max_value }
   validates :max_value, presence: true, numericality: { greater_than: :min_value }
+
+  scope :by_user, lambda { |user|
+    joins(:aquarium).where({ aquaria: { user_id: user.id } })
+  }
 end
