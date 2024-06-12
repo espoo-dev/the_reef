@@ -13,8 +13,8 @@
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #  aquarium_id                     :bigint           not null
-#  on_off_sensor_id                :bigint           not null
-#  range_sensor_id                 :bigint           not null
+#  on_off_sensor_id                :bigint
+#  range_sensor_id                 :bigint
 #
 # Indexes
 #
@@ -30,11 +30,15 @@
 #
 FactoryBot.define do
   factory :on_off_actuator do
+    transient do
+      user { create(:user) }
+    end
+
     sequence(:name) { |n| "Actuator #{n}" }
     sequence(:description) { |n| "Description #{n}" }
     publish_data_to_server_interval { Time.zone.now }
     embedded_actuator_pin { 13 }
-    aquarium
+    aquarium { association :aquarium, user: }
     on_off_sensor
     range_sensor
   end

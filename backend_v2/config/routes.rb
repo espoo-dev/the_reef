@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       resources :users, only: %i[index create]
       resources :on_off_sensors, only: %i[index]
       resources :range_sensors, only: %i[index]
+      resources :on_off_actuators, only: %i[index]
       resources :aquaria, only: %i[index]
     end
   end
