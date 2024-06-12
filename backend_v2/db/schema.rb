@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_11_222839) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_12_224949) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -77,8 +77,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_11_222839) do
     t.integer "embedded_actuator_pin", null: false
     t.datetime "deleted_at"
     t.bigint "aquarium_id", null: false
-    t.bigint "on_off_sensor_id", null: false
-    t.bigint "range_sensor_id", null: false
+    t.bigint "on_off_sensor_id"
+    t.bigint "range_sensor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["aquarium_id"], name: "index_on_off_actuators_on_aquarium_id"

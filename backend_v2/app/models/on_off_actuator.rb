@@ -13,8 +13,8 @@
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #  aquarium_id                     :bigint           not null
-#  on_off_sensor_id                :bigint           not null
-#  range_sensor_id                 :bigint           not null
+#  on_off_sensor_id                :bigint
+#  range_sensor_id                 :bigint
 #
 # Indexes
 #
@@ -30,12 +30,29 @@
 #
 class OnOffActuator < ApplicationRecord
   belongs_to :aquarium
-  belongs_to :on_off_sensor
-  belongs_to :range_sensor
+  belongs_to :on_off_sensor, optional: true
+  belongs_to :range_sensor, optional: true
   has_many :on_off_values, dependent: :destroy
 
   validates :name, presence: true
   validates :description, presence: true
   validates :publish_data_to_server_interval, presence: true
   validates :embedded_actuator_pin, presence: true
+  validate :belongs_to_one_parent
+
+  scope :by_user, lambda { |user|
+    joins(:aquarium).where({ aquaria: { user_id: user.id } })
+  }
+
+  private
+
+  def possible_parents
+    [on_off_sensor, range_sensor]
+  end
+
+  def belongs_to_one_parent
+    return if possible_parents.any?(&:present?)
+
+    errors.add(:base, "must belong to either an OnOffSensor or an RangeSensor")
+  end
 end
