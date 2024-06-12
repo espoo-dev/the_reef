@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :on_off_sensors
     resources :on_off_values
     resources :range_sensors
+    resources :numeric_values
 
     root to: "users#index"
   end
