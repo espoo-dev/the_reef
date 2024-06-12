@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "administrate/base_dashboard"
 
 class NumericValueDashboard < Administrate::BaseDashboard
@@ -12,7 +14,7 @@ class NumericValueDashboard < Administrate::BaseDashboard
     range_sensor: Field::BelongsTo,
     value: Field::String.with_options(searchable: false),
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
