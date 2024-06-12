@@ -25,11 +25,16 @@
 #
 FactoryBot.define do
   factory :range_sensor do
+    transient do
+      user { create(:user) }
+    end
+
     sequence(:name) { |n| "Sensor #{n}" }
     sequence(:description) { |n| "Description #{n}" }
     publish_data_to_server_interval { Time.zone.now }
     min_value { 1.0 }
     max_value { 10.0 }
-    aquarium
+
+    aquarium { association :aquarium, user: }
   end
 end
