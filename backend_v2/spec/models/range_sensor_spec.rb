@@ -55,4 +55,116 @@ RSpec.describe RangeSensor do
       expect(range_sensor).to be_valid
     end
   end
+
+  describe "#current_numeric_value" do
+    let(:range_sensor) { create(:range_sensor) }
+
+    context "when numeric value exists" do
+      it "returns the most recent numeric value" do
+        create(:numeric_value, range_sensor: range_sensor, created_at: 1.day.ago)
+        recent_numeric_value = create(:numeric_value, range_sensor: range_sensor, created_at: 1.hour.ago)
+
+        expect(range_sensor.current_numeric_value).to eq(recent_numeric_value)
+      end
+    end
+
+    context "when numeric value does not exist" do
+      it "returns nil" do
+        expect(range_sensor.current_numeric_value).to be_nil
+      end
+    end
+  end
+
+  describe "#numeric_value_on_range?" do
+    let(:range_sensor) { create(:range_sensor, min_value: 5, max_value: 10) }
+
+    context "when there is no current numeric value" do
+      it "returns false" do
+        expect(range_sensor).not_to be_numeric_value_on_range
+      end
+    end
+
+    context "when current numeric value is within range" do
+      it "returns true" do
+        create(:numeric_value, range_sensor: range_sensor, value: 7)
+        expect(range_sensor).to be_numeric_value_on_range
+      end
+    end
+
+    context "when current numeric value is out of range because it is bigger" do
+      it "returns false" do
+        create(:numeric_value, range_sensor: range_sensor, value: 11)
+        expect(range_sensor).not_to be_numeric_value_on_range
+      end
+    end
+
+    context "when current numeric value is out of range because it is smaller" do
+      it "returns false" do
+        create(:numeric_value, range_sensor: range_sensor, value: 4)
+        expect(range_sensor).not_to be_numeric_value_on_range
+      end
+    end
+  end
+
+  describe "#numeric_value_under_range?" do
+    let(:range_sensor) { create(:range_sensor, min_value: 5, max_value: 10) }
+
+    context "when there is no current numeric value" do
+      it "returns false" do
+        expect(range_sensor).not_to be_numeric_value_under_range
+      end
+    end
+
+    context "when current numeric value is under range" do
+      it "returns true" do
+        create(:numeric_value, range_sensor: range_sensor, value: 3)
+        expect(range_sensor).to be_numeric_value_under_range
+      end
+    end
+
+    context "when current numeric value is within range" do
+      it "returns false" do
+        create(:numeric_value, range_sensor: range_sensor, value: 7)
+        expect(range_sensor).not_to be_numeric_value_under_range
+      end
+    end
+
+    context "when current numeric value is over range" do
+      it "returns false" do
+        create(:numeric_value, range_sensor: range_sensor, value: 11)
+        expect(range_sensor).not_to be_numeric_value_under_range
+      end
+    end
+  end
+
+  describe "#numeric_value_over_range?" do
+    let(:range_sensor) { create(:range_sensor, min_value: 5, max_value: 10) }
+
+    context "when there is no current numeric value" do
+      it "returns false" do
+        expect(range_sensor).not_to be_numeric_value_over_range
+      end
+    end
+
+    context "when current numeric value is under range" do
+      it "returns false" do
+        create(:numeric_value, range_sensor: range_sensor, value: 3)
+        expect(range_sensor).not_to be_numeric_value_over_range
+      end
+    end
+
+    context "when current numeric value is within range" do
+      it "returns false" do
+        create(:numeric_value, range_sensor: range_sensor, value: 7)
+        expect(range_sensor).not_to be_numeric_value_over_range
+      end
+    end
+
+    context "when current numeric value is over range" do
+      it "returns true" do
+        create(:numeric_value, range_sensor: range_sensor, value: 11)
+        expect(range_sensor).to be_numeric_value_over_range
+      end
+    end
+  end
 end

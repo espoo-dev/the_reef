@@ -37,4 +37,27 @@ class RangeSensor < ApplicationRecord
   scope :by_user, lambda { |user|
     joins(:aquarium).where({ aquaria: { user_id: user.id } })
   }
+
+  def current_numeric_value
+    numeric_values.order(created_at: :desc).first
+  end
+
+  def numeric_value_on_range?
+    return false if current_numeric_value.nil?
+
+    value = current_numeric_value.value
+    value >= min_value && value <= max_value
+  end
+
+  def numeric_value_under_range?
+    return false if current_numeric_value.nil?
+
+    current_numeric_value.value < min_value
+  end
+
+  def numeric_value_over_range?
+    return false if current_numeric_value.nil?
+
+    current_numeric_value.value > max_value
+  end
 end
