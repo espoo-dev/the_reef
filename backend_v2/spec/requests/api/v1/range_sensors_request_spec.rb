@@ -30,6 +30,9 @@ RSpec.describe "Api::V1::RangeSensors" do
               description: range_sensor.description,
               min_value: range_sensor.min_value.to_s,
               max_value: range_sensor.max_value.to_s,
+              numeric_value_on_range: false,
+              numeric_value_over_range: false,
+              numeric_value_under_range: false,
               numeric_values: [],
               current_numeric_value: nil
             }.with_indifferent_access
@@ -84,6 +87,10 @@ RSpec.describe "Api::V1::RangeSensors" do
               description: range_sensor.description,
               min_value: range_sensor.min_value.to_s,
               max_value: range_sensor.max_value.to_s,
+
+              numeric_value_on_range: false,
+              numeric_value_over_range: true,
+              numeric_value_under_range: false,
               numeric_values: [
                 {
                   id: second_numeric_value.id,
