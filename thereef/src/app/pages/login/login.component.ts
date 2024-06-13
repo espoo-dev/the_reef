@@ -14,8 +14,8 @@ import { ReefButtonComponent } from '../../components/reef-button/reef-button.co
 export class LoginComponent {
   title = 'thereef';
   loginForm: LoginForm = {
-    email: 'admin@email.com',
-    password: 'password'
+    email: 'edimo@email.com',
+    password: 'edimo@email.com'
   };
 
   loadingLogin = false;
