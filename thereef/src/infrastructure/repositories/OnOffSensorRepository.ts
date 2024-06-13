@@ -12,6 +12,6 @@ export class OnOffSensorRepository implements OnOffSensorRepositoryI {
   constructor(private apiService: ApiService){}
 
   list(params?: OnOffSensorFilter): Observable<OnOffSensor[]> {
-    return this.apiService.get<any>(this.path, params)
+    return this.apiService.get<OnOffSensor[]>(this.path, params)
   }
 }

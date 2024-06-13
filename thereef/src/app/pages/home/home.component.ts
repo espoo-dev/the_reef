@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuComponent } from '../../components/menu/menu.component';
-import { SensorComponent, SensorType } from '../../components/sensor/sensor.component';
+import { SensorComponent, SensorStatusType, SensorType } from '../../components/sensor/sensor.component';
 import { AquariaRepository } from '../../../infrastructure/repositories/AquariaRepository';
 import { Aquaria } from '../../../domain/models/Aquaria';
 import { OnOffSensorRepository } from '../../../infrastructure/repositories/OnOffSensorRepository';
@@ -8,6 +8,8 @@ import { OnOffSensor } from '../../../domain/models/OnOffSensor';
 import { OnOffSensorComponent } from '../../components/on-off-sensor/on-off-sensor.component';
 import { ChartConfiguration } from 'chart.js';
 import { ReefChartComponent } from '../../components/reef-chart/reef-chart.component';
+import { RangeSensorRepository } from '../../../infrastructure/repositories/RangeSensorRepository';
+import { RangeSensor, RangeValue } from '../../../domain/models/RangeSensor';
 
 @Component({
   selector: 'app-home',
@@ -17,48 +19,18 @@ import { ReefChartComponent } from '../../components/reef-chart/reef-chart.compo
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  public sensors: SensorType[] = [
-    {
-      value: '27.88 °C',
-      name: 'Temperatura',
-      lastUpdate: '09/06/24 19:28',
-      status: 'success'
-    },
-    {
-      value: '30.88 °C',
-      name: 'Temperatura',
-      lastUpdate: '10/06/24 19:33',
-      status: 'danger'
-    },
-    {
-      value: '30.88 °C',
-      name: 'Temperatura',
-      lastUpdate: '10/06/24 19:33',
-      status: 'danger'
-    },
-    {
-      value: '27.88 °C',
-      name: 'Temperatura',
-      lastUpdate: '09/06/24 19:28',
-      status: 'success'
-    },
-    {
-      value: '30.88 °C',
-      name: 'Temperatura',
-      lastUpdate: '10/06/24 19:33',
-      status: 'danger'
-    },
-    {
-      value: '27.88 °C',
-      name: 'Temperatura',
-      lastUpdate: '09/06/24 19:28',
-      status: 'success'
-    },
-  ];
+  public sensors: SensorType[] = [];
   public aquaria!: Aquaria;
   public boyuStatus!: any;
   public onOffSensors: OnOffSensor[] = [];
+  public rangeSensors: RangeSensor[] = [];
   private valuesToHistoric = 30;
+  private brDateFormat: Intl.DateTimeFormatOptions = {
+    day: '2-digit',
+    month: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit'
+  };
 
   public temperatureChartHistoric: ChartConfiguration = {
     options: {
@@ -69,19 +41,15 @@ export class HomeComponent {
     },
     type: 'line',
     data: {
-      labels: ['13/06'],
-      datasets: [
-        {
-          label: 'Temperatura',
-          data: [27.8]
-        }
-      ]
+      labels: [],
+      datasets: []
     }
   }
 
   constructor(
     private aquariaRepository: AquariaRepository,
-    private onOffSensorRepository: OnOffSensorRepository
+    private onOffSensorRepository: OnOffSensorRepository,
+    private rangeSensorRepository: RangeSensorRepository
   ){}
 
   loadOnOffSensors(){
@@ -93,33 +61,53 @@ export class HomeComponent {
       })
   }
 
+  loadRangeSensors(){
+    this.rangeSensorRepository.list({
+      values_amount: this.valuesToHistoric
+    })
+      .subscribe((response) => {
+        this.rangeSensors = response;
+        this.sensors = this.rangeSensors.map((rangeSensor) => {
+          return {
+            lastUpdate: rangeSensor.current_numeric_value.created_at,
+            name: rangeSensor.name,
+            value: rangeSensor.current_numeric_value.value,
+            status: (Number(rangeSensor.current_numeric_value.value) > Number(rangeSensor.max_value))
+               ? 'danger' : 'success' as SensorStatusType
+          } as SensorType
+        });
+
+        this.temperatureChartHistoric = {
+          ...this.temperatureChartHistoric,
+          data: this.mountTemperatureHistoric(this.rangeSensors[0].numeric_values)
+        }
+      })
+  }
+
+  mountTemperatureHistoric(points: RangeValue[]): {labels: string[], datasets: any[]} {
+    return {
+      labels: points.map((point) => new Date(point.created_at).toLocaleString('pt-BR', this.brDateFormat)),
+      datasets: [
+        {
+          label: 'Temperatura',
+          data: points.map((point) => point.value)
+        }
+      ]
+    }
+  }
+
   loadAquariums() {
     this.aquariaRepository.list()
       .subscribe((response) => {
         this.aquaria = response[0];
 
         this.loadOnOffSensors();
+        this.loadRangeSensors();
       })
   }
 
   ngOnInit() {
     const refreshInMinutes = 1 * 60000;
-
-    setTimeout(() => {
-      this.temperatureChartHistoric = {
-        ...this.temperatureChartHistoric,
-        data: {
-          labels: ['16/06'],
-          datasets: [
-            {
-              label: 'Temperatura',
-              data: [31]
-            }
-          ]
-        }
-      }
-    }, 200);
-
     this.loadAquariums();
 
     setInterval(() => {
