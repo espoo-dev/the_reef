@@ -2,11 +2,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // transition: background-color 0.2s;
   padding: 10px 24px;
-}
-
-.scrolled {
   background: linear-gradient(90deg, rgba(75,165,184,1) 46%, rgba(199,162,165,1) 76%, rgba(245,130,154,1) 95%);
 }
 
@@ -41,6 +37,16 @@ nav {
     height: 40px;
     border-radius: 50%;
   }
+}
+
+.circle-name {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: #2b2e9e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media screen and (max-width: 650px) {

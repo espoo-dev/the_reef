@@ -15,7 +15,7 @@ import { UITheme } from '../../theme';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MenuComponent, SensorComponent, OnOffSensorComponent, ReefChartComponent],
+  imports: [SensorComponent, OnOffSensorComponent, ReefChartComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

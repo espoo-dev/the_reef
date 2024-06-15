@@ -3,7 +3,7 @@ import { LoginForm } from "../domain/repositories/UserRepository";
 import { ToastrService } from "ngx-toastr";
 import { UserRepository } from "../infrastructure/repositories/UserRepository";
 import { Observable, catchError, map, of, tap } from "rxjs";
-import { User } from "../domain/models/User";
+import { ResourceOwner, User } from "../domain/models/User";
 import { Router } from "@angular/router";
 
 export interface IAuthService {
@@ -19,6 +19,7 @@ export interface IAuthService {
 })
 export class AuthService implements IAuthService {
   private tokenKey: string = 'token';
+  private userKey: string = 'user';
 
   constructor(
     private userRepository: UserRepository,
@@ -54,12 +55,25 @@ export class AuthService implements IAuthService {
     }
 
     return this.userRepository.info().pipe(
-      map(() => true),
+      map((response) => {
+        response && this.setUser(response);
+        return true;
+      }),
       catchError(() => of(false))
     )
   }
 
+  setUser(user: ResourceOwner): void {
+    localStorage.setItem(this.userKey, JSON.stringify(user));
+  }
+
+  getUser(): ResourceOwner {
+    return JSON.parse(localStorage.getItem(this.userKey)!);
+  }
+
   logout(): void {
+    // TODO: call endpoint to logout user
     localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this.userKey);
   }
 }
