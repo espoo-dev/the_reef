@@ -24,5 +24,17 @@ FactoryBot.define do
   factory :aquarium do
     sequence(:name) { |n| "aquarium#{n}" }
     user
+
+    trait :with_embedded_server do
+      after(:create) do |aquarium|
+        create(:embedded_server, aquarium:)
+      end
+    end
+
+    trait :with_dimension do
+      after(:create) do |aquarium|
+        create(:dimension, aquarium:)
+      end
+    end
   end
 end

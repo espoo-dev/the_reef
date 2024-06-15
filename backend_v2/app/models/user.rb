@@ -9,6 +9,7 @@
 #  deleted_at             :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
+#  name                   :string
 #  oauth_provider         :string
 #  oauth_uid              :string
 #  remember_created_at    :datetime
@@ -31,5 +32,7 @@ class User < ApplicationRecord
     :omniauthable, omniauth_providers: %i[github]
 
   validates :email, uniqueness: { case_sensitive: false }
+  validates :name, presence: true
+
   has_many :aquaria, dependent: :destroy
 end

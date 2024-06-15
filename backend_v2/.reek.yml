@@ -41,6 +41,10 @@ detectors:
     min_clump_size: 3
   FeatureEnvy:
     enabled: false
+  NilCheck:
+    enabled: false
+  RepeatedConditional:
+    enabled: false
 
 ### Directory specific configuration
 

@@ -9,6 +9,7 @@
 #  deleted_at             :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
+#  name                   :string
 #  oauth_provider         :string
 #  oauth_uid              :string
 #  remember_created_at    :datetime
@@ -25,6 +26,7 @@
 #
 FactoryBot.define do
   factory :user do
+    sequence(:name) { |n| "user#{n}" }
     sequence(:email) { |n| "user#{n}@email.com" }
     password { "password" }
   end

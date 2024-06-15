@@ -2,6 +2,9 @@
 
 module JsonResponseHelper
   def json_response
-    response.parsed_body.with_indifferent_access
+    response_body = response.parsed_body
+    return response_body if response_body.is_a?(Array)
+
+    response_body.with_indifferent_access
   end
 end
