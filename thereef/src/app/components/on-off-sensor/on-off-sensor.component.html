@@ -1,0 +1,10 @@
+<div class="on-off-sensor " [ngClass]="{'on': currentOnOffValue, 'off': !currentOnOffValue}">
+  <div>
+    <div class="circle"></div>
+  </div>
+  <div>
+    <span class="name">{{name}}</span>
+    <br>
+    <span class="status">{{!currentOnOffValue ? 'Desligado' : 'Ligado'}}</span>
+  </div>
+</div>

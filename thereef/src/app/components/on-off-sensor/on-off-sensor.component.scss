@@ -1,0 +1,50 @@
+.on-off-sensor {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  font-weight: 400;
+  padding: 14px 36px;
+  -webkit-box-shadow: 31px 26px 34px 0px rgba(0,0,0,0.13);
+  -moz-box-shadow: 31px 26px 34px 0px rgba(0,0,0,0.13);
+  box-shadow: 31px 26px 34px 0px rgba(0,0,0,0.13);
+  border-radius: 10px;
+  color: #cfffff;
+
+  width: 200px;
+
+  &.on {
+    padding: 17px 36px;
+    background-color: #2b2e9e;
+    background-size: cover;
+    background-image: url('/images/reef-shapes.png');
+
+    .circle {
+      background-color: #01ecdd;
+    }
+  }
+
+  &.off {
+    opacity: 0.55;
+    border: 2px solid #fb93a8;
+
+    .circle {
+      background-color: #fb93a8;
+    }
+  }
+}
+
+.circle {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+
+.name {
+  font-weight: 500;
+}
+
+.status {
+  font-weight: 400;
+  font-size: 14px;
+}

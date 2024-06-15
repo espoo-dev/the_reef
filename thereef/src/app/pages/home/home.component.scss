@@ -1,0 +1,92 @@
+.container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background: rgb(75,165,184);
+  background: linear-gradient(90deg, rgba(75,165,184,1) 46%, rgba(199,162,165,1) 76%, rgba(245,130,154,1) 95%);
+  color: #eefeff;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  // padding: 16px 32px;
+}
+
+.content-inner {
+  padding: 60px 80px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+}
+
+.welcome-banner {
+  display: flex;
+}
+
+.left {
+  width: 50%;
+}
+
+.right {
+  width: 50%;
+
+  img {
+    width: auto;
+  }
+}
+
+.title {
+  font-size: 60px;
+  font-weight: 600;
+}
+
+.reef-shape {
+  background-image: url('/images/reef-shapes.png');
+  height: 345px;
+  background-repeat: no-repeat;
+  background-position: right;
+
+  div {
+    max-width: 50%;
+  }
+}
+
+p {
+  color: #cfffff;
+}
+
+.aqua-info {
+  padding: 20px 0px;
+}
+
+.sensors-grid-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+@media screen and (max-width: 1000px) {
+  .content-inner {
+    padding: 60px 20px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  reef-menu {
+    position: relative;
+  }
+
+  .reef-shape {
+    background-image: none;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+}

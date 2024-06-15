@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  span {
+    color: #eefeff;
+    font-weight: 500;
+    font-size: 20px;
+  }
+}

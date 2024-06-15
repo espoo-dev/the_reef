@@ -5,9 +5,9 @@
 #include <DallasTemperature.h>
 
 #ifndef STASSID
-#define STASSID "****"
-#define STAPSK  "****"
-#define SECRET "****"
+#define STASSID "brisa-3544782"
+#define STAPSK  "ccmcn2nx"
+#define SECRET "iuryreefsecretkey"
 #endif
 
 const char* ssid = STASSID;
@@ -16,10 +16,10 @@ const char* secretKey = SECRET;
 const int minuteInMilis = 60000;
 const int minutes = 5;
 
-const float maxTemperature = 28 ;
-const float idealTemperature = 27;
+const float maxTemperature = 28;
+const float idealTemperature = 27.5;
 
-String host = "https://myreef.fly.dev";
+String host = "https://myreef.onrender.com";
 
 
 // D4 = GPIO2
@@ -28,6 +28,9 @@ const int oneWireBus = 2;
 // FAN CONFIG
 // D7 = GPI13
 const int fanPin = 13;
+
+// D8 = GPI15
+const int pinBoia = 15;
 
 bool fanOn = false;
 
@@ -44,6 +47,8 @@ void setup() {
   pinMode(fanPin, OUTPUT);
   digitalWrite(fanPin, LOW);
 
+  pinMode(pinBoia, INPUT);
+  
   Serial.begin(115200);
   Serial.println();
   Serial.print("Connecting to ");
@@ -68,7 +73,7 @@ void sendPost(float temperature) {
     WiFiClientSecure client;
     client.setInsecure(); //the magic line, use with caution
     HTTPClient https;
-    https.begin(client, "https://myreef.fly.dev/indicators/update");
+    https.begin(client, host + "/indicators/update");
     https.addHeader("Content-Type", "application/json");
     https.addHeader("authorization", secretKey);
 
@@ -85,7 +90,7 @@ void publishFunStatusChange() {
     WiFiClientSecure client;
     client.setInsecure(); //the magic line, use with caution
     HTTPClient https;
-    https.begin(client, "https://myreef.fly.dev/fans/update_on");
+    https.begin(client, host + "/fans/update_on");
     https.addHeader("Content-Type", "application/json");
     https.addHeader("authorization", secretKey);
 
@@ -133,11 +138,19 @@ void loop() {
  Serial.print(temperatureC);
  Serial.println("ºC");
 
+ int estado = digitalRead(pinBoia); /* define que estado é igual a leitura digital do sensor */
+ Serial.print("Estado sensor : "); /*"Printa: Estado sensor:" */
+ Serial.println(estado); /* Printa a leitura de estado */
+
  if (WiFi.status() == WL_CONNECTED) {
   sendPost(temperatureC);
  }
 
- checkToggleFan(temperatureC);
+
+  // verificando se tem algum erro de leitura para poder ativar/desativar a fan
+  if(temperatureC > 0 && temperatureC < 50) {
+    checkToggleFan(temperatureC);
+  }
 
  delay(minutes * minuteInMilis);
 }
