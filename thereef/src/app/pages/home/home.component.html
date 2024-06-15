@@ -24,17 +24,15 @@
         </div>
 
         @if (aquaria) {
-          <div style="display: flex;">
-            <div style="width: 50%;">
-              <reef-chart
-                [config]="temperatureChartHistoric"
-                [id]="'temperatureChart'">
-              </reef-chart>
-            </div>
+          <div class="row-charts">
+            <reef-chart
+              [config]="temperatureChartHistoric"
+              [id]="'temperatureChart'">
+            </reef-chart>
           </div>
         }
 
-        <div class="aqua-info" style="display: flex; gap: 1rem;">
+        <div class="row-charts">
           @for (onOffSensor of onOffSensors; track $index) {
             <reef-on-off-sensor
               [name]="onOffSensor.name"

@@ -45,6 +45,11 @@ export class AuthService implements IAuthService {
     localStorage.setItem(this.tokenKey, token);
   }
 
+  clearSession(): void {
+    localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this.userKey);
+  }
+
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
   }
@@ -73,7 +78,6 @@ export class AuthService implements IAuthService {
 
   logout(): void {
     // TODO: call endpoint to logout user
-    localStorage.removeItem(this.tokenKey);
-    localStorage.removeItem(this.userKey);
+    this.clearSession();
   }
 }

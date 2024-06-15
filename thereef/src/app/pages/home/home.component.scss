@@ -58,14 +58,21 @@ p {
   color: #cfffff;
 }
 
-.aqua-info {
-  padding: 20px 0px;
-}
-
 .sensors-grid-container {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+reef-chart {
+  max-width: 650px;
+}
+
+.row-charts {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  padding: 20px 0px;
 }
 
 @media screen and (max-width: 1000px) {
@@ -79,6 +86,10 @@ p {
     position: relative;
   }
 
+  .content-inner {
+    gap: 0px;
+  }
+
   .reef-shape {
     background-image: none;
     display: flex;
@@ -87,6 +98,6 @@ p {
   }
 
   .title {
-    font-size: 40px;
+    font-size: 20px;
   }
 }
