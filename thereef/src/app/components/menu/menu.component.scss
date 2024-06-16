@@ -52,7 +52,7 @@ nav {
 @media screen and (max-width: 650px) {
   nav {
     flex-direction: column;
-    gap: 32px;
+    gap: 1rem;
 
     .menu-container {
       flex-direction: column;
