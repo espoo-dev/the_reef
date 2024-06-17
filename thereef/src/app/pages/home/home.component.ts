@@ -35,6 +35,7 @@ export class HomeComponent {
 
   public temperatureChartHistoric: ChartConfiguration = {
     options: {
+      responsive: true,
       interaction: {
         mode: 'index',
         intersect: false

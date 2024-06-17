@@ -45,12 +45,18 @@ export class AuthService implements IAuthService {
     localStorage.setItem(this.tokenKey, token);
   }
 
+  clearSession(): void {
+    localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this.userKey);
+  }
+
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
   }
 
   isLoggedIn(): Observable<boolean> {
     if (!this.getToken()) {
+      this.clearSession();
       return of(false);
     }
 
@@ -59,7 +65,7 @@ export class AuthService implements IAuthService {
         response && this.setUser(response);
         return true;
       }),
-      catchError(() => of(false))
+      catchError(() => of(false && this.clearSession()))
     )
   }
 
@@ -73,7 +79,6 @@ export class AuthService implements IAuthService {
 
   logout(): void {
     // TODO: call endpoint to logout user
-    localStorage.removeItem(this.tokenKey);
-    localStorage.removeItem(this.userKey);
+    this.clearSession();
   }
 }
