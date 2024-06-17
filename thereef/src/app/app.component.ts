@@ -17,7 +17,7 @@ export class AppComponent {
   ngOnInit() {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.showMenu = !event.url.includes('login');
+        this.showMenu = !event.url.includes('login') && (event.url !== '/');
       }
     });
   }

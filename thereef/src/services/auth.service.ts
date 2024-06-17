@@ -56,6 +56,7 @@ export class AuthService implements IAuthService {
 
   isLoggedIn(): Observable<boolean> {
     if (!this.getToken()) {
+      this.clearSession();
       return of(false);
     }
 
@@ -64,7 +65,7 @@ export class AuthService implements IAuthService {
         response && this.setUser(response);
         return true;
       }),
-      catchError(() => of(false))
+      catchError(() => of(false && this.clearSession()))
     )
   }
 
