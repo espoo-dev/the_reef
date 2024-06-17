@@ -28,6 +28,8 @@ Rails.application.routes.draw do
       resources :range_sensors, only: %i[index]
       resources :on_off_actuators, only: %i[index]
       resources :aquaria, only: %i[index]
+      post "on_off_numeric_values/seed_data", to: "on_off_numeric_values#seed_data",
+        as: "on_off_numeric_values_seed_data"
     end
   end
   devise_scope :user do
