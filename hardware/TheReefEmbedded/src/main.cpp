@@ -79,5 +79,4 @@ void loop()
   temperatureManager.handlerTemperature();
   temperatureManager.printCurrentTemperatureOnLcd();
   waterLevelManager.handlerWaterLevel();
-  delay(1000);
 }
