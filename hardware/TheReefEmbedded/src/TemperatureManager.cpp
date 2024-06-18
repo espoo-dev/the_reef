@@ -92,7 +92,7 @@ void TemperatureManager::handlerTemperature()
 void TemperatureManager::printCurrentTemperatureOnLcd()
 {
     float currentTemperature = _sensor->readCelsiusTemperature();
-    _lcdManager->printTextAtTop("Temp:" + String(currentTemperature) + "C");
+    _lcdManager->printTemperatureAtTop(currentTemperature);
 }
 
 void TemperatureManager::setTemperatureSensor(SensorTemperature *sensor)
