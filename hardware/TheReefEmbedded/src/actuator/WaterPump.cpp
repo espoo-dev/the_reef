@@ -4,12 +4,13 @@ ActuatorWaterPump::ActuatorWaterPump(int pin) : _pin(pin) {}
 
 void ActuatorWaterPump::setStatus(bool status)
 {
-    _status = true;
+    _status = status;
 }
 
 void ActuatorWaterPump::begin()
 {
     pinMode(_pin, OUTPUT);
+    digitalWrite(_pin, LOW);
 }
 
 void ActuatorWaterPump::turnOn()

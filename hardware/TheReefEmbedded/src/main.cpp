@@ -23,8 +23,8 @@ const float maxTemperature = 28;
 String host = "https://myreef.fly.dev";
 
 const int PIN_TEMPERATURE = D4;
-const int PIN_FAN = D7;
 const int PIN_BUOY = D5;
+const int PIN_FAN = D7;
 const int PIN_WATER_PUMP = D8;
 
 SensorTemperature sensorTemperatureDS18B20(PIN_TEMPERATURE);
@@ -61,6 +61,7 @@ void setup()
   sensorBuoy.begin();
   actuatorFan.begin();
   lcdManager.begin();
+  actuatorWaterPump.begin();
 
   temperatureManager.setActuatorFan(&actuatorFan);
   temperatureManager.setTemperatureSensor(&sensorTemperatureDS18B20);
@@ -78,4 +79,5 @@ void loop()
   temperatureManager.handlerTemperature();
   temperatureManager.printCurrentTemperatureOnLcd();
   waterLevelManager.handlerWaterLevel();
+  delay(1000);
 }

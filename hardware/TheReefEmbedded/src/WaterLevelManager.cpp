@@ -6,15 +6,17 @@ WaterLevelManager::WaterLevelManager()
 
 void WaterLevelManager::handlerWaterLevel()
 {
-    if (_sensor->isWaterLevelAbove())
+    if (_sensor->isWaterLowLevel() && !_waterPump->isWaterPumpOn())
     {
         _waterPump->turnOn();
+        _serverBuoy->sendBuoyStatusOn();
         return;
     }
 
-    if (!_sensor->isWaterLevelAbove() && _waterPump->isWaterPumpOn())
+    if (!_sensor->isWaterLowLevel() && _waterPump->isWaterPumpOn())
     {
         _waterPump->turnOff();
+        _serverBuoy->sendBuoyStatusOff();
         return;
     }
 }
@@ -27,4 +29,9 @@ void WaterLevelManager::setActuatorWaterPump(ActuatorWaterPump *actuatorWaterPum
 void WaterLevelManager::setSensorBuoy(SensorBuoy *sensorBuoy)
 {
     _sensor = sensorBuoy;
+}
+
+void WaterLevelManager::setHttpServerBuoy(HttpServerBuoy *httpServerBuoy)
+{
+    _serverBuoy = httpServerBuoy;
 }

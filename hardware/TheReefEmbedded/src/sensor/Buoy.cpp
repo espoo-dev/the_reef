@@ -1,16 +1,16 @@
 #include "sensor/Buoy.h"
 
-SensorBuoy::SensorBuoy(int pin) : _pin(pin)
-{
-}
+SensorBuoy::SensorBuoy(int pin) : _pin(pin) {}
 
 void SensorBuoy::begin()
 {
     pinMode(_pin, INPUT_PULLDOWN_16);
+    digitalWrite(_pin, LOW);
 }
 
-bool SensorBuoy::isWaterLevelAbove()
+bool SensorBuoy::isWaterLowLevel()
 {
-    int buoyStatsu = digitalRead(_pin);
-    return buoyStatsu == HIGH;
+    int buoyStatus = digitalRead(_pin);
+    Serial.println("Lendo sensor boia: " + String(buoyStatus));
+    return buoyStatus == HIGH;
 }

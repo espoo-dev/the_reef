@@ -17,7 +17,7 @@ float SensorTemperature::readCelsiusTemperature()
     }
 
     _sensors.requestTemperatures();
-    float currentTemp = roundf(_sensors.getTempCByIndex(0));
+    float currentTemp = _sensors.getTempCByIndex(0);
 
     Serial.println("Temperatura lida: " + String(currentTemp));
 
