@@ -32,27 +32,28 @@
           </div>
         }
 
-        <div class="row-charts">
-          @for (onOffSensor of onOffSensors; track $index) {
-            <reef-on-off-sensor
-              [name]="onOffSensor.name"
-              [currentOnOffValue]="onOffSensor.current_on_off_value.value">
-            </reef-on-off-sensor>
-          }
+        <div class="data-infos">
+          <div class="row-charts">
+            @for (onOffSensor of onOffSensors; track $index) {
+              <reef-on-off-sensor
+                [name]="onOffSensor.name"
+                [currentOnOffValue]="onOffSensor.current_on_off_value.value">
+              </reef-on-off-sensor>
+            }
+          </div>
+
+          <div class="sensors-grid-container">
+            @for (sensor of sensors; track $index) {
+              <reef-sensor
+                [value]="sensor.value"
+                [name]="sensor.name"
+                [lastUpdate]="sensor.lastUpdate"
+                [status]="sensor.status">
+              </reef-sensor>
+            }
+          </div>
         </div>
 
-        <div class="sensors-grid-container">
-
-          @for (sensor of sensors; track $index) {
-            <reef-sensor
-              [value]="sensor.value"
-              [name]="sensor.name"
-              [lastUpdate]="sensor.lastUpdate"
-              [status]="sensor.status">
-            </reef-sensor>
-          }
-
-        </div>
       </div>
 
 
