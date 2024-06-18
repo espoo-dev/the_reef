@@ -11,6 +11,7 @@ import { ReefChartComponent } from '../../components/reef-chart/reef-chart.compo
 import { RangeSensorRepository } from '../../../infrastructure/repositories/RangeSensorRepository';
 import { RangeSensor, RangeValue } from '../../../domain/models/RangeSensor';
 import { UITheme } from '../../theme';
+import { OnOffActuatorRepository } from '../../../infrastructure/repositories/OnOffActuatorRepository';
 
 @Component({
   selector: 'app-home',
@@ -51,7 +52,8 @@ export class HomeComponent {
   constructor(
     private aquariaRepository: AquariaRepository,
     private onOffSensorRepository: OnOffSensorRepository,
-    private rangeSensorRepository: RangeSensorRepository
+    private rangeSensorRepository: RangeSensorRepository,
+    private onOffActuatorRepository: OnOffActuatorRepository,
   ){}
 
   loadOnOffSensors(){
@@ -60,6 +62,16 @@ export class HomeComponent {
     })
       .subscribe((response) => {
         this.onOffSensors = response;
+      })
+  }
+
+  loadOnOffActuators(){
+    this.onOffActuatorRepository.list({
+      values_amount: this.valuesToHistoric
+    })
+      .subscribe((response) => {
+        // TODO: add to actuators list
+        // this.onOffSensors = response;
       })
   }
 
@@ -131,6 +143,7 @@ export class HomeComponent {
 
         this.loadOnOffSensors();
         this.loadRangeSensors();
+        this.loadOnOffActuators();
       })
   }
 
