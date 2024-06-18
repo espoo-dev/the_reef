@@ -10,6 +10,7 @@
 #include <WaterLevelManager.h>
 #include <http_server/HttpServerFan.h>
 #include <http_server/HttpServerTemperature.h>
+#include <http_server/HttpServerBuoy.h>
 #include <LcdManager.h>
 
 #define SECRET "****"
@@ -21,19 +22,15 @@ const float maxTemperature = 28;
 
 String host = "https://myreef.fly.dev";
 
-// D4 = GPIO2
-const int temperaturePin =D4;
+const int PIN_TEMPERATURE = D4;
+const int PIN_FAN = D7;
+const int PIN_BUOY = D5;
+const int PIN_WATER_PUMP = D8;
 
-// FAN CONFIG
-// D7 = GPI13
-const int fanPin = 13;
-const int buoyPin = 14;
-const int waterPumpPin = 15;
-
-SensorTemperature sensorTemperatureDS18B20(temperaturePin);
-SensorBuoy sensorBuoy(buoyPin);
-ActuatorFan actuatorFan(fanPin);
-ActuatorWaterPump actuatorWaterPump(waterPumpPin);
+SensorTemperature sensorTemperatureDS18B20(PIN_TEMPERATURE);
+SensorBuoy sensorBuoy(PIN_BUOY);
+ActuatorFan actuatorFan(PIN_FAN);
+ActuatorWaterPump actuatorWaterPump(PIN_WATER_PUMP);
 
 WiFiClient client;
 WiFiHandler wiFiHandler;
@@ -43,6 +40,7 @@ WaterLevelManager waterLevelManager;
 
 HttpServerFan httpServerFan(secretKey, client);
 HttpServerTemperature httpServerTemperature(secretKey, client);
+HttpServerBuoy httpServerBuoy(secretKey, client);
 
 LcdManager lcdManager;
 
@@ -60,7 +58,7 @@ void setup()
 
   // Start the DS18B20 sensor
   sensorTemperatureDS18B20.begin();
-  // sensorBuoy.begin();
+  sensorBuoy.begin();
   actuatorFan.begin();
   lcdManager.begin();
 
@@ -71,12 +69,13 @@ void setup()
   temperatureManager.setLcdManager(&lcdManager);
 
   waterLevelManager.setActuatorWaterPump(&actuatorWaterPump);
-  // waterLevelManager.setSensorBuoy(&sensorBuoy);
+  waterLevelManager.setSensorBuoy(&sensorBuoy);
+  waterLevelManager.setHttpServerBuoy(&httpServerBuoy);
 }
 
 void loop()
 {
   temperatureManager.handlerTemperature();
   temperatureManager.printCurrentTemperatureOnLcd();
-  // waterLevelManager.handlerWaterLevel();
+  waterLevelManager.handlerWaterLevel();
 }
