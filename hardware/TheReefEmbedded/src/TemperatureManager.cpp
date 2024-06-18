@@ -4,19 +4,19 @@
 bool TemperatureManager::_previousMillisInitialized = false;
 unsigned long TemperatureManager::_previousMillis = 0;
 
-TemperatureManager::TemperatureManager(float minTemperature, float maxTemperature, float setPoint)
-    : _minTemperature(minTemperature), _maxTemperature(maxTemperature), _setPoint(setPoint), _intervalMsSendCurrentTemperature(5000) {}
+TemperatureManager::TemperatureManager(float minTemperature, float maxTemperature)
+    : _minTemperature(minTemperature), _maxTemperature(maxTemperature), _intervalMsSendCurrentTemperature(5000) {}
 
 bool TemperatureManager::isIdealTemperature()
 {
     float currentTemperature = _sensor->readCelsiusTemperature();
-    return currentTemperature <= _setPoint;
+    return currentTemperature <= _minTemperature;
 }
 
 bool TemperatureManager::isOverTemperature()
 {
     float currentTemperature = _sensor->readCelsiusTemperature();
-    return currentTemperature > _setPoint;
+    return currentTemperature >= _maxTemperature;
 }
 
 void TemperatureManager::sendTemperatureToServer()

@@ -17,7 +17,6 @@ private:
     LcdManager* _lcdManager;
     float _minTemperature;
     float _maxTemperature;
-    float _setPoint;
     int _intervalMsSendCurrentTemperature;
 
     static unsigned long _previousMillis;
@@ -29,7 +28,7 @@ private:
     bool canSendTemperatureToServer();
 
 public:
-    TemperatureManager(float minTemperature, float maxTemperature, float setPoint);
+    TemperatureManager(float minTemperature, float maxTemperature);
     void handlerTemperature();
     void printCurrentTemperatureOnLcd();
     void setTemperatureSensor(SensorTemperature* sensor);
