@@ -12,6 +12,7 @@ void LcdManager::begin()
     Wire.begin();
     _lcd.init();
     _lcd.backlight();
+    _lcd.setBacklight(10);
 }
 
 void LcdManager::printTextAtTop(String text)
