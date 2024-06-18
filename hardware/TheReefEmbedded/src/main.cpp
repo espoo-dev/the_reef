@@ -18,7 +18,6 @@ const char *secretKey = SECRET;
 
 const float minTemperature = 23;
 const float maxTemperature = 28;
-const float idealTemperature = 24;
 
 String host = "https://myreef.fly.dev";
 
@@ -39,7 +38,7 @@ ActuatorWaterPump actuatorWaterPump(waterPumpPin);
 WiFiClient client;
 WiFiHandler wiFiHandler;
 
-TemperatureManager temperatureManager(minTemperature, maxTemperature, idealTemperature);
+TemperatureManager temperatureManager(minTemperature, maxTemperature);
 WaterLevelManager waterLevelManager;
 
 HttpServerFan httpServerFan(secretKey, client);
