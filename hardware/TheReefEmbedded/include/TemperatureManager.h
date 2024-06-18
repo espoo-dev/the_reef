@@ -20,6 +20,9 @@ private:
     float _setPoint;
     int _intervalMsSendCurrentTemperature;
 
+    static unsigned long _previousMillis;
+    static bool _previousMillisInitialized;
+
     bool isIdealTemperature();
     bool isOverTemperature();
     void sendTemperatureToServer();

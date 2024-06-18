@@ -18,12 +18,12 @@ const char *secretKey = SECRET;
 
 const float minTemperature = 23;
 const float maxTemperature = 28;
-const float idealTemperature = 27;
+const float idealTemperature = 24;
 
 String host = "https://myreef.fly.dev";
 
 // D4 = GPIO2
-const int temperaturePin = 2;
+const int temperaturePin =D4;
 
 // FAN CONFIG
 // D7 = GPI13
@@ -55,13 +55,13 @@ void setup()
   Serial.println();
   Serial.print("Connecting to ");
 
-  wiFiHandler.begin();
+  // wiFiHandler.begin();
 
   Serial.println(host);
 
   // Start the DS18B20 sensor
   sensorTemperatureDS18B20.begin();
-  sensorBuoy.begin();
+  // sensorBuoy.begin();
   actuatorFan.begin();
   lcdManager.begin();
 
@@ -72,12 +72,12 @@ void setup()
   temperatureManager.setLcdManager(&lcdManager);
 
   waterLevelManager.setActuatorWaterPump(&actuatorWaterPump);
-  waterLevelManager.setSensorBuoy(&sensorBuoy);
+  // waterLevelManager.setSensorBuoy(&sensorBuoy);
 }
 
 void loop()
 {
   temperatureManager.handlerTemperature();
   temperatureManager.printCurrentTemperatureOnLcd();
-  waterLevelManager.handlerWaterLevel();
+  // waterLevelManager.handlerWaterLevel();
 }

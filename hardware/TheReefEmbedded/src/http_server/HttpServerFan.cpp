@@ -17,32 +17,35 @@ HTTPClient HttpServerFan::setupHttp()
 
 void HttpServerFan::sendFanStatusOn()
 {
-    HTTPClient https = setupHttp();
-    char requestBody[50]; // Ajuste o tamanho do array conforme necessário
+    Serial.println("Http fan on");
 
-    strcpy(requestBody, "{\"on\":\"");
-    strcat(requestBody, "true");
-    strcat(requestBody, "\", \"fanId\":\"1\"}");
+    // HTTPClient https = setupHttp();
+    // char requestBody[50]; // Ajuste o tamanho do array conforme necessário
 
-    int httpResponseCode = https.PUT(requestBody);
-    Serial.print(requestBody);
-    Serial.print("HTTP Response code: ");
-    Serial.println(httpResponseCode);
-    https.end();
+    // strcpy(requestBody, "{\"on\":\"");
+    // strcat(requestBody, "true");
+    // strcat(requestBody, "\", \"fanId\":\"1\"}");
+
+    // int httpResponseCode = https.PUT(requestBody);
+    // Serial.print(requestBody);
+    // Serial.print("HTTP Response code: ");
+    // Serial.println(httpResponseCode);
+    // https.end();
 }
 
 void HttpServerFan::sendFanStatusOff()
 {
-    HTTPClient https = setupHttp();
-    char requestBody[50]; // Ajuste o tamanho do array conforme necessário
+    Serial.println("Http fan off");
+    // HTTPClient https = setupHttp();
+    // char requestBody[50]; // Ajuste o tamanho do array conforme necessário
 
-    strcpy(requestBody, "{\"on\":\"");
-    strcat(requestBody, "false");
-    strcat(requestBody, "\", \"fanId\":\"1\"}");
+    // strcpy(requestBody, "{\"on\":\"");
+    // strcat(requestBody, "false");
+    // strcat(requestBody, "\", \"fanId\":\"1\"}");
 
-    int httpResponseCode = https.PUT(requestBody);
-    Serial.print(requestBody);
-    Serial.print("HTTP Response code: ");
-    Serial.println(httpResponseCode);
-    https.end();
+    // int httpResponseCode = https.PUT(requestBody);
+    // Serial.print(requestBody);
+    // Serial.print("HTTP Response code: ");
+    // Serial.println(httpResponseCode);
+    // https.end();
 }

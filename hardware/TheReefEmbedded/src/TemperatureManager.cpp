@@ -1,6 +1,9 @@
 #include "TemperatureManager.h"
 #include <limits.h>
 
+bool TemperatureManager::_previousMillisInitialized = false;
+unsigned long TemperatureManager::_previousMillis = 0;
+
 TemperatureManager::TemperatureManager(float minTemperature, float maxTemperature, float setPoint)
     : _minTemperature(minTemperature), _maxTemperature(maxTemperature), _setPoint(setPoint), _intervalMsSendCurrentTemperature(5000) {}
 
@@ -13,7 +16,7 @@ bool TemperatureManager::isIdealTemperature()
 bool TemperatureManager::isOverTemperature()
 {
     float currentTemperature = _sensor->readCelsiusTemperature();
-    return currentTemperature > _maxTemperature;
+    return currentTemperature > _setPoint;
 }
 
 void TemperatureManager::sendTemperatureToServer()
@@ -27,16 +30,34 @@ bool TemperatureManager::canSendTemperatureToServer()
 {
 
     unsigned long currentMillis = millis();
-    static unsigned long previousMillis = 0;
+    if (!_previousMillisInitialized)
+    {
+        _previousMillis = 0;
+        _previousMillisInitialized = true;
+    }
 
-    float elapsedTime = (currentMillis % ULONG_MAX) - previousMillis;
+    float elapsedTime = (currentMillis % ULONG_MAX) - _previousMillis;
+    Serial.print("elapsedTime: ");
+    Serial.println(elapsedTime);
+    Serial.print("_previousMillis:");
+    Serial.println(_previousMillis);
 
     if (elapsedTime < 0)
     {
         elapsedTime = elapsedTime + ULONG_MAX;
     }
 
-    return elapsedTime >= _intervalMsSendCurrentTemperature;
+    bool isCan = elapsedTime >= _intervalMsSendCurrentTemperature + _previousMillis;
+
+    Serial.print("can: ");
+    Serial.println(isCan);
+
+    if (isCan)
+    {
+        _previousMillis = elapsedTime;
+    }
+
+    return isCan;
 }
 
 void TemperatureManager::handlerTemperature()
@@ -60,7 +81,7 @@ void TemperatureManager::handlerTemperature()
         return;
     }
 
-    if (isOverTemperature())
+    if (!fanStatusOn && isOverTemperature())
     {
         _fan->turnOn();
         _httpServerFan->sendFanStatusOn();
@@ -71,7 +92,7 @@ void TemperatureManager::handlerTemperature()
 void TemperatureManager::printCurrentTemperatureOnLcd()
 {
     float currentTemperature = _sensor->readCelsiusTemperature();
-    _lcdManager->printTextAtTop("Temperatura: "+String(currentTemperature)+"C");
+    _lcdManager->printTextAtTop("Temp:" + String(currentTemperature) + "C");
 }
 
 void TemperatureManager::setTemperatureSensor(SensorTemperature *sensor)
@@ -94,7 +115,7 @@ void TemperatureManager::setHttpServerTemperature(HttpServerTemperature *httpSer
     _httpServerTemperature = httpServerTemperature;
 }
 
-void TemperatureManager::setLcdManager(LcdManager* lcdManager)
+void TemperatureManager::setLcdManager(LcdManager *lcdManager)
 {
     _lcdManager = lcdManager;
 }

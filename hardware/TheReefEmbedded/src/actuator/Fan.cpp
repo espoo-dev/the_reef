@@ -4,7 +4,7 @@ ActuatorFan::ActuatorFan(int pin) : _pin(pin), _status(false) {}
 
 void ActuatorFan::setStatus(bool status)
 {
-    _status = true;
+    _status = status;
 }
 
 // pulbic methods

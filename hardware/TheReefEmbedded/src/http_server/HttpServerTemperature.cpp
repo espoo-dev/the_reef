@@ -17,13 +17,14 @@ HTTPClient HttpServerTemperature::setupHttp()
 
 void HttpServerTemperature::sendCurrentTemperature(float temperature)
 {
-    HTTPClient https = setupHttp();
+    Serial.println("Enviado temperatura: " + String(temperature));
+    // HTTPClient https = setupHttp();
 
-    String requestBody = "{\"newValue\":\"" + String(temperature) + "\", \"indicatorId\":\"1\"}";
+    // String requestBody = "{\"newValue\":\"" + String(temperature) + "\", \"indicatorId\":\"1\"}";
 
-    int httpResponseCode = https.PUT(requestBody);
-    Serial.print(requestBody);
-    Serial.print("HTTP Response code: ");
-    Serial.println(httpResponseCode);
-    https.end();
+    // int httpResponseCode = https.PUT(requestBody);
+    // Serial.print(requestBody);
+    // Serial.print("HTTP Response code: ");
+    // Serial.println(httpResponseCode);
+    // https.end();
 }
