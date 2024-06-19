@@ -6,16 +6,19 @@
 #include <ESP8266HTTPClient.h>
 #include <WiFiManager.h>
 
-class HttpServerBase {
+class HttpServerBase
+{
 private:
-   String  _host;
-   String _secretKey;
-   WiFiClientSecure* _client;
+    String _host;
+    String _secretKey;
+    WiFiClientSecure *_client;
+
+protected:
+    HTTPClient setupHttps(String path);
 
 public:
     HttpServerBase(String host, String secretKey);
-    HTTPClient setupHttps(String path);
-    void setWiFiClientSecure(WiFiClientSecure* client);
+    void setWiFiClientSecure(WiFiClientSecure *client);
 };
 
 #endif
