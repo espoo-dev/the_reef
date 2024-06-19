@@ -4,6 +4,8 @@ WiFiHandler::WiFiHandler() : _wifiManager(WiFiManager()), _client(WiFiClient()) 
 
 bool WiFiHandler::begin()
 {
+    _wifiManager.setConnectTimeout(60000);
+    _wifiManager.setConfigPortalBlocking(false);
     bool res = _wifiManager.autoConnect("TheReefConnectAP", "password");
 
     if (res)
@@ -24,7 +26,7 @@ void WiFiHandler::disconnect()
         Serial.println("Desconectando");
         _wifiManager.resetSettings();
         disconnected = true;
-        // ESP.restart(); ativar depois com botão
+        ESP.restart();
     }
     delay(100);
 }
@@ -32,6 +34,11 @@ void WiFiHandler::disconnect()
 bool WiFiHandler::isConnected()
 {
     return WiFi.status() == WL_CONNECTED;
+}
+
+void WiFiHandler::process()
+{
+    _wifiManager.process();
 }
 
 String WiFiHandler::getLocalIp()

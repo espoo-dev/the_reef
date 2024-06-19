@@ -52,7 +52,7 @@ void setup()
   Serial.println();
   Serial.print("Connecting to ");
 
-  // wiFiHandler.begin();
+  wiFiHandler.begin();
 
   Serial.println(host);
 
@@ -76,6 +76,7 @@ void setup()
 
 void loop()
 {
+  wiFiHandler.process();
   temperatureManager.handlerTemperature();
   temperatureManager.printCurrentTemperatureOnLcd();
   waterLevelManager.handlerWaterLevel();

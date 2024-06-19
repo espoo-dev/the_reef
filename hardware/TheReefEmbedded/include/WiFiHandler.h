@@ -14,6 +14,7 @@ public:
     bool begin();
     void disconnect();
     bool isConnected();
+    void process();
     String getLocalIp();
     WiFiClient& getClient();
 };
