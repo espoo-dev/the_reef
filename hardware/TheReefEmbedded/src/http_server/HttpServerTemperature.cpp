@@ -1,19 +1,6 @@
 #include "http_server/HttpServerTemperature.h"
 
-HttpServerTemperature::HttpServerTemperature(String secretKey, WiFiClient client)
-{
-    _host = "https://myreef.fly.dev/indicators/update";
-}
-
-HTTPClient HttpServerTemperature::setupHttp()
-{
-    HTTPClient https;
-    https.begin(_client, _host);
-    https.addHeader("Content-Type", "application/json");
-    https.addHeader("authorization", _secretKey);
-
-    return https;
-}
+HttpServerTemperature::HttpServerTemperature(String host, String secretKey, WiFiClient client) : HttpServerBase(host, secretKey, client) {}
 
 void HttpServerTemperature::sendCurrentTemperature(float temperature)
 {

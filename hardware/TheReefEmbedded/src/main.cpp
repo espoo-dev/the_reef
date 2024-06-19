@@ -20,7 +20,7 @@ const char *secretKey = SECRET;
 const float minTemperature = 23;
 const float maxTemperature = 28;
 
-String host = "https://myreef.fly.dev";
+const String HOST = "https://myreef.onrender.com";
 
 const int PIN_TEMPERATURE = D4;
 const int PIN_BUOY = D5;
@@ -38,9 +38,9 @@ WiFiHandler wiFiHandler;
 TemperatureManager temperatureManager(minTemperature, maxTemperature);
 WaterLevelManager waterLevelManager;
 
-HttpServerFan httpServerFan(secretKey, client);
-HttpServerTemperature httpServerTemperature(secretKey, client);
-HttpServerBuoy httpServerBuoy(secretKey, client);
+HttpServerFan httpServerFan(HOST, secretKey, client);
+HttpServerTemperature httpServerTemperature(HOST, secretKey, client);
+HttpServerBuoy httpServerBuoy(HOST, secretKey, client);
 
 LcdManager lcdManager;
 
@@ -54,7 +54,7 @@ void setup()
 
   wiFiHandler.begin();
 
-  Serial.println(host);
+  
 
   // Start the DS18B20 sensor
   sensorTemperatureDS18B20.begin();

@@ -1,19 +1,7 @@
 #include "http_server/HttpServerFan.h"
 
-HttpServerFan::HttpServerFan(String secretKey, WiFiClient client) : _secretKey(secretKey), _client(client)
-{
-    _host = "https://myreef.fly.dev/fans/update_on";
-}
-
-HTTPClient HttpServerFan::setupHttp()
-{
-    HTTPClient https;
-    https.begin(_client, _host);
-    https.addHeader("Content-Type", "application/json");
-    https.addHeader("authorization", _secretKey);
-
-    return https;
-}
+HttpServerFan::HttpServerFan(String host, String secretKey, WiFiClient client) : HttpServerBase(host, secretKey, client) {}
+    // _host = "https://myreef.fly.dev/fans/update_on";
 
 void HttpServerFan::sendFanStatusOn()
 {

@@ -1,20 +1,12 @@
 #ifndef HTTP_SERVER_TEMPERATURE_H
 #define HTTP_SERVER_TEMPERATURE_H
 
-#include <Arduino.h>
-#include <WiFiClient.h>
-#include <ESP8266HTTPClient.h>
+#include <http_server/HttpServerBase.h>
 
-class HttpServerTemperature {
-private:
-   String  _host;
-   String _secretKey;
-   WiFiClient _client;
-
-   HTTPClient setupHttp();
+class HttpServerTemperature: public HttpServerBase {
 
 public:
-    HttpServerTemperature(String secretKey, WiFiClient client);
+    HttpServerTemperature(String host, String secretKey, WiFiClient client);
     void sendCurrentTemperature(float temperature);
 };
 

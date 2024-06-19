@@ -1,19 +1,7 @@
 #include "http_server/HttpServerBuoy.h"
 
-HttpServerBuoy::HttpServerBuoy(String secretKey, WiFiClient client) : _secretKey(secretKey), _client(client)
-{
-    _host = "https://myreef.fly.dev/buoys/update";
-}
-
-HTTPClient HttpServerBuoy::setupHttp()
-{
-    HTTPClient https;
-    https.begin(_client, _host);
-    https.addHeader("Content-Type", "application/json");
-    https.addHeader("authorization", _secretKey);
-
-    return https;
-}
+HttpServerBuoy::HttpServerBuoy(String host, String secretKey, WiFiClient client) : HttpServerBase(host, secretKey, client) {}
+    // buoys/update
 
 void HttpServerBuoy::sendBuoyActive()
 {
