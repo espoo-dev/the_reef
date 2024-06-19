@@ -7,7 +7,7 @@ class SensorBuoy {
 public:
     SensorBuoy(int pin);
     void begin();
-    bool isWaterLowLevel();
+    bool isActive();
 
 private:
     int _pin;

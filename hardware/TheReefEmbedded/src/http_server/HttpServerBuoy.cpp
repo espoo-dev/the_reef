@@ -2,7 +2,7 @@
 
 HttpServerBuoy::HttpServerBuoy(String secretKey, WiFiClient client) : _secretKey(secretKey), _client(client)
 {
-    _host = "https://myreef.fly.dev/fans/update_on"; // adicionar a url correta
+    _host = "https://myreef.fly.dev/buoys/update";
 }
 
 HTTPClient HttpServerBuoy::setupHttp()
@@ -15,8 +15,9 @@ HTTPClient HttpServerBuoy::setupHttp()
     return https;
 }
 
-void HttpServerBuoy::sendBuoyStatusOn()
+void HttpServerBuoy::sendBuoyActive()
 {
+    Serial.println("==================");
     Serial.println("Http Buoy on");
 
     // HTTPClient https = setupHttp();
@@ -33,8 +34,9 @@ void HttpServerBuoy::sendBuoyStatusOn()
     // https.end();
 }
 
-void HttpServerBuoy::sendBuoyStatusOff()
+void HttpServerBuoy::sendBuoyInactive()
 {
+    Serial.println("==================");
     Serial.println("Http Buoy off");
     // HTTPClient https = setupHttp();
     // char requestBody[50]; // Ajuste o tamanho do array conforme necessário

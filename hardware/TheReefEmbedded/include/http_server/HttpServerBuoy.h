@@ -15,8 +15,8 @@ private:
 
 public:
     HttpServerBuoy(String secretKey, WiFiClient client);
-    void sendBuoyStatusOn();
-    void sendBuoyStatusOff();
+    void sendBuoyActive();
+    void sendBuoyInactive();
 };
 
 #endif

@@ -17,6 +17,7 @@ HTTPClient HttpServerFan::setupHttp()
 
 void HttpServerFan::sendFanStatusOn()
 {
+    Serial.println("==================");
     Serial.println("Http fan on");
 
     // HTTPClient https = setupHttp();
@@ -35,6 +36,7 @@ void HttpServerFan::sendFanStatusOn()
 
 void HttpServerFan::sendFanStatusOff()
 {
+    Serial.println("==================");
     Serial.println("Http fan off");
     // HTTPClient https = setupHttp();
     // char requestBody[50]; // Ajuste o tamanho do array conforme necessário

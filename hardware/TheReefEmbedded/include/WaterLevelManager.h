@@ -12,6 +12,11 @@ private:
     ActuatorWaterPump *_waterPump;
     HttpServerBuoy *_serverBuoy;
 
+    static bool _previousBuoyActiveStatus;
+    
+    void setPreviousBuoyActiveStatus(bool status);
+    void sendBuoyStatusToServer(bool status);
+
 public:
     WaterLevelManager();
     void handlerWaterLevel();

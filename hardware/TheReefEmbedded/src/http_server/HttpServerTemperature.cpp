@@ -17,6 +17,7 @@ HTTPClient HttpServerTemperature::setupHttp()
 
 void HttpServerTemperature::sendCurrentTemperature(float temperature)
 {
+    Serial.println("==================");
     Serial.println("Enviado temperatura: " + String(temperature));
     // HTTPClient https = setupHttp();
 

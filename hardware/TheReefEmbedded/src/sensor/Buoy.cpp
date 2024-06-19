@@ -8,7 +8,7 @@ void SensorBuoy::begin()
     digitalWrite(_pin, LOW);
 }
 
-bool SensorBuoy::isWaterLowLevel()
+bool SensorBuoy::isActive()
 {
     int buoyStatus = digitalRead(_pin);
     Serial.println("Lendo sensor boia: " + String(buoyStatus));
