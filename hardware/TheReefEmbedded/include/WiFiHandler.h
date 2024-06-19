@@ -7,7 +7,7 @@
 class WiFiHandler {
 private:
     WiFiManager _wifiManager;
-    WiFiClient _client;
+    WiFiClientSecure _client;
 
 public:
     WiFiHandler();
@@ -16,7 +16,7 @@ public:
     bool isConnected();
     void process();
     String getLocalIp();
-    WiFiClient& getClient();
+    WiFiClientSecure& getClient();
 };
 
 #endif

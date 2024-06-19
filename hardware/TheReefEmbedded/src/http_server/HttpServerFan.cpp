@@ -1,6 +1,6 @@
 #include "http_server/HttpServerFan.h"
 
-HttpServerFan::HttpServerFan(String host, String secretKey, WiFiClient client) : HttpServerBase(host, secretKey, client) {}
+HttpServerFan::HttpServerFan(String host, String secretKey) : HttpServerBase(host, secretKey) {}
     // _host = "https://myreef.fly.dev/fans/update_on";
 
 void HttpServerFan::sendFanStatusOn()
@@ -8,7 +8,7 @@ void HttpServerFan::sendFanStatusOn()
     Serial.println("==================");
     Serial.println("Http fan on");
 
-    // HTTPClient https = setupHttp();
+    // HTTPClient https = setupHttps();
     // char requestBody[50]; // Ajuste o tamanho do array conforme necessário
 
     // strcpy(requestBody, "{\"on\":\"");
@@ -26,7 +26,7 @@ void HttpServerFan::sendFanStatusOff()
 {
     Serial.println("==================");
     Serial.println("Http fan off");
-    // HTTPClient https = setupHttp();
+    // HTTPClient https = setupHttps();
     // char requestBody[50]; // Ajuste o tamanho do array conforme necessário
 
     // strcpy(requestBody, "{\"on\":\"");

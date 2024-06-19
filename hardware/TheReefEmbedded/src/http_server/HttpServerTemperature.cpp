@@ -1,12 +1,12 @@
 #include "http_server/HttpServerTemperature.h"
 
-HttpServerTemperature::HttpServerTemperature(String host, String secretKey, WiFiClient client) : HttpServerBase(host, secretKey, client) {}
+HttpServerTemperature::HttpServerTemperature(String host, String secretKey) : HttpServerBase(host, secretKey) {}
 
 void HttpServerTemperature::sendCurrentTemperature(float temperature)
 {
     Serial.println("==================");
     Serial.println("Enviado temperatura: " + String(temperature));
-    // HTTPClient https = setupHttp();
+    // HTTPClient https = setupHttps();
 
     // String requestBody = "{\"newValue\":\"" + String(temperature) + "\", \"indicatorId\":\"1\"}";
 

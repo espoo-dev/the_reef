@@ -6,7 +6,7 @@
 class HttpServerBuoy: public HttpServerBase {
 
 public:
-    HttpServerBuoy(String host, String secretKey, WiFiClient client);
+    HttpServerBuoy(String host, String secretKey);
     void sendBuoyActive();
     void sendBuoyInactive();
 };

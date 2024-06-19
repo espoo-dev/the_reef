@@ -1,12 +1,17 @@
 #include "http_server/HttpServerBase.h"
 
-HttpServerBase::HttpServerBase(String host, String secretKey, WiFiClient client)
-    : _host(host), _secretKey(secretKey), _client(client) {}
+HttpServerBase::HttpServerBase(String host, String secretKey)
+    : _host(host), _secretKey(secretKey){}
 
-HTTPClient HttpServerBase::setupHttp(String path) {
-    HTTPClient http;
-    http.begin(_client, _host + path);
-    http.addHeader("Content-Type", "application/json");
-    http.addHeader("Authorization", "Bearer " + _secretKey);
-    return http;
+HTTPClient HttpServerBase::setupHttps(String path) {
+    HTTPClient https;
+    _client->setInsecure();
+    https.begin(*_client, _host + path);
+    https.addHeader("Content-Type", "application/json");
+    https.addHeader("Authorization", "Bearer " + _secretKey);
+    return https;
+}
+void HttpServerBase::setWiFiClientSecure(WiFiClientSecure* client)
+{
+    _client = client;
 }

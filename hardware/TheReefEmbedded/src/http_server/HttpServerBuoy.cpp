@@ -1,6 +1,6 @@
 #include "http_server/HttpServerBuoy.h"
 
-HttpServerBuoy::HttpServerBuoy(String host, String secretKey, WiFiClient client) : HttpServerBase(host, secretKey, client) {}
+HttpServerBuoy::HttpServerBuoy(String host, String secretKey) : HttpServerBase(host, secretKey) {}
     // buoys/update
 
 void HttpServerBuoy::sendBuoyActive()
@@ -8,7 +8,7 @@ void HttpServerBuoy::sendBuoyActive()
     Serial.println("==================");
     Serial.println("Http Buoy on");
 
-    // HTTPClient https = setupHttp();
+    // HTTPClient https = setupHttps();
     // char requestBody[50]; // Ajuste o tamanho do array conforme necessário
 
     // strcpy(requestBody, "{\"on\":\"");
@@ -26,7 +26,7 @@ void HttpServerBuoy::sendBuoyInactive()
 {
     Serial.println("==================");
     Serial.println("Http Buoy off");
-    // HTTPClient https = setupHttp();
+    // HTTPClient https = setupHttps();
     // char requestBody[50]; // Ajuste o tamanho do array conforme necessário
 
     // strcpy(requestBody, "{\"on\":\"");

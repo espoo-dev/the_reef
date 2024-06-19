@@ -1,6 +1,6 @@
 #include "WiFiHandler.h"
 
-WiFiHandler::WiFiHandler() : _wifiManager(WiFiManager()), _client(WiFiClient()) {}
+WiFiHandler::WiFiHandler() : _wifiManager(WiFiManager()), _client(WiFiClientSecure()) {}
 
 bool WiFiHandler::begin()
 {
@@ -46,7 +46,7 @@ String WiFiHandler::getLocalIp()
     return WiFi.localIP().toString();
 }
 
-WiFiClient &WiFiHandler::getClient()
+WiFiClientSecure &WiFiHandler::getClient()
 {
     return _client;
 }

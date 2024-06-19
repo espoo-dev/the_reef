@@ -6,7 +6,7 @@
 class HttpServerTemperature: public HttpServerBase {
 
 public:
-    HttpServerTemperature(String host, String secretKey, WiFiClient client);
+    HttpServerTemperature(String host, String secretKey);
     void sendCurrentTemperature(float temperature);
 };
 

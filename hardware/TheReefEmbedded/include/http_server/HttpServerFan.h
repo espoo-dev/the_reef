@@ -6,7 +6,7 @@
 class HttpServerFan: public HttpServerBase {
 
 public:
-    HttpServerFan(String host, String secretKey, WiFiClient client);
+    HttpServerFan(String host, String secretKey);
     void sendFanStatusOn();
     void sendFanStatusOff();
 };

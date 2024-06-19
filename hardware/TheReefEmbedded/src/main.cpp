@@ -32,15 +32,14 @@ SensorBuoy sensorBuoy(PIN_BUOY);
 ActuatorFan actuatorFan(PIN_FAN);
 ActuatorWaterPump actuatorWaterPump(PIN_WATER_PUMP);
 
-WiFiClient client;
 WiFiHandler wiFiHandler;
 
 TemperatureManager temperatureManager(minTemperature, maxTemperature);
 WaterLevelManager waterLevelManager;
 
-HttpServerFan httpServerFan(HOST, secretKey, client);
-HttpServerTemperature httpServerTemperature(HOST, secretKey, client);
-HttpServerBuoy httpServerBuoy(HOST, secretKey, client);
+HttpServerFan httpServerFan(HOST, secretKey);
+HttpServerTemperature httpServerTemperature(HOST, secretKey);
+HttpServerBuoy httpServerBuoy(HOST, secretKey);
 
 LcdManager lcdManager;
 
@@ -54,7 +53,10 @@ void setup()
 
   wiFiHandler.begin();
 
-  
+  WiFiClientSecure client = wiFiHandler.getClient();
+  httpServerBuoy.setWiFiClientSecure(&client);
+  httpServerFan.setWiFiClientSecure(&client);
+  httpServerTemperature.setWiFiClientSecure(&client);
 
   // Start the DS18B20 sensor
   sensorTemperatureDS18B20.begin();
