@@ -11,6 +11,7 @@
 #include <http_server/HttpServerFan.h>
 #include <http_server/HttpServerTemperature.h>
 #include <http_server/HttpServerBuoy.h>
+#include <http_server/HttpServerWaterPump.h>
 #include <LcdManager.h>
 
 #define SECRET "iuryreefsecretkey"
@@ -40,6 +41,7 @@ WaterLevelManager waterLevelManager;
 HttpServerFan httpServerFan(HOST, secretKey);
 HttpServerTemperature httpServerTemperature(HOST, secretKey);
 HttpServerBuoy httpServerBuoy(HOST, secretKey);
+HttpServerWaterPump httpServerWaterPump(HOST, secretKey);
 
 LcdManager lcdManager;
 
@@ -57,6 +59,7 @@ void setup()
   httpServerBuoy.setWiFiClientSecure(client);
   httpServerFan.setWiFiClientSecure(client);
   httpServerTemperature.setWiFiClientSecure(client);
+  httpServerWaterPump.setWiFiClientSecure(client);
 
   // Start the DS18B20 sensor
   sensorTemperatureDS18B20.begin();
@@ -74,6 +77,7 @@ void setup()
   waterLevelManager.setActuatorWaterPump(&actuatorWaterPump);
   waterLevelManager.setSensorBuoy(&sensorBuoy);
   waterLevelManager.setHttpServerBuoy(&httpServerBuoy);
+  waterLevelManager.setHttpServerWaterPump(&httpServerWaterPump);
 }
 
 void loop()

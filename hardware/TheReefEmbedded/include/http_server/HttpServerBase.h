@@ -13,9 +13,10 @@ private:
     String _secretKey;
     WiFiClientSecure _client;
 
+protected:
+    HTTPClient setupHttps(String path);
 
 public:
-    HTTPClient setupHttps(String path);
     HttpServerBase(String host, String secretKey);
     void setWiFiClientSecure(WiFiClientSecure client);
 };

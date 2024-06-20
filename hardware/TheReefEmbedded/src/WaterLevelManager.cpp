@@ -14,10 +14,12 @@ void WaterLevelManager::sendBuoyStatusToServer(bool status)
     if (status)
     {
         _serverBuoy->sendBuoyActive();
+        _serverWaterPump->sendWaterPumpStatusOn();
         return;
     }
 
     _serverBuoy->sendBuoyInactive();
+    _serverWaterPump->sendWaterPumpStatusOff();
 }
 
 void WaterLevelManager::handlerWaterLevel()
@@ -59,4 +61,9 @@ void WaterLevelManager::setSensorBuoy(SensorBuoy *sensorBuoy)
 void WaterLevelManager::setHttpServerBuoy(HttpServerBuoy *httpServerBuoy)
 {
     _serverBuoy = httpServerBuoy;
+}
+
+void WaterLevelManager::setHttpServerWaterPump(HttpServerWaterPump *httpServerWaterPump)
+{
+    _serverWaterPump = httpServerWaterPump;
 }

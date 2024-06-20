@@ -4,6 +4,7 @@
 #include <sensor/Buoy.h>
 #include <actuator/WaterPump.h>
 #include <http_server/HttpServerBuoy.h>
+#include <http_server/HttpServerWaterPump.h>
 
 class WaterLevelManager
 {
@@ -11,6 +12,7 @@ private:
     SensorBuoy *_sensor;
     ActuatorWaterPump *_waterPump;
     HttpServerBuoy *_serverBuoy;
+    HttpServerWaterPump *_serverWaterPump;
 
     static bool _previousBuoyActiveStatus;
     
@@ -23,6 +25,7 @@ public:
     void setActuatorWaterPump(ActuatorWaterPump* actuatorWaterPump);
     void setSensorBuoy(SensorBuoy* sensorBuoy);
     void setHttpServerBuoy(HttpServerBuoy* httpServerBuoy);
+    void setHttpServerWaterPump(HttpServerWaterPump* httpServerWaterPump);
 };
 
 #endif
