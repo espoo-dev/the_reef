@@ -13,12 +13,12 @@
 #include <http_server/HttpServerBuoy.h>
 #include <LcdManager.h>
 
-#define SECRET "****"
+#define SECRET "iuryreefsecretkey"
 
 const char *secretKey = SECRET;
 
-const float minTemperature = 23;
-const float maxTemperature = 28;
+const float minTemperature = 24;
+const float maxTemperature = 26;
 
 const String HOST = "https://myreef.onrender.com";
 
@@ -54,9 +54,9 @@ void setup()
   wiFiHandler.begin();
 
   WiFiClientSecure client = wiFiHandler.getClient();
-  httpServerBuoy.setWiFiClientSecure(&client);
-  httpServerFan.setWiFiClientSecure(&client);
-  httpServerTemperature.setWiFiClientSecure(&client);
+  httpServerBuoy.setWiFiClientSecure(client);
+  httpServerFan.setWiFiClientSecure(client);
+  httpServerTemperature.setWiFiClientSecure(client);
 
   // Start the DS18B20 sensor
   sensorTemperatureDS18B20.begin();

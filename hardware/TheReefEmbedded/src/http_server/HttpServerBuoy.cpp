@@ -1,41 +1,36 @@
 #include "http_server/HttpServerBuoy.h"
 
 HttpServerBuoy::HttpServerBuoy(String host, String secretKey) : HttpServerBase(host, secretKey) {}
-    // buoys/update
 
 void HttpServerBuoy::sendBuoyActive()
 {
     Serial.println("==================");
     Serial.println("Http Buoy on");
 
-    // HTTPClient https = setupHttps();
-    // char requestBody[50]; // Ajuste o tamanho do array conforme necessário
+    HTTPClient https = setupHttps("/buoys/update");
+    char requestBody[50] = "{\"buoyId\": \"1\", \"newValue\": true}";
 
-    // strcpy(requestBody, "{\"on\":\"");
-    // strcat(requestBody, "true");
-    // strcat(requestBody, "\", \"fanId\":\"1\"}");
-
-    // int httpResponseCode = https.PUT(requestBody);
-    // Serial.print(requestBody);
-    // Serial.print("HTTP Response code: ");
-    // Serial.println(httpResponseCode);
-    // https.end();
+    int httpResponseCode = https.PUT(requestBody);
+    Serial.print("HTTP Response code: ");
+    Serial.println(httpResponseCode);
+    Serial.println("Response");
+    Serial.println(https.getString());
+    https.end();
+    Serial.println("==================");
 }
 
 void HttpServerBuoy::sendBuoyInactive()
 {
     Serial.println("==================");
     Serial.println("Http Buoy off");
-    // HTTPClient https = setupHttps();
-    // char requestBody[50]; // Ajuste o tamanho do array conforme necessário
+    HTTPClient https = setupHttps("/buoys/update");
+    char requestBody[50] = "{\"buoyId\": \"1\", \"newValue\": false}";
 
-    // strcpy(requestBody, "{\"on\":\"");
-    // strcat(requestBody, "false");
-    // strcat(requestBody, "\", \"fanId\":\"1\"}");
-
-    // int httpResponseCode = https.PUT(requestBody);
-    // Serial.print(requestBody);
-    // Serial.print("HTTP Response code: ");
-    // Serial.println(httpResponseCode);
-    // https.end();
+    int httpResponseCode = https.PUT(requestBody);
+    Serial.print("HTTP Response code: ");
+    Serial.println(httpResponseCode);
+    Serial.println("Response");
+    Serial.println(https.getString());
+    https.end();
+    Serial.println("==================");
 }

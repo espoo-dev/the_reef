@@ -11,14 +11,13 @@ class HttpServerBase
 private:
     String _host;
     String _secretKey;
-    WiFiClientSecure *_client;
+    WiFiClientSecure _client;
 
-protected:
-    HTTPClient setupHttps(String path);
 
 public:
+    HTTPClient setupHttps(String path);
     HttpServerBase(String host, String secretKey);
-    void setWiFiClientSecure(WiFiClientSecure *client);
+    void setWiFiClientSecure(WiFiClientSecure client);
 };
 
 #endif

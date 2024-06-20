@@ -1,41 +1,33 @@
 #include "http_server/HttpServerFan.h"
 
 HttpServerFan::HttpServerFan(String host, String secretKey) : HttpServerBase(host, secretKey) {}
-    // _host = "https://myreef.fly.dev/fans/update_on";
 
 void HttpServerFan::sendFanStatusOn()
 {
     Serial.println("==================");
     Serial.println("Http fan on");
 
-    // HTTPClient https = setupHttps();
-    // char requestBody[50]; // Ajuste o tamanho do array conforme necessário
+    HTTPClient https = setupHttps("/fans/update_on");
+    char requestBody[50] = "{\"on\": \"true\", \"fanId\": 5}";
 
-    // strcpy(requestBody, "{\"on\":\"");
-    // strcat(requestBody, "true");
-    // strcat(requestBody, "\", \"fanId\":\"1\"}");
 
-    // int httpResponseCode = https.PUT(requestBody);
-    // Serial.print(requestBody);
-    // Serial.print("HTTP Response code: ");
-    // Serial.println(httpResponseCode);
-    // https.end();
+    int httpResponseCode = https.PUT(requestBody);
+    Serial.print(requestBody);
+    Serial.print("HTTP Response code: ");
+    Serial.println(httpResponseCode);
+    https.end();
 }
 
 void HttpServerFan::sendFanStatusOff()
 {
     Serial.println("==================");
     Serial.println("Http fan off");
-    // HTTPClient https = setupHttps();
-    // char requestBody[50]; // Ajuste o tamanho do array conforme necessário
+    HTTPClient https = setupHttps("/fans/update_on");
+    char requestBody[50] = "{\"on\": \"false\", \"fanId\": 5}";
 
-    // strcpy(requestBody, "{\"on\":\"");
-    // strcat(requestBody, "false");
-    // strcat(requestBody, "\", \"fanId\":\"1\"}");
-
-    // int httpResponseCode = https.PUT(requestBody);
-    // Serial.print(requestBody);
-    // Serial.print("HTTP Response code: ");
-    // Serial.println(httpResponseCode);
-    // https.end();
+    int httpResponseCode = https.PUT(requestBody);
+    Serial.print(requestBody);
+    Serial.print("HTTP Response code: ");
+    Serial.println(httpResponseCode);
+    https.end();
 }
