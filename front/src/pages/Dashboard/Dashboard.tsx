@@ -15,9 +15,10 @@ import {
 } from './Dashboard.styles';
 import { Api } from 'infra/http/api';
 import { Aquarium } from 'entity/Aquarium';
-import { ReefChartList, ReefChartHistoric } from 'components';
+import { ReefChartList } from 'components';
 import Equipment from 'components/Equipment/Equipment';
 import { Fan } from 'entity/Fan';
+import { useParams } from 'react-router-dom';
 
 type PropsHistoricChart = Array<{
   hour: string;
@@ -68,7 +69,7 @@ const Dashboard = () => {
   ];
 
   const [aquariums, setAquariums] = useState<Aquarium[]>();
-  const [_, setTankSelected] = useState<Aquarium>();
+  const [tankSelected, setTankSelected] = useState<Aquarium>();
   const [indicatorHist, setIndicatorHist] = useState<PropsHistoricChart>([]);
   const [indicatorList, setIndicatorList] = useState<PropsHistoricList>([]);
 
@@ -76,6 +77,7 @@ const Dashboard = () => {
   const [fans, setFans] = useState<Fan[]>();
 
   const reefApi = new Api();
+  const { aquarium_id } = useParams();
 
   const reloadIndicators = () => {
     setTemperature({ ...temperature, loading: true });
@@ -84,16 +86,30 @@ const Dashboard = () => {
   };
 
   const loadAquariums = async () => {
-    setAquariums(await reefApi.get<Aquarium[]>('/aquariums'));
-    if (aquariums?.length) {
-      setTankSelected(aquariums[0]);
+    const responseTanksList = await reefApi.get<Aquarium[]>('/aquariums');
+    setAquariums(responseTanksList);
+
+    const aquariumSelected = responseTanksList?.filter((aquarium) => {
+      return aquarium.id === Number(aquarium_id);
+    });
+
+    if (aquariumSelected?.length) {
+      setTankSelected(aquariumSelected[0]);
     }
   };
 
   const loadIndicators = async () => {
     const response = await reefApi.get<any[]>('/indicators');
+    let indicatorsByAquarium = [];
+
+    if (tankSelected) {
+      indicatorsByAquarium = response.filter(
+        (indicator) => indicator.aquariumId === tankSelected.id
+      );
+    }
+
     const { name, currentValue, minValue, maxValue, unit, id, last_update } =
-      response[0];
+      indicatorsByAquarium[0];
     setTemperature({
       name,
       unit,
@@ -127,14 +143,25 @@ const Dashboard = () => {
 
   const loadFans = async () => {
     const response = await reefApi.get<Fan[]>('/fans');
-    setFans(response);
+
+    if (tankSelected) {
+      const fansByAquarium = response.filter(
+        (fan) => fan.aquariumId === tankSelected.id
+      );
+      setFans(fansByAquarium);
+    }
   };
 
   useEffect(() => {
-    loadIndicators();
     loadAquariums();
-    loadFans();
   }, []);
+
+  useEffect(() => {
+    if (tankSelected) {
+      loadIndicators();
+      loadFans();
+    }
+  }, [tankSelected]);
 
   return (
     <div>
@@ -143,12 +170,8 @@ const Dashboard = () => {
         <div style={{ background: '#edfbfe' }}>
           <HeaderSection>
             <div>
-              <h2>Iury Reef</h2>
-              <h3>
-                {temperature.danger
-                  ? 'A temperatura não está boa!'
-                  : 'Está tudo bem por aqui.'}{' '}
-              </h3>
+              <h2>{tankSelected?.name}</h2>
+              <h3>Bem vindo ao monitoramento do seu aquário</h3>
             </div>
             <ImgMonitor src={LogoImg} alt="Shark Good" />
           </HeaderSection>

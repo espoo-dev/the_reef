@@ -17,7 +17,7 @@ const int minuteInMilis = 60000;
 const int minutes = 5;
 
 const float maxTemperature = 28;
-const float idealTemperature = 27.5;
+const float idealTemperature = 27;
 
 String host = "https://myreef.onrender.com";
 
