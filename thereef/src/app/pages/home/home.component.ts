@@ -49,6 +49,8 @@ export class HomeComponent {
     }
   }
 
+  private loadDataInterval!: ReturnType<typeof setInterval>;
+
   constructor(
     private aquariaRepository: AquariaRepository,
     private onOffSensorRepository: OnOffSensorRepository,
@@ -151,8 +153,12 @@ export class HomeComponent {
     const refreshInMinutes = 1 * 60000;
     this.loadAquariums();
 
-    setInterval(() => {
+    this.loadDataInterval = setInterval(() => {
       this.loadAquariums();
-    }, refreshInMinutes)
+    }, refreshInMinutes);
   }
+
+  ngOnDestroy() {
+    clearInterval(this.loadDataInterval);
+  };
 }
