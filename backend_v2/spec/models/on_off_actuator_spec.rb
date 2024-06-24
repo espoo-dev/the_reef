@@ -15,6 +15,7 @@ RSpec.describe OnOffActuator do
     it { is_expected.to validate_presence_of(:description) }
     it { is_expected.to validate_presence_of(:publish_data_to_server_interval) }
     it { is_expected.to validate_presence_of(:embedded_actuator_pin) }
+    it { is_expected.to validate_inclusion_of(:actuator_type).in_array(%w[water_pump fan]) }
 
     describe "belongs_to_one_parent" do
       let(:on_off_sensor) { create(:on_off_sensor) }

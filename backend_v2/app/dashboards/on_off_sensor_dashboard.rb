@@ -13,6 +13,7 @@ class OnOffSensorDashboard < Administrate::BaseDashboard
     id: Field::Number,
     name: Field::String,
     description: Field::String,
+    sensor_type: Field::String,
     aquarium: Field::BelongsTo,
     on_off_actuator: Field::HasOne,
     on_off_values: Field::HasMany,
@@ -30,6 +31,7 @@ class OnOffSensorDashboard < Administrate::BaseDashboard
     id
     name
     description
+    sensor_type
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -37,6 +39,7 @@ class OnOffSensorDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     name
+    sensor_type
     description
     publish_data_to_server_interval
     aquarium
@@ -52,6 +55,7 @@ class OnOffSensorDashboard < Administrate::BaseDashboard
     aquarium
     description
     name
+    sensor_type
     publish_data_to_server_interval
   ].freeze
 

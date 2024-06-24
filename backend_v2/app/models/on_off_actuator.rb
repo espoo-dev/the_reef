@@ -5,6 +5,7 @@
 # Table name: on_off_actuators
 #
 #  id                              :bigint           not null, primary key
+#  actuator_type                   :string
 #  deleted_at                      :datetime
 #  description                     :string           not null
 #  embedded_actuator_pin           :integer          not null
@@ -39,6 +40,7 @@ class OnOffActuator < ApplicationRecord
   validates :publish_data_to_server_interval, presence: true
   validates :embedded_actuator_pin, presence: true
   validate :belongs_to_one_parent
+  validates :actuator_type, presence: true, inclusion: { in: %w[water_pump fan] }
 
   scope :by_user, lambda { |user|
     joins(:aquarium).where({ aquaria: { user_id: user.id } })

@@ -18,6 +18,14 @@ module Api
         current_devise_api_user
       end
 
+      def page
+        index_contract[:page]
+      end
+
+      def per_page
+        index_contract[:per_page]
+      end
+
       def render_unauthorized(message = "Unauthorized")
         render json: { error: message }, status: :unauthorized
       end

@@ -9,6 +9,7 @@
 #  description                     :string           not null
 #  name                            :string           not null
 #  publish_data_to_server_interval :datetime         not null
+#  sensor_type                     :string
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #  aquarium_id                     :bigint           not null
@@ -30,7 +31,7 @@ FactoryBot.define do
     sequence(:name) { |n| "Sensor #{n}" }
     sequence(:description) { |n| "Description #{n}" }
     publish_data_to_server_interval { Time.zone.now }
-
+    sensor_type { "water_level" }
     aquarium { association :aquarium, user: }
   end
 end

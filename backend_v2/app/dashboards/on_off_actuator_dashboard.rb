@@ -13,6 +13,7 @@ class OnOffActuatorDashboard < Administrate::BaseDashboard
     id: Field::Number,
     name: Field::String,
     description: Field::String,
+    actuator_type: Field::String,
     embedded_actuator_pin: Field::Number,
     publish_data_to_server_interval: Field::DateTime,
     aquarium: Field::BelongsTo,
@@ -32,6 +33,7 @@ class OnOffActuatorDashboard < Administrate::BaseDashboard
     id
     name
     description
+    actuator_type
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -40,6 +42,7 @@ class OnOffActuatorDashboard < Administrate::BaseDashboard
     id
     aquarium
     description
+    actuator_type
     embedded_actuator_pin
     name
     on_off_sensor
@@ -56,6 +59,7 @@ class OnOffActuatorDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = %i[
     name
     description
+    actuator_type
     embedded_actuator_pin
     publish_data_to_server_interval
     aquarium

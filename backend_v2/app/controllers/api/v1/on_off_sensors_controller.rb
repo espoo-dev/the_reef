@@ -18,14 +18,6 @@ module Api
       def values_amount
         index_contract[:values_amount]
       end
-
-      def page
-        index_contract[:page]
-      end
-
-      def per_page
-        index_contract[:per_page]
-      end
     end
   end
 end

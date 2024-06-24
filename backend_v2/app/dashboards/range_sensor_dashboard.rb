@@ -13,6 +13,7 @@ class RangeSensorDashboard < Administrate::BaseDashboard
     id: Field::Number,
     aquarium: Field::BelongsTo,
     description: Field::String,
+    sensor_type: Field::String,
     max_value: Field::String.with_options(searchable: false),
     min_value: Field::String.with_options(searchable: false),
     name: Field::String,
@@ -32,6 +33,7 @@ class RangeSensorDashboard < Administrate::BaseDashboard
     id
     name
     description
+    sensor_type
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -40,6 +42,7 @@ class RangeSensorDashboard < Administrate::BaseDashboard
     id
     aquarium
     description
+    sensor_type
     max_value
     min_value
     name
@@ -58,6 +61,7 @@ class RangeSensorDashboard < Administrate::BaseDashboard
     description
     max_value
     min_value
+    sensor_type
     name
     numeric_values
     on_off_actuator

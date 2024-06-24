@@ -9,6 +9,7 @@
 #  description                     :string           not null
 #  name                            :string           not null
 #  publish_data_to_server_interval :datetime         not null
+#  sensor_type                     :string
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #  aquarium_id                     :bigint           not null
@@ -29,6 +30,7 @@ class OnOffSensor < ApplicationRecord
   validates :name, presence: true
   validates :description, presence: true
   validates :publish_data_to_server_interval, presence: true
+  validates :sensor_type, presence: true, inclusion: { in: ["water_level"] }
 
   scope :by_user, lambda { |user|
     joins(:aquarium).where({ aquaria: { user_id: user.id } })
