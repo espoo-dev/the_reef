@@ -5,6 +5,7 @@
 # Table name: on_off_actuators
 #
 #  id                              :bigint           not null, primary key
+#  actuator_type                   :string
 #  deleted_at                      :datetime
 #  description                     :string           not null
 #  embedded_actuator_pin           :integer          not null
@@ -36,6 +37,7 @@ FactoryBot.define do
 
     sequence(:name) { |n| "Actuator #{n}" }
     sequence(:description) { |n| "Description #{n}" }
+    actuator_type { "water_pump" }
     publish_data_to_server_interval { Time.zone.now }
     embedded_actuator_pin { 13 }
     aquarium { association :aquarium, user: }
