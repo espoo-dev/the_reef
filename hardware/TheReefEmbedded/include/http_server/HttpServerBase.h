@@ -4,21 +4,22 @@
 #include <Arduino.h>
 #include <WiFiClient.h>
 #include <ESP8266HTTPClient.h>
-#include <WiFiManager.h>
+#include <WiFiHandler.h>
 
 class HttpServerBase
 {
 private:
     String _host;
     String _secretKey;
-    WiFiClientSecure _client;
+    WiFiHandler* _wiFiHandler;
 
 protected:
     HTTPClient setupHttps(String path);
+    bool isConnected();
 
 public:
     HttpServerBase(String host, String secretKey);
-    void setWiFiClientSecure(WiFiClientSecure client);
+    void setWiFiHandler(WiFiHandler* wiFiHandler);
 };
 
 #endif

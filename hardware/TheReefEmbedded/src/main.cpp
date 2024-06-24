@@ -25,6 +25,7 @@ const String HOST = "https://myreef.onrender.com";
 
 const int PIN_TEMPERATURE = D4;
 const int PIN_BUOY = D5;
+const int PIN_BUTTON_RESET_WIFI = D6;
 const int PIN_FAN = D7;
 const int PIN_WATER_PUMP = D8;
 
@@ -33,7 +34,7 @@ SensorBuoy sensorBuoy(PIN_BUOY);
 ActuatorFan actuatorFan(PIN_FAN);
 ActuatorWaterPump actuatorWaterPump(PIN_WATER_PUMP);
 
-WiFiHandler wiFiHandler;
+WiFiHandler wiFiHandler(PIN_BUTTON_RESET_WIFI);
 
 TemperatureManager temperatureManager(minTemperature, maxTemperature);
 WaterLevelManager waterLevelManager;
@@ -49,17 +50,17 @@ bool sended = false;
 
 void setup()
 {
+
   Serial.begin(115200);
   Serial.println();
   Serial.print("Connecting to ");
 
   wiFiHandler.begin();
 
-  WiFiClientSecure client = wiFiHandler.getClient();
-  httpServerBuoy.setWiFiClientSecure(client);
-  httpServerFan.setWiFiClientSecure(client);
-  httpServerTemperature.setWiFiClientSecure(client);
-  httpServerWaterPump.setWiFiClientSecure(client);
+  httpServerBuoy.setWiFiHandler(&wiFiHandler);
+  httpServerFan.setWiFiHandler(&wiFiHandler);
+  httpServerTemperature.setWiFiHandler(&wiFiHandler);
+  httpServerWaterPump.setWiFiHandler(&wiFiHandler);
 
   // Start the DS18B20 sensor
   sensorTemperatureDS18B20.begin();
@@ -83,6 +84,7 @@ void setup()
 void loop()
 {
   wiFiHandler.process();
+  wiFiHandler.checkResetWifi();
   temperatureManager.handlerTemperature();
   temperatureManager.printCurrentTemperatureOnLcd();
   waterLevelManager.handlerWaterLevel();

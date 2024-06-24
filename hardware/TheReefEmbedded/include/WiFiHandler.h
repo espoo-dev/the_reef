@@ -8,14 +8,15 @@ class WiFiHandler {
 private:
     WiFiManager _wifiManager;
     WiFiClientSecure _client;
+    uint8_t _PIN_RESET_WIFI;
 
 public:
-    WiFiHandler();
+    WiFiHandler(uint8_t PIN_RESET_WIFI);
     bool begin();
     void disconnect();
     bool isConnected();
     void process();
-    String getLocalIp();
+    void checkResetWifi();
     WiFiClientSecure& getClient();
 };
 
