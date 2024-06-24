@@ -11,6 +11,7 @@
 #  min_value                       :decimal(, )      not null
 #  name                            :string           not null
 #  publish_data_to_server_interval :datetime         not null
+#  sensor_type                     :string
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #  aquarium_id                     :bigint           not null
@@ -34,6 +35,7 @@ FactoryBot.define do
     publish_data_to_server_interval { Time.zone.now }
     min_value { 1.0 }
     max_value { 10.0 }
+    sensor_type { "temperature" }
 
     aquarium { association :aquarium, user: }
   end

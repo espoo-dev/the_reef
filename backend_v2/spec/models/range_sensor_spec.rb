@@ -15,6 +15,7 @@ RSpec.describe RangeSensor do
     it { is_expected.to validate_presence_of(:publish_data_to_server_interval) }
     it { is_expected.to validate_presence_of(:min_value) }
     it { is_expected.to validate_presence_of(:max_value) }
+    it { is_expected.to validate_inclusion_of(:sensor_type).in_array(["temperature"]) }
 
     describe "min_value" do
       context "when min_value is bigger than max_value" do

@@ -11,6 +11,7 @@
 #  min_value                       :decimal(, )      not null
 #  name                            :string           not null
 #  publish_data_to_server_interval :datetime         not null
+#  sensor_type                     :string
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #  aquarium_id                     :bigint           not null
@@ -33,6 +34,7 @@ class RangeSensor < ApplicationRecord
   validates :publish_data_to_server_interval, presence: true
   validates :min_value, presence: true, numericality: { less_than: :max_value }
   validates :max_value, presence: true, numericality: { greater_than: :min_value }
+  validates :sensor_type, presence: true, inclusion: { in: ["temperature"] }
 
   scope :by_user, lambda { |user|
     joins(:aquarium).where({ aquaria: { user_id: user.id } })
