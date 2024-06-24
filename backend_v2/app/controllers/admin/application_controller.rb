@@ -19,9 +19,6 @@ module Admin
 
     def authenticate_admin
       authorize :admin_dashboard, :full_access?
-
-      # authorized = AdminDashboardPolicy.new(current_user, nil).send(:admin_dashboard?)
-      # raise Pundit::NotAuthorizedError unless authorized
     end
 
     private

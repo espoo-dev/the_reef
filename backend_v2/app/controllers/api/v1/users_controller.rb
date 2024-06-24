@@ -25,20 +25,12 @@ module Api
 
       private
 
-      def user_index_contract
-        @user_index_contract ||= UserContracts::Index.call(permitted_params(:page, :per_page))
+      def index_contract
+        @index_contract ||= UserContracts::Index.call(permitted_params(:page, :per_page))
       end
 
       def user_create_contract
         UserContracts::Create.call(permitted_params(:name, :email, :password))
-      end
-
-      def page
-        user_index_contract[:page]
-      end
-
-      def per_page
-        user_index_contract[:per_page]
       end
     end
   end
