@@ -1,11 +1,17 @@
 #include "WiFiHandler.h"
 
+void saveConfigCallback() {
+    delay(100);
+    ESP.restart();
+}
+
 WiFiHandler::WiFiHandler(uint8_t pin_reset) : _wifiManager(WiFiManager()), _client(WiFiClientSecure()), _PIN_RESET_WIFI(pin_reset) {}
 
 bool WiFiHandler::begin()
 {
     _wifiManager.setConnectTimeout(60000);
     _wifiManager.setConfigPortalBlocking(false);
+    _wifiManager.setSaveConfigCallback(saveConfigCallback);
     bool res = _wifiManager.autoConnect("TheReefConnectAP", "password");
 
     pinMode(_PIN_RESET_WIFI, INPUT_PULLUP);
