@@ -13,6 +13,7 @@ RSpec.describe OnOffSensor do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:description) }
     it { is_expected.to validate_presence_of(:publish_data_to_server_interval) }
+    it { is_expected.to validate_inclusion_of(:sensor_type).in_array(["water_level"]) }
   end
 
   describe "scopes" do
