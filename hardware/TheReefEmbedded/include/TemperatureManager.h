@@ -29,6 +29,7 @@ private:
 
 public:
     TemperatureManager(float minTemperature, float maxTemperature);
+    void begin();
     void handlerTemperature();
     void printCurrentTemperatureOnLcd();
     void setTemperatureSensor(SensorTemperature* sensor);

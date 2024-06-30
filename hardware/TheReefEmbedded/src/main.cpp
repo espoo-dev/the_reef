@@ -74,6 +74,7 @@ void setup()
   temperatureManager.setHttpServerFan(&httpServerFan);
   temperatureManager.setHttpServerTemperature(&httpServerTemperature);
   temperatureManager.setLcdManager(&lcdManager);
+  temperatureManager.begin();
 
   waterLevelManager.setActuatorWaterPump(&actuatorWaterPump);
   waterLevelManager.setSensorBuoy(&sensorBuoy);

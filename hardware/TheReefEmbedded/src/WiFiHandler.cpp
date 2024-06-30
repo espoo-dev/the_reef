@@ -29,6 +29,7 @@ void WiFiHandler::disconnect()
 
     if (!disconnected)
     {
+        _lcdManager->printTextAtTop("RESETANDO WIFI CONFIG!");
         Serial.println("Desconectando");
         _wifiManager.resetSettings();
         disconnected = true;
