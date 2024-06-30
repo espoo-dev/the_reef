@@ -10,6 +10,8 @@ class LcdManager
 private:
     LiquidCrystal_I2C _lcd;
 
+    void scrollText(String scrollingText, uint8_t row);
+
 public:
     LcdManager();
     void begin();

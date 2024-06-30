@@ -1,6 +1,4 @@
 #include <Arduino.h>
-#include <ESP8266HTTPClient.h>
-#include <LiquidCrystal_I2C.h>
 #include <sensor/Temperature.h>
 #include <sensor/Buoy.h>
 #include <actuator/Fan.h>
@@ -54,8 +52,11 @@ void setup()
   Serial.begin(115200);
   Serial.println();
   Serial.print("Connecting to ");
+  lcdManager.begin();
 
   wiFiHandler.begin();
+  wiFiHandler.setLcdManager(&lcdManager);
+  wiFiHandler.printCurrentWifiStatusOnLcd();
 
   httpServerBuoy.setWiFiHandler(&wiFiHandler);
   httpServerFan.setWiFiHandler(&wiFiHandler);
@@ -66,7 +67,6 @@ void setup()
   sensorTemperatureDS18B20.begin();
   sensorBuoy.begin();
   actuatorFan.begin();
-  lcdManager.begin();
   actuatorWaterPump.begin();
 
   temperatureManager.setActuatorFan(&actuatorFan);
@@ -79,6 +79,9 @@ void setup()
   waterLevelManager.setSensorBuoy(&sensorBuoy);
   waterLevelManager.setHttpServerBuoy(&httpServerBuoy);
   waterLevelManager.setHttpServerWaterPump(&httpServerWaterPump);
+
+  waterLevelManager.begin();
+  lcdManager.printTextAtTop("Setup finished!");
 }
 
 void loop()

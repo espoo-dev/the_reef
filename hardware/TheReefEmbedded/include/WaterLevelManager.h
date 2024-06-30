@@ -22,6 +22,7 @@ private:
 public:
     WaterLevelManager();
     void handlerWaterLevel();
+    void begin();
     void setActuatorWaterPump(ActuatorWaterPump* actuatorWaterPump);
     void setSensorBuoy(SensorBuoy* sensorBuoy);
     void setHttpServerBuoy(HttpServerBuoy* httpServerBuoy);

@@ -1,13 +1,14 @@
 #include "WiFiHandler.h"
 
-void saveConfigCallback() {
+void saveConfigCallback()
+{
     delay(100);
     ESP.restart();
 }
 
 WiFiHandler::WiFiHandler(uint8_t pin_reset) : _wifiManager(WiFiManager()), _client(WiFiClientSecure()), _PIN_RESET_WIFI(pin_reset) {}
 
-bool WiFiHandler::begin()
+void WiFiHandler::begin()
 {
     _wifiManager.setConnectTimeout(60000);
     _wifiManager.setConfigPortalBlocking(false);
@@ -20,8 +21,6 @@ bool WiFiHandler::begin()
     {
         Serial.println("connected...");
     }
-
-    return res;
 }
 
 void WiFiHandler::disconnect()
@@ -61,6 +60,26 @@ void WiFiHandler::checkResetWifi()
             disconnect();
         }
     }
+}
+
+void WiFiHandler::printCurrentWifiStatusOnLcd()
+{
+    if (isConnected())
+    {
+        String wifiName = _wifiManager.getWiFiSSID();
+        String localIp = WiFi.localIP().toString();
+        _lcdManager->printTextAtTop("WIFI CONNECTED: " + wifiName);
+        _lcdManager->printTextOnBottom("IP ADDRESS: " + localIp);
+    }
+    else
+    {
+        _lcdManager->printTextAtTop("WIFI NOT CONNECTED");
+    }
+}
+
+void WiFiHandler::setLcdManager(LcdManager *LcdManager)
+{
+    _lcdManager = LcdManager;
 }
 
 WiFiClientSecure &WiFiHandler::getClient()
