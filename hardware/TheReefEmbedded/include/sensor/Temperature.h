@@ -15,7 +15,6 @@ private:
     int _pin;
     OneWire _oneWire;
     DallasTemperature _sensors;
-    bool isSensorConnected();
 };
 
 #endif  // TEMPERATURE_SENSOR_H

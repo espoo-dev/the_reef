@@ -11,11 +11,6 @@ void SensorTemperature::begin()
 
 float SensorTemperature::readCelsiusTemperature()
 {
-    if (!isSensorConnected())
-    {
-        return 0;
-    }
-
     _sensors.requestTemperatures();
     float currentTemp = _sensors.getTempCByIndex(0);
 
@@ -24,16 +19,3 @@ float SensorTemperature::readCelsiusTemperature()
     return currentTemp;
 }
 
-bool SensorTemperature::isSensorConnected()
-{
-    bool isConnected = _sensors.getDeviceCount() > 0;
-    Serial.print("isConnected: ");
-    Serial.println(isConnected);
-    if (!isConnected)
-    {
-        Serial.println("Nenhum dispositivo DS18B20 encontrado! Verifique a conexão.");
-        delay(1000);
-    }
-
-    return isConnected;
-}

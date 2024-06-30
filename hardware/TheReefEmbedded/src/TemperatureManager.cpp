@@ -5,7 +5,12 @@ bool TemperatureManager::_previousMillisInitialized = false;
 unsigned long TemperatureManager::_previousMillis = 0;
 
 TemperatureManager::TemperatureManager(float minTemperature, float maxTemperature)
-    : _minTemperature(minTemperature), _maxTemperature(maxTemperature), _intervalMsSendCurrentTemperature(5000) {}
+    : _minTemperature(minTemperature), _maxTemperature(maxTemperature), _intervalMsSendCurrentTemperature(300000) {}
+
+void TemperatureManager::begin()
+{
+    sendTemperatureToServer();
+}
 
 bool TemperatureManager::isIdealTemperature()
 {
