@@ -45,7 +45,13 @@ void WaterLevelManager::handlerWaterLevel()
         setPreviousBuoyActiveStatus(currentBuoyActiveStatus);
         sendBuoyStatusToServer(currentBuoyActiveStatus);
     }
+}
 
+void WaterLevelManager::begin()
+{
+    bool currentBuoy = _sensor->isActive();
+    setPreviousBuoyActiveStatus(currentBuoy);
+    sendBuoyStatusToServer(currentBuoy);
 }
 
 void WaterLevelManager::setActuatorWaterPump(ActuatorWaterPump *actuatorWaterPump)
