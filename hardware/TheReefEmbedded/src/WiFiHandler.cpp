@@ -1,5 +1,7 @@
 #include "WiFiHandler.h"
 
+const unsigned long TIMEOUT_IN_SECOND = 60;
+
 void saveConfigCallback()
 {
     delay(100);
@@ -10,12 +12,15 @@ WiFiHandler::WiFiHandler(uint8_t pin_reset) : _wifiManager(WiFiManager()), _clie
 
 void WiFiHandler::begin()
 {
-    _wifiManager.setConnectTimeout(60000);
+    _lcdManager->printTextAtTop("CONFIGURANDO WIFI...");
+    delay(1000);
+    pinMode(_PIN_RESET_WIFI, INPUT_PULLUP);
+    checkResetWifi();
+
+    _wifiManager.setConnectTimeout(TIMEOUT_IN_SECOND);
     _wifiManager.setConfigPortalBlocking(false);
     _wifiManager.setSaveConfigCallback(saveConfigCallback);
     bool res = _wifiManager.autoConnect("TheReefConnectAP", "password");
-
-    pinMode(_PIN_RESET_WIFI, INPUT_PULLUP);
 
     if (res)
     {
@@ -69,12 +74,12 @@ void WiFiHandler::printCurrentWifiStatusOnLcd()
     {
         String wifiName = _wifiManager.getWiFiSSID();
         String localIp = WiFi.localIP().toString();
-        _lcdManager->printTextAtTop("WIFI CONNECTED: " + wifiName);
-        _lcdManager->printTextOnBottom("IP ADDRESS: " + localIp);
+        _lcdManager->printTextAtTop("WIFI CONECTADA: " + wifiName);
+        _lcdManager->printTextOnBottom("ENDERECO DE IP: " + localIp);
     }
     else
     {
-        _lcdManager->printTextAtTop("WIFI NOT CONNECTED");
+        _lcdManager->printTextAtTop("WIFI NAO CONECTADA");
     }
 }
 
