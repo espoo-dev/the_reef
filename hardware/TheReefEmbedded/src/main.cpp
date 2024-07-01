@@ -54,8 +54,8 @@ void setup()
   Serial.print("Connecting to ");
   lcdManager.begin();
 
-  wiFiHandler.begin();
   wiFiHandler.setLcdManager(&lcdManager);
+  wiFiHandler.begin();
   wiFiHandler.printCurrentWifiStatusOnLcd();
 
   httpServerBuoy.setWiFiHandler(&wiFiHandler);
@@ -69,6 +69,7 @@ void setup()
   actuatorFan.begin();
   actuatorWaterPump.begin();
 
+  lcdManager.printTextAtTop("Iniciando configuração do gerenciamento de temperatura");
   temperatureManager.setActuatorFan(&actuatorFan);
   temperatureManager.setTemperatureSensor(&sensorTemperatureDS18B20);
   temperatureManager.setHttpServerFan(&httpServerFan);
@@ -76,13 +77,14 @@ void setup()
   temperatureManager.setLcdManager(&lcdManager);
   temperatureManager.begin();
 
+  lcdManager.printTextAtTop("Iniciando configuração do gerenciamento de controle de nivel");
   waterLevelManager.setActuatorWaterPump(&actuatorWaterPump);
   waterLevelManager.setSensorBuoy(&sensorBuoy);
   waterLevelManager.setHttpServerBuoy(&httpServerBuoy);
   waterLevelManager.setHttpServerWaterPump(&httpServerWaterPump);
 
   waterLevelManager.begin();
-  lcdManager.printTextAtTop("Setup finished!");
+  lcdManager.printTextAtTop("Finaliazdo configuracao");
 }
 
 void loop()
