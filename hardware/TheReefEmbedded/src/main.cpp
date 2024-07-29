@@ -16,8 +16,8 @@
 
 const char *secretKey = SECRET;
 
-const float minTemperature = 24;
-const float maxTemperature = 26;
+const float minTemperature = 27;
+const float maxTemperature = 28;
 
 const String HOST = "https://myreef.onrender.com";
 

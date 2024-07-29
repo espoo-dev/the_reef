@@ -41,3 +41,16 @@ CREATE TABLE buoys (
   created_at timestamp NOT NULL DEFAULT NOW(),
   last_update timestamp NOT NULL DEFAULT NOW()
 );
+
+-- Inserts to seed
+
+INSERT INTO public.aquariums(name) VALUES ('Iury Reef');
+INSERT INTO public.aquariums(name) VALUES ('Homolog Reef');
+
+INSERT INTO public.indicators(
+	aquarium_id, name, unit, description, current_value, accepted_value, min_value, max_value)
+	VALUES (2, 'Temperatura', 'C', 'graus', 27, 28, 27, 28);
+
+INSERT INTO public.fans(
+	aquarium_id, name)
+	VALUES (2, 'Fan');
