@@ -54,10 +54,10 @@ void WaterLevelManager::begin()
     sendBuoyStatusToServer(currentBuoy);
 }
 
-void WaterLevelManager::setActuatorWaterPump(ActuatorWaterPump *actuatorWaterPump)
-{
-    _waterPump = actuatorWaterPump;
-}
+// void WaterLevelManager::setActuatorWaterPump(ActuatorWaterPump *actuatorWaterPump)
+// {
+//     _waterPump = actuatorWaterPump;
+// }
 
 void WaterLevelManager::setSensorBuoy(SensorBuoy *sensorBuoy)
 {

@@ -11,7 +11,7 @@ void HttpServerTemperature::sendCurrentTemperature(float temperature)
     {
         HTTPClient https = setupHttps("/indicators/update");
 
-        String requestBody = "{\"newValue\":\"" + String(temperature) + "\", \"indicatorId\":\"2\"}";
+        String requestBody = "{\"newValue\":\"" + String(temperature) + "\", \"indicatorId\":\"3\"}";
 
         int httpResponseCode = https.PUT(requestBody);
         Serial.print(requestBody);

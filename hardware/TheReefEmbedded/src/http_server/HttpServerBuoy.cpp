@@ -13,7 +13,7 @@ void HttpServerBuoy::sendBuoyActive()
     if (isConnected())
     {
         HTTPClient https = setupHttps("/buoys/update");
-        char requestBody[50] = "{\"buoyId\": \"1\", \"newValue\": true}";
+        char requestBody[50] = "{\"buoyId\": \"7\", \"newValue\": true}";
 
         int httpResponseCode = https.PUT(requestBody);
         Serial.print("HTTP Response code: ");
@@ -34,7 +34,7 @@ void HttpServerBuoy::sendBuoyInactive()
     {
 
         HTTPClient https = setupHttps("/buoys/update");
-        char requestBody[50] = "{\"buoyId\": \"1\", \"newValue\": false}";
+        char requestBody[50] = "{\"buoyId\": \"7\", \"newValue\": false}";
 
         int httpResponseCode = https.PUT(requestBody);
         Serial.print("HTTP Response code: ");

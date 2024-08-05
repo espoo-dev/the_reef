@@ -20,12 +20,7 @@ void WiFiHandler::begin()
     _wifiManager.setConnectTimeout(TIMEOUT_IN_SECOND);
     _wifiManager.setConfigPortalBlocking(false);
     _wifiManager.setSaveConfigCallback(saveConfigCallback);
-    bool res = _wifiManager.autoConnect("TheReefConnectAP", "password");
-
-    if (res)
-    {
-        Serial.println("connected...");
-    }
+    _wifiManager.autoConnect("TheReefConnectAP", "password");
 }
 
 void WiFiHandler::disconnect()
@@ -80,6 +75,7 @@ void WiFiHandler::printCurrentWifiStatusOnLcd()
     else
     {
         _lcdManager->printTextAtTop("WIFI NAO CONECTADA");
+        _lcdManager->printTextAtTop("ACESSE A REDE TheReefConnectAP COM SENHA password E CONFIGURE SUA REDE");
     }
 }
 

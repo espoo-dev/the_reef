@@ -10,7 +10,7 @@ class WaterLevelManager
 {
 private:
     SensorBuoy *_sensor;
-    ActuatorWaterPump *_waterPump;
+    // ActuatorWaterPump *_waterPump;
     HttpServerBuoy *_serverBuoy;
     HttpServerWaterPump *_serverWaterPump;
 
@@ -23,7 +23,7 @@ public:
     WaterLevelManager();
     void handlerWaterLevel();
     void begin();
-    void setActuatorWaterPump(ActuatorWaterPump* actuatorWaterPump);
+    // void setActuatorWaterPump(ActuatorWaterPump* actuatorWaterPump);
     void setSensorBuoy(SensorBuoy* sensorBuoy);
     void setHttpServerBuoy(HttpServerBuoy* httpServerBuoy);
     void setHttpServerWaterPump(HttpServerWaterPump* httpServerWaterPump);

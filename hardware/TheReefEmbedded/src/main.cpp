@@ -15,9 +15,17 @@
 #define SECRET "iuryreefsecretkey"
 
 const char *secretKey = SECRET;
+/*
+aquario de agua doce:
+minTemperature = 26;
+maxTemperature = 29;
 
-const float minTemperature = 24;
-const float maxTemperature = 26;
+aquario de agua salgada?
+minTemperature = 24;
+maxTemperature = 26;
+*/
+const float minTemperature = 26;
+const float maxTemperature = 29;
 
 const String HOST = "https://myreef.onrender.com";
 
@@ -25,12 +33,12 @@ const int PIN_TEMPERATURE = D4;
 const int PIN_BUOY = D5;
 const int PIN_BUTTON_RESET_WIFI = D6;
 const int PIN_FAN = D7;
-const int PIN_WATER_PUMP = D8;
+// const int PIN_WATER_PUMP = D8;
 
 SensorTemperature sensorTemperatureDS18B20(PIN_TEMPERATURE);
 SensorBuoy sensorBuoy(PIN_BUOY);
 ActuatorFan actuatorFan(PIN_FAN);
-ActuatorWaterPump actuatorWaterPump(PIN_WATER_PUMP);
+// ActuatorWaterPump actuatorWaterPump(PIN_WATER_PUMP);
 
 WiFiHandler wiFiHandler(PIN_BUTTON_RESET_WIFI);
 
@@ -67,9 +75,9 @@ void setup()
   sensorTemperatureDS18B20.begin();
   sensorBuoy.begin();
   actuatorFan.begin();
-  actuatorWaterPump.begin();
+  // actuatorWaterPump.begin();
 
-  lcdManager.printTextAtTop("Iniciando configuração do gerenciamento de temperatura");
+  lcdManager.printTextAtTop("Configurando temperatura");
   temperatureManager.setActuatorFan(&actuatorFan);
   temperatureManager.setTemperatureSensor(&sensorTemperatureDS18B20);
   temperatureManager.setHttpServerFan(&httpServerFan);
@@ -77,14 +85,14 @@ void setup()
   temperatureManager.setLcdManager(&lcdManager);
   temperatureManager.begin();
 
-  lcdManager.printTextAtTop("Iniciando configuração do gerenciamento de controle de nivel");
-  waterLevelManager.setActuatorWaterPump(&actuatorWaterPump);
+  lcdManager.printTextAtTop("Configurando nivel");
+  // waterLevelManager.setActuatorWaterPump(&actuatorWaterPump);
   waterLevelManager.setSensorBuoy(&sensorBuoy);
   waterLevelManager.setHttpServerBuoy(&httpServerBuoy);
   waterLevelManager.setHttpServerWaterPump(&httpServerWaterPump);
 
   waterLevelManager.begin();
-  lcdManager.printTextAtTop("Finaliazdo configuracao");
+  lcdManager.printTextAtTop("Finalizado");
 }
 
 void loop()

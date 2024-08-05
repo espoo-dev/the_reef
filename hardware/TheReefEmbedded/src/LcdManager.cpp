@@ -14,6 +14,12 @@ byte degreeChar[8] = {
     B00000,
     B00000};
 
+// PINS:
+// DISPLAY  -- ESP8266
+// SCL      -- D1
+// SDA      -- D2
+// VCC      -- VV
+// GND      -- GND
 LcdManager::LcdManager() : _lcd(LiquidCrystal_I2C(I2C_ADDR, LCD_COLS, LCD_ROWS)) {}
 
 void LcdManager::scrollText(String scrollingText, uint8_t row)
