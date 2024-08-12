@@ -11,7 +11,7 @@ void HttpServerWaterPump::sendWaterPumpStatusOn()
     if (isConnected())
     {
         HTTPClient https = setupHttps("/fans/update_on");
-        char requestBody[50] = "{\"on\": \"true\", \"fanId\": 6}";
+        char requestBody[50] = "{\"on\": \"true\", \"fanId\": 8}";
 
         int httpResponseCode = https.PUT(requestBody);
         Serial.print(requestBody);
@@ -29,7 +29,7 @@ void HttpServerWaterPump::sendWaterPumpStatusOff()
     if (isConnected())
     {
         HTTPClient https = setupHttps("/fans/update_on");
-        char requestBody[50] = "{\"on\": \"false\", \"fanId\": 6}";
+        char requestBody[50] = "{\"on\": \"false\", \"fanId\": 8}";
 
         int httpResponseCode = https.PUT(requestBody);
         Serial.print(requestBody);

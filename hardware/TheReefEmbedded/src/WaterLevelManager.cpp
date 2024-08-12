@@ -13,12 +13,12 @@ void WaterLevelManager::sendBuoyStatusToServer(bool status)
 {
     if (status)
     {
-        _serverBuoy->sendBuoyActive();
+        // _serverBuoy->sendBuoyActive(); não usada no momento
         _serverWaterPump->sendWaterPumpStatusOn();
         return;
     }
 
-    _serverBuoy->sendBuoyInactive();
+    // _serverBuoy->sendBuoyInactive(); não usada no momento
     _serverWaterPump->sendWaterPumpStatusOff();
 }
 

@@ -75,7 +75,7 @@ void WiFiHandler::printCurrentWifiStatusOnLcd()
     else
     {
         _lcdManager->printTextAtTop("WIFI NAO CONECTADA");
-        _lcdManager->printTextAtTop("ACESSE A REDE TheReefConnectAP COM SENHA password E CONFIGURE SUA REDE");
+        _lcdManager->printTextAtTop("ACESSE A REDE TheReefConnectAP SENHA password");
     }
 }
 
