@@ -1,4 +1,3 @@
-// Não usado no momento
 #include "http_server/HttpServerWaterPump.h"
 
 HttpServerWaterPump::HttpServerWaterPump(String host, String secretKey) : HttpServerBase(host, secretKey) {}

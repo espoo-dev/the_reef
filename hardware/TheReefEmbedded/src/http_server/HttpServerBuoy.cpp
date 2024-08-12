@@ -1,3 +1,4 @@
+// Não usado no momento
 #include "http_server/HttpServerBuoy.h"
 
 HttpServerBuoy::HttpServerBuoy(String host, String secretKey) : HttpServerBase(host, secretKey) {}
