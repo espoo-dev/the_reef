@@ -86,9 +86,9 @@ void setup()
   temperatureManager.begin();
 
   lcdManager.printTextAtTop("Configurando nivel");
-  // waterLevelManager.setActuatorWaterPump(&actuatorWaterPump);
+  // waterLevelManager.setActuatorWaterPump(&actuatorWaterPump); não ta sendo usado por hora
   waterLevelManager.setSensorBuoy(&sensorBuoy);
-  waterLevelManager.setHttpServerBuoy(&httpServerBuoy);
+  // waterLevelManager.setHttpServerBuoy(&httpServerBuoy); não ta sendo usado por hora
   waterLevelManager.setHttpServerWaterPump(&httpServerWaterPump);
 
   waterLevelManager.begin();

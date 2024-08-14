@@ -10,6 +10,7 @@ TemperatureManager::TemperatureManager(float minTemperature, float maxTemperatur
 void TemperatureManager::begin()
 {
     sendTemperatureToServer();
+    _httpServerFan->sendFanStatusOff();
 }
 
 bool TemperatureManager::isIdealTemperature()
