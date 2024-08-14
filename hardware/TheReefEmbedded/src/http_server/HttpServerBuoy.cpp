@@ -1,3 +1,4 @@
+// Não usado no momento
 #include "http_server/HttpServerBuoy.h"
 
 HttpServerBuoy::HttpServerBuoy(String host, String secretKey) : HttpServerBase(host, secretKey) {}
@@ -13,13 +14,12 @@ void HttpServerBuoy::sendBuoyActive()
     if (isConnected())
     {
         HTTPClient https = setupHttps("/buoys/update");
-        char requestBody[50] = "{\"buoyId\": \"1\", \"newValue\": true}";
+        char requestBody[50] = "{\"buoyId\": \"8\", \"newValue\": true}";
 
         int httpResponseCode = https.PUT(requestBody);
+        Serial.print(requestBody);
         Serial.print("HTTP Response code: ");
         Serial.println(httpResponseCode);
-        Serial.println("Response");
-        Serial.println(https.getString());
         https.end();
         Serial.println("==================");
     }
@@ -34,13 +34,12 @@ void HttpServerBuoy::sendBuoyInactive()
     {
 
         HTTPClient https = setupHttps("/buoys/update");
-        char requestBody[50] = "{\"buoyId\": \"1\", \"newValue\": false}";
+        char requestBody[50] = "{\"buoyId\": \"8\", \"newValue\": false}";
 
         int httpResponseCode = https.PUT(requestBody);
+        Serial.print(requestBody);
         Serial.print("HTTP Response code: ");
         Serial.println(httpResponseCode);
-        Serial.println("Response");
-        Serial.println(https.getString());
         https.end();
         Serial.println("==================");
     }

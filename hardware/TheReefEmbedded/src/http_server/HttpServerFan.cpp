@@ -10,7 +10,7 @@ void HttpServerFan::sendFanStatusOn()
     {
 
         HTTPClient https = setupHttps("/fans/update_on");
-        char requestBody[50] = "{\"on\": \"true\", \"fanId\": 5}";
+        char requestBody[50] = "{\"on\": \"true\", \"fanId\": 7}";
 
         int httpResponseCode = https.PUT(requestBody);
         Serial.print(requestBody);
@@ -28,7 +28,7 @@ void HttpServerFan::sendFanStatusOff()
     if (isConnected())
     {
         HTTPClient https = setupHttps("/fans/update_on");
-        char requestBody[50] = "{\"on\": \"false\", \"fanId\": 5}";
+        char requestBody[50] = "{\"on\": \"false\", \"fanId\": 7}";
 
         int httpResponseCode = https.PUT(requestBody);
         Serial.print(requestBody);

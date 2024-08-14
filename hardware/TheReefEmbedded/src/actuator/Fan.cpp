@@ -11,18 +11,19 @@ void ActuatorFan::setStatus(bool status)
 void ActuatorFan::begin()
 {
     pinMode(_pin, OUTPUT);
+    turnOff();
 }
 
 void ActuatorFan::turnOn()
 {
-    digitalWrite(_pin, HIGH);
+    digitalWrite(_pin, LOW);
     setStatus(true);
     Serial.println("Ligou a fan");
 }
 
 void ActuatorFan::turnOff()
 {
-    digitalWrite(_pin, LOW);
+    digitalWrite(_pin, HIGH);
     setStatus(false);
     Serial.println("Desligou a fan");
 }
