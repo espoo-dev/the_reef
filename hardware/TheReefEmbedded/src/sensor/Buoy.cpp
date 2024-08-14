@@ -5,7 +5,6 @@ SensorBuoy::SensorBuoy(int pin) : _pin(pin) {}
 void SensorBuoy::begin()
 {
     pinMode(_pin, INPUT_PULLUP);
-    digitalWrite(_pin, HIGH);
 }
 
 bool SensorBuoy::isActive()
