@@ -11,7 +11,7 @@ void ActuatorFan::setStatus(bool status)
 void ActuatorFan::begin()
 {
     pinMode(_pin, OUTPUT);
-    digitalWrite(_pin, HIGH);
+    turnOff();
 }
 
 void ActuatorFan::turnOn()
