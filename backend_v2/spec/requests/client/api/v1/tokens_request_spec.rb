@@ -3,9 +3,9 @@
 require "rails_helper"
 
 RSpec.describe "Tokens" do
-  describe "POST /api/v1/tokens" do
+  describe "POST /api/client/v1/tokens" do
     before do
-      post "/api/v1/tokens", params:
+      post "/api/client/v1/tokens", params:
     end
 
     context "when data is valid" do

@@ -3,8 +3,8 @@
 require "rails_helper"
 
 RSpec.describe "Api::V1::RangeSensors" do
-  describe "GET /api/v1/range_sensors" do
-    let(:do_request) { get "/api/v1/range_sensors", headers:, params: }
+  describe "GET /api/client/v1/range_sensors" do
+    subject(:do_request) { get "/api/client/v1/range_sensors", headers:, params: }
 
     let(:params) { {} }
 
@@ -61,21 +61,18 @@ RSpec.describe "Api::V1::RangeSensors" do
         let(:params) { { values_amount: 2 } }
         let(:range_sensor) { create(:range_sensor, user:) }
         let(:first_numeric_value) do
-          create(:numeric_value, range_sensor:, created_at: Time.zone.now)
+          create(:numeric_value, range_sensor:, value: 2, created_at: Time.zone.now)
         end
         let(:second_numeric_value) do
-          create(:numeric_value, range_sensor:, created_at: 1.day.from_now)
+          create(:numeric_value, range_sensor:, value: 2, created_at: 1.day.from_now)
         end
         let(:third_numeric_value) do
-          create(:numeric_value, range_sensor:, created_at: 2.days.from_now)
+          create(:numeric_value, range_sensor:, value: 2, created_at: 2.days.from_now)
         end
 
-        let(:numeric_values) { [first_numeric_value, second_numeric_value, third_numeric_value] }
+        let!(:numeric_values) { [first_numeric_value, second_numeric_value, third_numeric_value] }
 
-        before do
-          numeric_values
-          do_request
-        end
+        before { do_request }
 
         it { expect(response).to have_http_status(:ok) }
 
@@ -88,8 +85,8 @@ RSpec.describe "Api::V1::RangeSensors" do
               min_value: range_sensor.min_value.to_s,
               max_value: range_sensor.max_value.to_s,
 
-              numeric_value_on_range: false,
-              numeric_value_over_range: true,
+              numeric_value_on_range: true,
+              numeric_value_over_range: false,
               numeric_value_under_range: false,
               numeric_values: [
                 {

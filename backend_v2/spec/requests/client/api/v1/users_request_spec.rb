@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Users" do
-  describe "GET /api/v1/users" do
+  describe "GET /api/client/v1/users" do
     context "when user authenticated" do
       context "when user is authorized" do
         let!(:user) { create(:user, admin: true) }
@@ -11,7 +11,7 @@ RSpec.describe "Users" do
         context "when data is valid" do
           before do
             headers = auth_headers_for(user)
-            get "/api/v1/users", params: {}, headers:
+            get "/api/client/v1/users", params: {}, headers:
           end
 
           it { expect(response.parsed_body.first).to have_key("id") }
@@ -33,7 +33,7 @@ RSpec.describe "Users" do
           before do
             create_list(:user, 8)
             headers = auth_headers_for(user)
-            get "/api/v1/users", params:, headers:
+            get "/api/client/v1/users", params:, headers:
           end
 
           it "returns only 4 users" do
@@ -47,7 +47,7 @@ RSpec.describe "Users" do
 
         before do
           headers = auth_headers_for(user)
-          get "/api/v1/users", headers:
+          get "/api/client/v1/users", headers:
         end
 
         it { expect(response).to have_http_status(:unauthorized) }
@@ -61,7 +61,7 @@ RSpec.describe "Users" do
     context "when user unauthenticated" do
       context "when has user" do
         before do
-          get "/api/v1/users"
+          get "/api/client/v1/users"
         end
 
         it { expect(response).to have_http_status(:unauthorized) }
@@ -73,9 +73,9 @@ RSpec.describe "Users" do
     end
   end
 
-  describe "POST /api/v1/users" do
+  describe "POST /api/client/v1/users" do
     before do
-      post "/api/v1/users", params: user_params, headers:
+      post "/api/client/v1/users", params: user_params, headers:
     end
 
     context "when user authenticated" do
