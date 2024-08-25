@@ -99,6 +99,9 @@ RSpec/NestedGroups:
 RSpec/ImplicitSubject:
   EnforcedStyle: single_statement_only
 
+RSpec/LetSetup:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 

@@ -3,8 +3,8 @@
 require "rails_helper"
 
 RSpec.describe "Api::V1::AquariaController" do
-  describe "GET /api/v1/aquaria" do
-    let(:do_request) { get "/api/v1/aquaria", headers:, params: }
+  describe "GET /api/client/v1/aquaria" do
+    let(:do_request) { get "/api/client/v1/aquaria", headers:, params: }
 
     let(:params) { {} }
 
