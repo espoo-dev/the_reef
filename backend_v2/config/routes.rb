@@ -16,7 +16,6 @@ Rails.application.routes.draw do
 
     root to: "users#index"
   end
-  extend OauthRoutes
   mount Sidekiq::Web => "/sidekiq"
   mount Rswag::Ui::Engine => "/api-docs"
   mount Rswag::Api::Engine => "/api-docs"
@@ -34,6 +33,9 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  devise_for :users, controllers: { omniauth_callbacks: "oauth/controllers/omniauth_callbacks" }
+
   devise_scope :user do
     post "/api/client/v1/tokens", to: "devise/api/tokens#sign_in", as: "api_client_v1_sign_in_user_token"
     post "/api/client/v1/tokens/info", to: "devise/api/tokens#info", as: "api_client_v1_info_user_token"
