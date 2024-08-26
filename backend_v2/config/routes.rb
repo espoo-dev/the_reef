@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     namespace :embedded do
       namespace :v1 do
         resources :on_off_values, only: %i[create]
+        resources :numeric_values, only: %i[create]
       end
     end
   end

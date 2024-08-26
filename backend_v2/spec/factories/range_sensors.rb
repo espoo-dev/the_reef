@@ -37,6 +37,6 @@ FactoryBot.define do
     max_value { 10.0 }
     sensor_type { "temperature" }
 
-    aquarium { association :aquarium, user: }
+    aquarium { create(:aquarium, :with_embedded_server, user:) }
   end
 end

@@ -17,4 +17,7 @@ en:
         on_off_sensor_id:
           key?: "on_off_sensor_id is missing"
           filled?: "on_off_sensor_id must be filled"
+        range_sensor_id:
+          key?: "range_sensor_id is missing"
+          filled?: "range_sensor_id must be filled"
 
