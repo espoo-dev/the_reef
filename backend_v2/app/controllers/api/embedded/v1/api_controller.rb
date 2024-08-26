@@ -12,7 +12,7 @@ module Api
         end
 
         def authenticate_embedded_user
-          # authorize :admin_dashboard, :full_access?
+          authorize :embedded_user, :embedded_access?
         end
       end
     end
