@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       namespace :v1 do
         resources :on_off_values, only: %i[create]
         resources :numeric_values, only: %i[create]
+        get "aquaria/current", to: "aquaria#current", as: "aquaria_current"
       end
     end
   end
