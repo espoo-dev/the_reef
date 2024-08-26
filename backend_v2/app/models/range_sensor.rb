@@ -36,6 +36,8 @@ class RangeSensor < ApplicationRecord
   validates :max_value, presence: true, numericality: { greater_than: :min_value }
   validates :sensor_type, presence: true, inclusion: { in: ["temperature"] }
 
+  delegate :user, to: :aquarium
+
   scope :by_user, lambda { |user|
     joins(:aquarium).where({ aquaria: { user_id: user.id } })
   }

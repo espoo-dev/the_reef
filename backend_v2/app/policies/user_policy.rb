@@ -6,6 +6,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin? || !record.admin?
+    user&.admin? || !record.admin?
   end
 end

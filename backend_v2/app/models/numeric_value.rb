@@ -23,4 +23,6 @@ class NumericValue < ApplicationRecord
   belongs_to :range_sensor
 
   validates :value, presence: true, numericality: true
+
+  delegate :user, to: :range_sensor
 end
