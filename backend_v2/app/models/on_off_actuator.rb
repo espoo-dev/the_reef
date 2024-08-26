@@ -42,6 +42,8 @@ class OnOffActuator < ApplicationRecord
   validate :belongs_to_one_parent
   validates :actuator_type, presence: true, inclusion: { in: %w[water_pump fan] }
 
+  delegate :user, to: :aquarium
+
   scope :by_user, lambda { |user|
     joins(:aquarium).where({ aquaria: { user_id: user.id } })
   }

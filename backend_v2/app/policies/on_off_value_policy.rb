@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class OnOffValuePolicy < ApplicationPolicy
+class OnOffValuePolicy < OwnerPolicy
   def create?
-    user.present? # owner?
+    owner?
   end
 end
