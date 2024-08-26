@@ -32,6 +32,8 @@ class OnOffSensor < ApplicationRecord
   validates :publish_data_to_server_interval, presence: true
   validates :sensor_type, presence: true, inclusion: { in: ["water_level"] }
 
+  delegate :user, to: :aquarium
+
   scope :by_user, lambda { |user|
     joins(:aquarium).where({ aquaria: { user_id: user.id } })
   }

@@ -34,6 +34,10 @@ class OnOffValue < ApplicationRecord
                     joins(on_off_sensor: { aquarium: :user }).where(users: { id: user.id })
                   }
 
+  def user
+    on_off_sensor&.user || on_off_actuator&.user
+  end
+
   private
 
   def possible_parents
