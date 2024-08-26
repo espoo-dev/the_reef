@@ -8,6 +8,15 @@ module Devise
 
     { "Authorization" => "Bearer #{token}" }
   end
+
+  # :reek:UtilityFunction
+  def embedded_auth_headers_for(user)
+    mac_address = user.aquaria.sole.embedded_server.mac_address
+    {
+      "Authorization" => mac_address,
+      "mac_address" => mac_address
+    }
+  end
 end
 
 RSpec.configure do |config|
