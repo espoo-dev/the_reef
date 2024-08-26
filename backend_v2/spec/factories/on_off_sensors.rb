@@ -32,6 +32,6 @@ FactoryBot.define do
     sequence(:description) { |n| "Description #{n}" }
     publish_data_to_server_interval { Time.zone.now }
     sensor_type { "water_level" }
-    aquarium { association :aquarium, user: }
+    aquarium { create(:aquarium, :with_embedded_server, user:) }
   end
 end

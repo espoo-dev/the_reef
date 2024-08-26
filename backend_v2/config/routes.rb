@@ -32,6 +32,11 @@ Rails.application.routes.draw do
           as: "on_off_numeric_values_seed_data"
       end
     end
+    namespace :embedded do
+      namespace :v1 do
+        resources :on_off_values, only: %i[create]
+      end
+    end
   end
 
   devise_for :users, controllers: { omniauth_callbacks: "oauth/controllers/omniauth_callbacks" }
