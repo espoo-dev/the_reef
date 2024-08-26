@@ -14,4 +14,7 @@ en:
         value:
           key?: "Value is missing"
           filled?: "Value must be filled"
+        on_off_sensor_id:
+          key?: "on_off_sensor_id is missing"
+          filled?: "on_off_sensor_id must be filled"
 

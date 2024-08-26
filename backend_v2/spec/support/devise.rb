@@ -15,7 +15,7 @@ module Devise
     {
       "Authorization" => mac_address,
       "mac_address" => mac_address
-  }
+    }
   end
 end
 

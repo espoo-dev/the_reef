@@ -9,7 +9,6 @@ module Api
 
           authorize(on_off_value)
 
-          # binding.pry
           on_off_value.save!
 
           render json: on_off_value, status: :created

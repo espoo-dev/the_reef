@@ -4,9 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Users" do
   describe "POST /api/embedded/v1/on_off_values" do
-    before do
-      post "/api/embedded/v1/on_off_values", params:, headers:
-    end
+    before { post "/api/embedded/v1/on_off_values", params:, headers: }
 
     context "when user authenticated" do
       let(:headers) { embedded_auth_headers_for(user) }
@@ -17,17 +15,15 @@ RSpec.describe "Users" do
         let(:params) do
           {
             value: true,
-            on_off_sensor_id: on_off_sensor.id,
-            type: "OnOffSensor",
+            on_off_sensor_id: on_off_sensor.id
           }
         end
-
         let(:expected_response) do
-          { value: true, id: anything, created_at: anything }
+          { value: true, id: an_instance_of(Integer), created_at: an_instance_of(String) }
         end
 
         it { expect(json_response).to match(expected_response) }
-        it { expect(on_off_sensor.on_off_values.first).not_to be_nil }
+        it { expect(on_off_sensor.on_off_values.first).to be_persisted }
         it { expect(response).to have_http_status(:created) }
       end
 
@@ -37,12 +33,12 @@ RSpec.describe "Users" do
             {
               value: true,
               on_off_sensor_id: -1,
-              type: "OnOffSensor",
+              type: "OnOffSensor"
             }
           end
 
           let(:expected_response) do
-            { error: "Validation failed: Email has already been taken" }
+            { error: "Validation failed: must belong to either an OnOffSensor or an OnOffActuator" }
           end
 
           it { expect(json_response).to match(expected_response) }
@@ -50,10 +46,10 @@ RSpec.describe "Users" do
         end
 
         context "when parameters are missing" do
-          let(:user_params) { {} }
+          let(:params) { {} }
 
           let(:expected_response) do
-            { error: "Name is missing, Email is missing, Password is missing" }
+            { error: "Value is missing, on_off_sensor_id is missing" }
           end
 
           it { expect(json_response).to match(expected_response) }
