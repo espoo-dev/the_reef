@@ -21,11 +21,11 @@ minTemperature = 26;
 maxTemperature = 29;
 
 aquario de agua salgada?
-minTemperature = 24;
-maxTemperature = 26;
+minTemperature = 27;
+maxTemperature = 28;
 */
-const float minTemperature = 26;
-const float maxTemperature = 29;
+const float minTemperature = 27;
+const float maxTemperature = 28;
 
 const String HOST = "https://myreef.onrender.com";
 
