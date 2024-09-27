@@ -3,7 +3,7 @@
 # :reek:InstanceVariableAssumption
 class RangeSensorSerializer < ActiveModel::Serializer
   attributes :id, :name, :description, :min_value, :max_value, :numeric_values, :current_numeric_value,
-    :numeric_value_on_range, :numeric_value_under_range, :numeric_value_over_range
+    :numeric_value_on_range, :numeric_value_under_range, :numeric_value_over_range, :values_out_of_range_amount
 
   def numeric_values
     numeric_values = object.numeric_values.order(created_at: :desc).limit(@instance_options[:values_amount])

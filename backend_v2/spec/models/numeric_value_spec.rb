@@ -58,7 +58,8 @@ RSpec.describe NumericValue do
 
   describe ".created_after" do
     subject { described_class.created_after(date) }
-    let(:now) {Time.zone.now}
+
+    let(:now) { Time.zone.now }
     let!(:numeric_value_1) { create(:numeric_value, created_at: now - 1.minute) }
     let!(:numeric_value_2) { create(:numeric_value, created_at: now) }
     let!(:numeric_value_3) { create(:numeric_value, created_at: now + 1.minute) }
