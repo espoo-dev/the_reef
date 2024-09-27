@@ -64,4 +64,11 @@ class RangeSensor < ApplicationRecord
 
     current_numeric_value.value > max_value
   end
+
+  def values_out_of_range_amount
+    numeric_values
+      .created_after(24.hours.ago)
+      .outside_of_range(min_value, max_value)
+      .count
+  end
 end

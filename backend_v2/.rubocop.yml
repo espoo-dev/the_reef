@@ -96,6 +96,9 @@ RSpec/MultipleExpectations:
 RSpec/NestedGroups:
   Max: 5
 
+RSpec/IndexedLet:
+  Enabled: false
+
 RSpec/ImplicitSubject:
   EnforcedStyle: single_statement_only
 

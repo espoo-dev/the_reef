@@ -34,6 +34,7 @@ RSpec.describe "Api::V1::RangeSensors" do
               numeric_value_over_range: false,
               numeric_value_under_range: false,
               numeric_values: [],
+              values_out_of_range_amount: 0,
               current_numeric_value: nil
             }.with_indifferent_access
           ]
@@ -59,15 +60,15 @@ RSpec.describe "Api::V1::RangeSensors" do
 
       context "when has values_amount params" do
         let(:params) { { values_amount: 2 } }
-        let(:range_sensor) { create(:range_sensor, user:) }
+        let(:range_sensor) { create(:range_sensor, user:, min_value: 1, max_value: 4) }
         let(:first_numeric_value) do
-          create(:numeric_value, range_sensor:, value: 2, created_at: Time.zone.now)
+          create(:numeric_value, range_sensor:, value: 1, created_at: 2.days.ago)
         end
         let(:second_numeric_value) do
-          create(:numeric_value, range_sensor:, value: 2, created_at: 1.day.from_now)
+          create(:numeric_value, range_sensor:, value: 2, created_at: 1.day.ago)
         end
         let(:third_numeric_value) do
-          create(:numeric_value, range_sensor:, value: 2, created_at: 2.days.from_now)
+          create(:numeric_value, range_sensor:, value: 3, created_at: Time.zone.now)
         end
 
         let!(:numeric_values) { [first_numeric_value, second_numeric_value, third_numeric_value] }
@@ -84,7 +85,7 @@ RSpec.describe "Api::V1::RangeSensors" do
               description: range_sensor.description,
               min_value: range_sensor.min_value.to_s,
               max_value: range_sensor.max_value.to_s,
-
+              values_out_of_range_amount: 1,
               numeric_value_on_range: true,
               numeric_value_over_range: false,
               numeric_value_under_range: false,
