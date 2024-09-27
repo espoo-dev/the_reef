@@ -29,4 +29,8 @@ class NumericValue < ApplicationRecord
   scope :outside_of_range, lambda { |min, max|
     where("value > ? AND value < ?", min, max)
   }
+
+  scope :created_after, lambda { |date|
+    where("created_at > ?", date)
+  }
 end

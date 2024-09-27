@@ -55,4 +55,36 @@ RSpec.describe NumericValue do
       end
     end
   end
+
+  describe ".created_after" do
+    subject { described_class.created_after(date) }
+    let(:now) {Time.zone.now}
+    let!(:numeric_value_1) { create(:numeric_value, created_at: now - 1.minute) }
+    let!(:numeric_value_2) { create(:numeric_value, created_at: now) }
+    let!(:numeric_value_3) { create(:numeric_value, created_at: now + 1.minute) }
+
+    context "when all values are after date" do
+      let(:date) { now - 2.minutes }
+
+      it "returns all values" do
+        is_expected.to contain_exactly(numeric_value_1, numeric_value_2, numeric_value_3)
+      end
+    end
+
+    context "when all values are before date" do
+      let(:date) { now + 2.minutes }
+
+      it "returns empty array" do
+        is_expected.to be_empty
+      end
+    end
+
+    context "when some values are before date" do
+      let(:date) { now - 1.minute }
+
+      it "returns values in the range" do
+        is_expected.to contain_exactly(numeric_value_2, numeric_value_3)
+      end
+    end
+  end
 end
