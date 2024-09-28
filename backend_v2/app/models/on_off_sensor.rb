@@ -38,6 +38,14 @@ class OnOffSensor < ApplicationRecord
     joins(:aquarium).where({ aquaria: { user_id: user.id } })
   }
 
+  def current_on_off_value
+    on_off_values.order(created_at: :desc).first
+  end
+
+  def warning?
+    current_on_off_value&.value
+  end
+
   def values_count(after_date, value)
     on_off_values
       .created_after(after_date)

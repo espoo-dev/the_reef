@@ -71,4 +71,29 @@ RSpec.describe OnOffSensor do
       end
     end
   end
+
+  describe "#warning?" do
+    subject { on_off_sensor.warning? }
+
+    let(:on_off_sensor) { create(:on_off_sensor) }
+    let(:now) { Time.zone.now }
+    let!(:on_off_value) do
+      create(:on_off_value, on_off_sensor:, on_off_actuator: nil, value: true, created_at: now - 24.hours)
+    end
+    let!(:on_off_value2) do
+      create(:on_off_value, on_off_sensor:, on_off_actuator: nil, value:, created_at: now - 2.hours)
+    end
+
+    context "when current_on_off_value is true" do
+      let(:value) { true }
+
+      it { is_expected.to be(true) }
+    end
+
+    context "when current_on_off_value is false" do
+      let(:value) { false }
+
+      it { is_expected.to be(false) }
+    end
+  end
 end

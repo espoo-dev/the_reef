@@ -168,4 +168,37 @@ RSpec.describe RangeSensor do
       end
     end
   end
+
+  describe "#warning?" do
+    subject { range_sensor.warning? }
+
+    let(:range_sensor) { create(:range_sensor, min_value: 5, max_value: 10) }
+
+    context "when there is no current numeric value" do
+      it "returns false" do
+        is_expected.to be(false)
+      end
+    end
+
+    context "when current numeric value is within range" do
+      it "returns false" do
+        create(:numeric_value, range_sensor:, value: 7)
+        is_expected.to be(false)
+      end
+    end
+
+    context "when current numeric value is out of range because it is bigger" do
+      it "returns true" do
+        create(:numeric_value, range_sensor:, value: 11)
+        is_expected.to be(true)
+      end
+    end
+
+    context "when current numeric value is out of range because it is smaller" do
+      it "returns true" do
+        create(:numeric_value, range_sensor:, value: 4)
+        is_expected.to be(true)
+      end
+    end
+  end
 end
