@@ -28,6 +28,7 @@ RSpec.describe "Api::V1::OnOffSensors" do
               id: on_off_sensor.id,
               name: on_off_sensor.name,
               description: on_off_sensor.description,
+              on_values_count: 0,
               on_off_values: [],
               current_on_off_value: nil
             }.with_indifferent_access
@@ -62,7 +63,7 @@ RSpec.describe "Api::V1::OnOffSensors" do
           create(:on_off_value, on_off_sensor:, on_off_actuator: nil, created_at: 1.day.from_now)
         end
         let(:third_on_off_value) do
-          create(:on_off_value, on_off_sensor:, on_off_actuator: nil, created_at: 2.days.from_now)
+          create(:on_off_value, on_off_sensor:, on_off_actuator: nil, value: false, created_at: 2.days.from_now)
         end
 
         let(:on_off_values) { [first_on_off_value, second_on_off_value, third_on_off_value] }
@@ -80,6 +81,7 @@ RSpec.describe "Api::V1::OnOffSensors" do
               id: on_off_sensor.id,
               name: on_off_sensor.name,
               description: on_off_sensor.description,
+              on_values_count: 2,
               on_off_values: [
                 {
                   id: second_on_off_value.id,
