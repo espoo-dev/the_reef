@@ -71,5 +71,38 @@ RSpec.describe OnOffValue do
         expect(described_class.by_user(new_user)).to be_empty
       end
     end
+
+    describe ".created_after" do
+      subject { described_class.created_after(date) }
+
+      let(:now) { Time.zone.now }
+      let!(:on_off_value_1) { create(:on_off_value, created_at: now - 1.minute) }
+      let!(:on_off_value_2) { create(:on_off_value, created_at: now) }
+      let!(:on_off_value_3) { create(:on_off_value, created_at: now + 1.minute) }
+
+      context "when all values are after date" do
+        let(:date) { now - 2.minutes }
+
+        it "returns all values" do
+          is_expected.to contain_exactly(on_off_value_1, on_off_value_2, on_off_value_3)
+        end
+      end
+
+      context "when all values are before date" do
+        let(:date) { now + 2.minutes }
+
+        it "returns empty array" do
+          is_expected.to be_empty
+        end
+      end
+
+      context "when some values are before date" do
+        let(:date) { now - 1.minute }
+
+        it "returns values in the range" do
+          is_expected.to contain_exactly(on_off_value_2, on_off_value_3)
+        end
+      end
+    end
   end
 end

@@ -37,4 +37,11 @@ class OnOffSensor < ApplicationRecord
   scope :by_user, lambda { |user|
     joins(:aquarium).where({ aquaria: { user_id: user.id } })
   }
+
+  def values_count(after_date, value)
+    on_off_values
+      .created_after(after_date)
+      .where(value:)
+      .count
+  end
 end

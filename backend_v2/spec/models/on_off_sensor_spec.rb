@@ -33,4 +33,42 @@ RSpec.describe OnOffSensor do
       end
     end
   end
+
+  describe "#values_count" do
+    subject { on_off_sensor.values_count(now - 24.hours, value) }
+
+    let(:now) { Time.zone.now }
+    let!(:on_off_sensor) { create(:on_off_sensor) }
+    let!(:on_off_value1) do
+      create(:on_off_value, on_off_sensor:, on_off_actuator: nil, value: true, created_at: now - 1.hour)
+    end
+    let!(:on_off_value2) do
+      create(:on_off_value, on_off_sensor:, on_off_actuator: nil, value: true, created_at: now - 25.hours)
+    end
+    let!(:on_off_value3) do
+      create(:on_off_value, on_off_sensor:, on_off_actuator: nil, value: false, created_at: now - 1.hour)
+    end
+    let!(:on_off_value4) do
+      create(:on_off_value, on_off_sensor:, on_off_actuator: nil, value: false, created_at: now - 2.hours)
+    end
+    let!(:on_off_value5) do
+      create(:on_off_value, on_off_sensor:, on_off_actuator: nil, value: false, created_at: now - 25.hours)
+    end
+
+    context "when value is true" do
+      let(:value) { true }
+
+      it "returns only on_off_values with value true from past 24 hours" do
+        is_expected.to eq(1)
+      end
+    end
+
+    context "when value is false" do
+      let(:value) { false }
+
+      it "returns only on_off_values with false true from past 24 hours" do
+        is_expected.to eq(2)
+      end
+    end
+  end
 end
