@@ -12,11 +12,12 @@ import { RangeSensorRepository } from '../../../infrastructure/repositories/Rang
 import { RangeSensor, RangeValue } from '../../../domain/models/RangeSensor';
 import { UITheme } from '../../theme';
 import { OnOffActuatorRepository } from '../../../infrastructure/repositories/OnOffActuatorRepository';
+import { RangeSensorComponent } from '../../components/range-sensor/range-sensor.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [SensorComponent, OnOffSensorComponent, ReefChartComponent],
+  imports: [SensorComponent, OnOffSensorComponent, ReefChartComponent, RangeSensorComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -132,7 +133,6 @@ export class HomeComponent {
             }
             return this.getGradient(ctx, chartArea);
           },
-          // borderColor: sensor.numeric_value_on_range ? UITheme.successColor : UITheme.dangerColor,
         }
       ]
     }

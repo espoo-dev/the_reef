@@ -2,16 +2,13 @@
   display: flex;
   height: 100%;
   width: 100%;
-  background: rgb(75,165,184);
-  background: linear-gradient(90deg, rgba(75,165,184,1) 46%, rgba(199,162,165,1) 76%, rgba(245,130,154,1) 95%);
-  color: #eefeff;
 }
 
 .content {
   display: flex;
   flex-direction: column;
   width: 100%;
-  // padding: 16px 32px;
+  padding: 18px;
 }
 
 .content-inner {
@@ -38,9 +35,19 @@
   }
 }
 
-.title {
-  font-size: 60px;
-  font-weight: 600;
+.welcome-title {
+  margin: 10px;
+}
+
+.indicators-list {
+  margin-top: 46px;
+}
+
+.indicator-row {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .reef-shape {
@@ -52,10 +59,6 @@
   div {
     max-width: 50%;
   }
-}
-
-p {
-  color: #cfffff;
 }
 
 .aqua-info {
@@ -116,9 +119,5 @@ reef-chart {
     display: flex;
     justify-content: center;
     text-align: center;
-  }
-
-  .title {
-    font-size: 20px;
   }
 }

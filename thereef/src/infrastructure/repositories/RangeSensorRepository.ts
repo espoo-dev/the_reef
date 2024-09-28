@@ -8,7 +8,7 @@ import { RangeSensor } from "../../domain/models/RangeSensor";
   providedIn: 'root'
 })
 export class RangeSensorRepository implements RangeSensorRepositoryI {
-  private path = 'api/v1/range_sensors'
+  private path = 'api/client/v1/range_sensors'
   constructor(private apiService: ApiService){}
 
   list(params?: RangeSensorFilter): Observable<RangeSensor[]> {

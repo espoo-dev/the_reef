@@ -3,7 +3,49 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 10px 24px;
-  background: linear-gradient(90deg, rgba(75,165,184,1) 46%, rgba(199,162,165,1) 76%, rgba(245,130,154,1) 95%);
+  padding-top: 40px;
+
+}
+
+.status-toggler-container {
+  display: flex;
+}
+
+.status-toggler-success {
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #9EEC79 0%, #81DD6B 100%);
+  // background: rgba(217, 217, 217, 0.6);
+
+  z-index: 1;
+
+  span {
+    color: #446734;
+  }
+}
+
+.status-toggler-neutral {
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: rgba(217, 217, 217, 0.6);
+  margin-left: -25px;
+  padding-left: 33px;
+
+  span {
+    color: rgba(166, 165, 165, 0.4);
+  }
+}
+
+.status-toggler-danger {
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #FF7272 0%, #FF5252 100%);
+  margin-left: -25px;
+  z-index: 1;
+
+  span {
+    color: #fff;
+  }
 }
 
 .menu-container {
@@ -51,12 +93,9 @@ nav {
 
 @media screen and (max-width: 650px) {
   nav {
-    flex-direction: column;
     gap: 1rem;
 
     .menu-container {
-      flex-direction: column;
-
       .profile {
         padding: 0;
       }

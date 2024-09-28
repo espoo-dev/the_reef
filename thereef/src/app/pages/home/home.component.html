@@ -1,62 +1,18 @@
 <div class="container">
   <div class="content">
+    <div class="welcome-title">
+      <span class="title">Reef</span>
+      <br/>
+      <span class="title-gray">monitoramento</span>
+    </div>
 
-    <div class="content-inner">
-
-      <div class="reef-shape">
+    <div class="indicators-list">
+      <div class="indicator-row">
+        <app-range-sensor></app-range-sensor>
         <div>
-          <span class="title">Monitoramento</span>
-          <p>
-            Seu aquário está sendo monitorado e atualizado em tempo real para garantir um ambiente saudável
-            e próspero para seus corais e peixes. Aqui você pode acompanhar todas as informações vitais e
-            fazer ajustes necessários para manter seu ecossistema em perfeito estado.
-          </p>
+          <span class="text-secondary">Controle de temperatura de 27 graus á 28 graus.</span>
         </div>
       </div>
-
-      <div>
-        <div class="aqua-info">
-          @if (aquaria) {
-            🦈 <span>{{aquaria.name}} Monitor</span>
-          } @else {
-            <p>Loading..</p>
-          }
-        </div>
-
-        @if (aquaria) {
-          <div class="row-charts">
-            <reef-chart
-              [config]="temperatureChartHistoric"
-              [id]="'temperatureChart'">
-            </reef-chart>
-          </div>
-        }
-
-        <div class="data-infos">
-          <div class="row-charts">
-            @for (onOffSensor of onOffSensors; track $index) {
-              <reef-on-off-sensor
-                [name]="onOffSensor.name"
-                [currentOnOffValue]="onOffSensor.current_on_off_value.value">
-              </reef-on-off-sensor>
-            }
-          </div>
-
-          <div class="sensors-grid-container">
-            @for (sensor of sensors; track $index) {
-              <reef-sensor
-                [value]="sensor.value"
-                [name]="sensor.name"
-                [lastUpdate]="sensor.lastUpdate"
-                [status]="sensor.status">
-              </reef-sensor>
-            }
-          </div>
-        </div>
-
-      </div>
-
-
     </div>
   </div>
 </div>

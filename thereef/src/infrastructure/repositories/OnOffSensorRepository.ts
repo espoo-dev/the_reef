@@ -8,7 +8,7 @@ import { OnOffSensor } from "../../domain/models/OnOffSensor";
   providedIn: 'root'
 })
 export class OnOffSensorRepository implements OnOffSensorRepositoryI {
-  private path = 'api/v1/on_off_sensors'
+  private path = 'api/client/v1/on_off_sensors'
   constructor(private apiService: ApiService){}
 
   list(params?: OnOffSensorFilter): Observable<OnOffSensor[]> {

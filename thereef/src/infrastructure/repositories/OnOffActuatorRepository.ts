@@ -8,7 +8,7 @@ import { OnOffActuator } from "../../domain/models/OnOffActuator";
   providedIn: 'root'
 })
 export class OnOffActuatorRepository implements OnOffActuatorRepositoryI {
-  private path = 'api/v1/on_off_actuators'
+  private path = 'api/client/v1/on_off_actuators'
   constructor(private apiService: ApiService){}
 
   list(params?: OnOffActuatorFilter): Observable<OnOffActuator[]> {

@@ -8,7 +8,7 @@ import { Injectable } from "@angular/core";
   providedIn: 'root'
 })
 export class AquariaRepository implements AquariaRepositoryI {
-  private path = 'api/v1/aquaria/';
+  private path = 'api/client/v1/aquaria/';
   constructor(private apiService: ApiService){}
 
   list(): Observable<Aquaria[]> {

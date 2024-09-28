@@ -1,0 +1,25 @@
+.indicator-square {
+  background-color: #EEEEEE;
+  padding: 7px;
+  border-radius: 33px;
+  width: 168px;
+  height: 178px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .footer-square {
+    padding: 10px;
+  }
+}
+
+.indicator-icon-badge {
+  height: 49px;
+  width: 49px;
+  border-radius: 50%;
+
+  &.failure {
+    background: linear-gradient(90deg, #FF7272 0%, #FF5252 100%);
+  }
+}

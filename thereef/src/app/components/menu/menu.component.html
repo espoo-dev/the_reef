@@ -1,18 +1,13 @@
 <nav>
   <reef-logo></reef-logo>
 
-  <div class="menu-container">
-    @for (item of menu; track item.label) {
-      <div (click)="changeMenu(item)">
-        <span class="menu-item" [ngClass]="{'active': item.active}">{{item.label}}</span>
-      </div>
-    }
+  <div class="status-toggler-container">
+    <div class="status-toggler-success">
+      <span>Tudo bem</span>
+    </div>
 
-    <div class="profile">
-      <div class="circle-name">
-        <span>{{loggedUser && loggedUser.email.toUpperCase()[0]}}</span>
-      </div>
-      <!-- <img src="https://avatars.githubusercontent.com/u/6165180?v=4" alt="User image"> -->
+    <div class="status-toggler-neutral">
+      <span>Falha</span>
     </div>
   </div>
 
