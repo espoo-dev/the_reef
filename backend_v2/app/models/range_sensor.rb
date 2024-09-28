@@ -71,4 +71,10 @@ class RangeSensor < ApplicationRecord
       .outside_of_range(min_value, max_value)
       .count
   end
+
+  def warning?
+    return false if current_numeric_value.nil?
+
+    !numeric_value_on_range?
+  end
 end
