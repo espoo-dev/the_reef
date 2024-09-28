@@ -34,7 +34,7 @@ RSpec.describe "Api::V1::RangeSensors" do
               numeric_value_over_range: false,
               numeric_value_under_range: false,
               numeric_values: [],
-              values_out_of_range_amount: 0,
+              values_out_of_range_count: 0,
               current_numeric_value: nil
             }.with_indifferent_access
           ]
@@ -85,7 +85,7 @@ RSpec.describe "Api::V1::RangeSensors" do
               description: range_sensor.description,
               min_value: range_sensor.min_value.to_s,
               max_value: range_sensor.max_value.to_s,
-              values_out_of_range_amount: 1,
+              values_out_of_range_count: 1,
               numeric_value_on_range: true,
               numeric_value_over_range: false,
               numeric_value_under_range: false,
