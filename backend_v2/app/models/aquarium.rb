@@ -29,4 +29,8 @@ class Aquarium < ApplicationRecord
   has_many :on_off_actuators, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { scope: :user_id }
+
+  def warning?
+    (on_off_sensors + range_sensors).any?(&:warning?)
+  end
 end
