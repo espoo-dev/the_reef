@@ -25,6 +25,7 @@ RSpec.describe "Api::V1::AquariaController" do
           {
             id: aquarium.id,
             name: aquarium.name,
+            warning: false,
             dimension: {
               height_cm: aquarium.dimension.height_cm,
               length_cm: aquarium.dimension.length_cm,
