@@ -2,7 +2,7 @@
 
 # :reek:InstanceVariableAssumption
 class RangeSensorSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :min_value, :max_value, :numeric_values, :current_numeric_value,
+  attributes :id, :name, :description, :min_value, :max_value, :icon_url, :numeric_values, :current_numeric_value,
     :numeric_value_on_range, :numeric_value_under_range, :numeric_value_over_range, :values_out_of_range_count
 
   def numeric_values

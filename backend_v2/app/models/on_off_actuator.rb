@@ -9,6 +9,7 @@
 #  deleted_at                      :datetime
 #  description                     :string           not null
 #  embedded_actuator_pin           :integer          not null
+#  icon_url                        :string
 #  name                            :string           not null
 #  publish_data_to_server_interval :datetime         not null
 #  created_at                      :datetime         not null

@@ -2,7 +2,7 @@
 
 # :reek:InstanceVariableAssumption
 class OnOffSensorSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :on_off_values, :current_on_off_value, :on_values_count
+  attributes :id, :name, :description, :on_off_values, :current_on_off_value, :on_values_count, :icon_url
 
   def on_off_values
     on_off_values = object.on_off_values.order(created_at: :desc).limit(@instance_options[:values_amount])

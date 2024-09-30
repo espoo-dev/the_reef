@@ -9,6 +9,7 @@
 #  deleted_at                      :datetime
 #  description                     :string           not null
 #  embedded_actuator_pin           :integer          not null
+#  icon_url                        :string
 #  name                            :string           not null
 #  publish_data_to_server_interval :datetime         not null
 #  created_at                      :datetime         not null
@@ -37,6 +38,7 @@ FactoryBot.define do
 
     sequence(:name) { |n| "Actuator #{n}" }
     sequence(:description) { |n| "Description #{n}" }
+    icon_url { "on_off_actuator_url.com"}
     actuator_type { "water_pump" }
     publish_data_to_server_interval { Time.zone.now }
     embedded_actuator_pin { 13 }
