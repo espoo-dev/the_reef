@@ -28,6 +28,7 @@ RSpec.describe "Api::V1::OnOffSensors" do
               id: on_off_sensor.id,
               name: on_off_sensor.name,
               description: on_off_sensor.description,
+              icon_url: on_off_sensor.icon_url,
               on_values_count: 0,
               on_off_values: [],
               current_on_off_value: nil
@@ -81,6 +82,7 @@ RSpec.describe "Api::V1::OnOffSensors" do
               id: on_off_sensor.id,
               name: on_off_sensor.name,
               description: on_off_sensor.description,
+              icon_url: on_off_sensor.icon_url,
               on_values_count: 2,
               on_off_values: [
                 {

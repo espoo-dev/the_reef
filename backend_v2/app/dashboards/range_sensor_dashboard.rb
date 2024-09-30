@@ -14,6 +14,7 @@ class RangeSensorDashboard < Administrate::BaseDashboard
     aquarium: Field::BelongsTo,
     description: Field::String,
     sensor_type: Field::String,
+    icon_url: Field::String,
     max_value: Field::String.with_options(searchable: false),
     min_value: Field::String.with_options(searchable: false),
     name: Field::String,
@@ -43,6 +44,7 @@ class RangeSensorDashboard < Administrate::BaseDashboard
     aquarium
     description
     sensor_type
+    icon_url
     max_value
     min_value
     name
@@ -62,6 +64,7 @@ class RangeSensorDashboard < Administrate::BaseDashboard
     max_value
     min_value
     sensor_type
+    icon_url
     name
     numeric_values
     on_off_actuator

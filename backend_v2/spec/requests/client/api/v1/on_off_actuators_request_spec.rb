@@ -28,6 +28,7 @@ RSpec.describe "Api::V1::OnOffActuators" do
               id: on_off_actuator.id,
               name: on_off_actuator.name,
               description: on_off_actuator.description,
+              icon_url: on_off_actuator.icon_url,
               on_off_values: [],
               current_on_off_value: nil
             }.with_indifferent_access
@@ -80,6 +81,7 @@ RSpec.describe "Api::V1::OnOffActuators" do
               id: on_off_actuator.id,
               name: on_off_actuator.name,
               description: on_off_actuator.description,
+              icon_url: on_off_actuator.icon_url,
               on_off_values: [
                 {
                   id: second_on_off_value.id,
