@@ -15,6 +15,7 @@ class OnOffSensorDashboard < Administrate::BaseDashboard
     description: Field::String,
     sensor_type: Field::String,
     icon_url: Field::String,
+    priority: Field::Number,
     aquarium: Field::BelongsTo,
     on_off_actuator: Field::HasOne,
     on_off_values: Field::HasMany,
@@ -43,6 +44,7 @@ class OnOffSensorDashboard < Administrate::BaseDashboard
     sensor_type
     description
     icon_url
+    priority
     publish_data_to_server_interval
     aquarium
     on_off_actuator
@@ -60,6 +62,7 @@ class OnOffSensorDashboard < Administrate::BaseDashboard
     icon_url
     sensor_type
     publish_data_to_server_interval
+    priority
   ].freeze
 
   # COLLECTION_FILTERS

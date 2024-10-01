@@ -5,7 +5,7 @@ module Api
     module V1
       class RangeSensorsController < Api::Client::V1::ApiController
         def index
-          range_sensors = policy_scope(RangeSensor).page(page).per(per_page)
+          range_sensors = policy_scope(RangeSensor).page(page).per(per_page).order(:priority)
 
           authorize(range_sensors)
 

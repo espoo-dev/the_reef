@@ -9,6 +9,7 @@
 #  description                     :string           not null
 #  icon_url                        :string
 #  name                            :string           not null
+#  priority                        :integer
 #  publish_data_to_server_interval :datetime         not null
 #  sensor_type                     :string
 #  created_at                      :datetime         not null
