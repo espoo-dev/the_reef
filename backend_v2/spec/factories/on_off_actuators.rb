@@ -11,6 +11,7 @@
 #  embedded_actuator_pin           :integer          not null
 #  icon_url                        :string
 #  name                            :string           not null
+#  priority                        :integer
 #  publish_data_to_server_interval :datetime         not null
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
