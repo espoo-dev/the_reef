@@ -41,6 +41,9 @@
 
 .indicators-list {
   margin-top: 46px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 .indicator-row {
@@ -48,6 +51,10 @@
   gap: 18px;
   align-items: center;
   justify-content: space-between;
+
+  &.inverted {
+    flex-direction: row-reverse;
+  }
 }
 
 .reef-shape {

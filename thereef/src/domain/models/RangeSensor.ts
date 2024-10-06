@@ -9,6 +9,7 @@ export type RangeSensor = {
   numeric_value_on_range: boolean;
   numeric_value_under_range: boolean;
   numeric_value_over_range: boolean;
+  values_out_of_range_count: number;
 };
 
 export type RangeValue = {

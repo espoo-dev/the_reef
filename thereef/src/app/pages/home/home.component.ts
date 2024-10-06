@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { MenuComponent } from '../../components/menu/menu.component';
 import { SensorComponent, SensorType } from '../../components/sensor/sensor.component';
 import { AquariaRepository } from '../../../infrastructure/repositories/AquariaRepository';
 import { Aquaria } from '../../../domain/models/Aquaria';
 import { OnOffSensorRepository } from '../../../infrastructure/repositories/OnOffSensorRepository';
-import { OnOffSensor } from '../../../domain/models/OnOffSensor';
+import { OnOffActuator } from '../../../domain/models/OnOffSensor';
 import { OnOffSensorComponent } from '../../components/on-off-sensor/on-off-sensor.component';
 import { ChartArea, ChartConfiguration } from 'chart.js';
 import { ReefChartComponent } from '../../components/reef-chart/reef-chart.component';
@@ -13,11 +12,18 @@ import { RangeSensor, RangeValue } from '../../../domain/models/RangeSensor';
 import { UITheme } from '../../theme';
 import { OnOffActuatorRepository } from '../../../infrastructure/repositories/OnOffActuatorRepository';
 import { RangeSensorComponent } from '../../components/range-sensor/range-sensor.component';
+import { ActuatorComponent } from '../../components/actuator/actuator.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [SensorComponent, OnOffSensorComponent, ReefChartComponent, RangeSensorComponent],
+  imports: [
+    SensorComponent,
+    OnOffSensorComponent,
+    ReefChartComponent,
+    RangeSensorComponent,
+    ActuatorComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -25,7 +31,7 @@ export class HomeComponent {
   public sensors: SensorType[] = [];
   public aquaria!: Aquaria;
   public boyuStatus!: any;
-  public onOffSensors: OnOffSensor[] = [];
+  public onOffActuators: OnOffActuator[] = [];
   public rangeSensors: RangeSensor[] = [];
   private valuesToHistoric = 30;
   private brDateFormat: Intl.DateTimeFormatOptions = {
@@ -59,22 +65,21 @@ export class HomeComponent {
     private onOffActuatorRepository: OnOffActuatorRepository,
   ){}
 
-  loadOnOffSensors(){
-    this.onOffSensorRepository.list({
-      values_amount: this.valuesToHistoric
-    })
-      .subscribe((response) => {
-        this.onOffSensors = response;
-      })
-  }
+  // loadOnOffSensors(){
+  //   this.onOffSensorRepository.list({
+  //     values_amount: this.valuesToHistoric
+  //   })
+  //     .subscribe((response) => {
+  //       this.onOffActuators = response;
+  //     })
+  // }
 
   loadOnOffActuators(){
     this.onOffActuatorRepository.list({
       values_amount: this.valuesToHistoric
     })
       .subscribe((response) => {
-        // TODO: add to actuators list
-        // this.onOffSensors = response;
+        this.onOffActuators = response;
       })
   }
 
@@ -84,15 +89,6 @@ export class HomeComponent {
     })
       .subscribe((response) => {
         this.rangeSensors = response;
-        this.sensors = this.rangeSensors.map((rangeSensor) => {
-          return {
-            lastUpdate: rangeSensor.current_numeric_value.created_at,
-            name: rangeSensor.name,
-            value: rangeSensor.current_numeric_value.value,
-            status: rangeSensor.numeric_value_on_range ? 'success' : 'danger',
-          }
-        });
-
         this.temperatureChartHistoric = {
           ...this.temperatureChartHistoric,
           data: this.mountTemperatureHistoric(this.rangeSensors[0].numeric_values)
@@ -143,7 +139,7 @@ export class HomeComponent {
       .subscribe((response) => {
         this.aquaria = response[0];
 
-        this.loadOnOffSensors();
+        // this.loadOnOffSensors();
         this.loadRangeSensors();
         this.loadOnOffActuators();
       })

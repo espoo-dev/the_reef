@@ -1,8 +1,8 @@
 import { Observable } from "rxjs";
-import { OnOffSensor } from "../models/OnOffSensor";
+import { OnOffActuator } from "../models/OnOffSensor";
 
 export interface OnOffSensorRepositoryI {
-  list: (params: OnOffSensorFilter) => Observable<OnOffSensor[]>;
+  list: (params: OnOffSensorFilter) => Observable<OnOffActuator[]>;
 }
 
 export interface OnOffSensorFilter {

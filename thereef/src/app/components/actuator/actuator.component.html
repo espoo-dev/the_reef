@@ -1,0 +1,11 @@
+<div class="indicator-square">
+  <div [ngClass]="config.current_on_off_value.value ? 'indicator-icon-badge success' : 'indicator-icon-badge failure'"></div>
+  <div style="text-align: center;">
+    <span class="title">
+      {{config.current_on_off_value.value ? 'Ligado' : 'Desligado'}}
+    </span>
+  </div>
+  <div class="footer-square">
+    <span class="text-secondary">{{config.name}}</span>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-export type OnOffSensor = {
+export type OnOffActuator = {
   id: number;
   name: string;
   description: string;

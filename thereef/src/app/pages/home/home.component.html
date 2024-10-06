@@ -1,18 +1,37 @@
 <div class="container">
   <div class="content">
     <div class="welcome-title">
-      <span class="title">Reef</span>
+      <span class="title" style="font-weight: bold;">Reef</span>
       <br/>
       <span class="title-gray">monitoramento</span>
     </div>
 
     <div class="indicators-list">
-      <div class="indicator-row">
-        <app-range-sensor></app-range-sensor>
-        <div>
-          <span class="text-secondary">Controle de temperatura de 27 graus á 28 graus.</span>
+      @for (rangeSensor of rangeSensors; track rangeSensor.id) {
+        <div class="indicator-row">
+          <app-range-sensor [config]="rangeSensor"></app-range-sensor>
+          <div>
+            <p class="text-secondary">
+              Controle de temperatura de {{rangeSensor.min_value}} graus á {{rangeSensor.max_value}} graus.
+            </p>
+            <p class="text-secondary">
+              Nas últimas 24 horas saiu da temperatura ideal {{rangeSensor.values_out_of_range_count}}
+              {{rangeSensor.values_out_of_range_count > 1 ? 'vezes' : 'vez'}}.
+            </p>
+          </div>
         </div>
-      </div>
+      }
+      @for (onOffActuator of onOffActuators; track onOffActuator.id) {
+        <div class="indicator-row inverted">
+          <!-- <app-range-sensor [config]="rangeSensor"></app-range-sensor> -->
+          <app-actuator [config]="onOffActuator"></app-actuator>
+          <div>
+            <p class="text-secondary">
+              Acionado <strong>MOCKx</strong> em 24 horas.
+            </p>
+          </div>
+        </div>
+      }
     </div>
   </div>
 </div>

@@ -1,9 +1,9 @@
 <div class="indicator-square">
-  <div class="indicator-icon-badge failure"></div>
+  <div [ngClass]="config.numeric_value_on_range ? 'indicator-icon-badge success' : 'indicator-icon-badge failure'"></div>
   <div style="text-align: center;">
-    <span class="title">28.3° C</span>
+    <span class="title">{{config.current_numeric_value.value}}° C</span>
   </div>
   <div class="footer-square">
-    <span class="text-secondary">Temperatura atual</span>
+    <span class="text-secondary">{{config.name}}</span>
   </div>
 </div>
