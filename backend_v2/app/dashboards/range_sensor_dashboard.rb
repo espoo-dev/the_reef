@@ -14,8 +14,10 @@ class RangeSensorDashboard < Administrate::BaseDashboard
     aquarium: Field::BelongsTo,
     description: Field::String,
     sensor_type: Field::String,
+    icon_url: Field::String,
     max_value: Field::String.with_options(searchable: false),
     min_value: Field::String.with_options(searchable: false),
+    priority: Field::Number,
     name: Field::String,
     numeric_values: Field::HasMany,
     on_off_actuator: Field::HasOne,
@@ -43,9 +45,11 @@ class RangeSensorDashboard < Administrate::BaseDashboard
     aquarium
     description
     sensor_type
+    icon_url
     max_value
     min_value
     name
+    priority
     numeric_values
     on_off_actuator
     publish_data_to_server_interval
@@ -62,10 +66,12 @@ class RangeSensorDashboard < Administrate::BaseDashboard
     max_value
     min_value
     sensor_type
+    icon_url
     name
     numeric_values
     on_off_actuator
     publish_data_to_server_interval
+    priority
   ].freeze
 
   # COLLECTION_FILTERS

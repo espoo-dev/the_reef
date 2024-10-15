@@ -14,7 +14,9 @@ class OnOffActuatorDashboard < Administrate::BaseDashboard
     name: Field::String,
     description: Field::String,
     actuator_type: Field::String,
+    icon_url: Field::String,
     embedded_actuator_pin: Field::Number,
+    priority: Field::Number,
     publish_data_to_server_interval: Field::DateTime,
     aquarium: Field::BelongsTo,
     on_off_values: Field::HasMany,
@@ -43,8 +45,10 @@ class OnOffActuatorDashboard < Administrate::BaseDashboard
     aquarium
     description
     actuator_type
+    icon_url
     embedded_actuator_pin
     name
+    priority
     on_off_sensor
     on_off_values
     publish_data_to_server_interval
@@ -60,12 +64,14 @@ class OnOffActuatorDashboard < Administrate::BaseDashboard
     name
     description
     actuator_type
+    icon_url
     embedded_actuator_pin
     publish_data_to_server_interval
     aquarium
     on_off_sensor
     on_off_values
     range_sensor
+    priority
   ].freeze
 
   # COLLECTION_FILTERS

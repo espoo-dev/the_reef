@@ -5,7 +5,7 @@ module Api
     module V1
       class OnOffActuatorsController < Api::Client::V1::ApiController
         def index
-          on_off_actuators = policy_scope(OnOffActuator).page(page).per(per_page)
+          on_off_actuators = policy_scope(OnOffActuator).page(page).per(per_page).order(:priority)
 
           authorize(on_off_actuators)
 

@@ -7,9 +7,11 @@
 #  id                              :bigint           not null, primary key
 #  deleted_at                      :datetime
 #  description                     :string           not null
+#  icon_url                        :string
 #  max_value                       :decimal(, )      not null
 #  min_value                       :decimal(, )      not null
 #  name                            :string           not null
+#  priority                        :integer
 #  publish_data_to_server_interval :datetime         not null
 #  sensor_type                     :string
 #  created_at                      :datetime         not null

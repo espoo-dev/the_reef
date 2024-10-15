@@ -7,7 +7,9 @@
 #  id                              :bigint           not null, primary key
 #  deleted_at                      :datetime
 #  description                     :string           not null
+#  icon_url                        :string
 #  name                            :string           not null
+#  priority                        :integer
 #  publish_data_to_server_interval :datetime         not null
 #  sensor_type                     :string
 #  created_at                      :datetime         not null
@@ -32,6 +34,7 @@ FactoryBot.define do
     sequence(:description) { |n| "Description #{n}" }
     publish_data_to_server_interval { Time.zone.now }
     sensor_type { "water_level" }
+    icon_url { "on_off_sensor_url.com"}
     aquarium { create(:aquarium, :with_embedded_server, user:) }
   end
 end
