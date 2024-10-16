@@ -3,6 +3,7 @@ export type Aquaria = {
   name: string;
   dimension: Dimension;
   embedded_server: EmbeddedServer;
+  warning: boolean;
 }
 
 type Dimension = {

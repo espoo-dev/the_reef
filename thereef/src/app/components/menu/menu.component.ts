@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { ResourceOwner } from '../../../domain/models/User';
+import { AquariaRepository } from '../../../infrastructure/repositories/AquariaRepository';
+import { Aquaria } from '../../../domain/models/Aquaria';
 
 interface MenuItem {
   label: string;
@@ -32,10 +34,12 @@ export class MenuComponent {
       active: false
     }
   ];
+  public aquarium!: Aquaria;
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private aquariaRepository: AquariaRepository,
   ){}
 
   changeMenu(selectedOption: MenuItem): void {
@@ -46,7 +50,18 @@ export class MenuComponent {
     this.router.navigate([selectedOption.link]);
   }
 
+
+  loadAquariums() {
+    this.aquariaRepository.list()
+      .subscribe((response) => {
+        if (response.length) {
+          this.aquarium = response[0];
+        }
+      })
+  }
+
   ngOnInit() {
     this.loggedUser = this.authService.getUser();
+    this.loadAquariums();
   }
 }

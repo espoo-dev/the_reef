@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { SensorComponent, SensorType } from '../../components/sensor/sensor.component';
-import { AquariaRepository } from '../../../infrastructure/repositories/AquariaRepository';
 import { Aquaria } from '../../../domain/models/Aquaria';
 import { OnOffSensorRepository } from '../../../infrastructure/repositories/OnOffSensorRepository';
 import { OnOffActuator } from '../../../domain/models/OnOffSensor';
@@ -59,7 +58,6 @@ export class HomeComponent {
   private loadDataInterval!: ReturnType<typeof setInterval>;
 
   constructor(
-    private aquariaRepository: AquariaRepository,
     private onOffSensorRepository: OnOffSensorRepository,
     private rangeSensorRepository: RangeSensorRepository,
     private onOffActuatorRepository: OnOffActuatorRepository,
@@ -134,23 +132,14 @@ export class HomeComponent {
     }
   }
 
-  loadAquariums() {
-    this.aquariaRepository.list()
-      .subscribe((response) => {
-        this.aquaria = response[0];
-
-        // this.loadOnOffSensors();
-        this.loadRangeSensors();
-        this.loadOnOffActuators();
-      })
-  }
-
   ngOnInit() {
     const refreshInMinutes = 1 * 60000;
-    this.loadAquariums();
+    this.loadRangeSensors();
+    this.loadOnOffActuators();
 
     this.loadDataInterval = setInterval(() => {
-      this.loadAquariums();
+      this.loadRangeSensors();
+      this.loadOnOffActuators();
     }, refreshInMinutes);
   }
 

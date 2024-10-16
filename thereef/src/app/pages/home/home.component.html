@@ -23,7 +23,6 @@
       }
       @for (onOffActuator of onOffActuators; track onOffActuator.id) {
         <div class="indicator-row inverted">
-          <!-- <app-range-sensor [config]="rangeSensor"></app-range-sensor> -->
           <app-actuator [config]="onOffActuator"></app-actuator>
           <div>
             <p class="text-secondary">
