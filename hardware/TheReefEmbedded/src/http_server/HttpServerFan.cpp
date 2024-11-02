@@ -1,6 +1,6 @@
 #include "http_server/HttpServerFan.h"
 
-HttpServerFan::HttpServerFan(String host, String secretKey) : HttpServerBase(host, secretKey) {}
+HttpServerFan::HttpServerFan(String host, String secretKey, String fanId, String path) : HttpServerBase(host, secretKey, path), _fanId(fanId) {}
 
 void HttpServerFan::sendFanStatusOn()
 {
@@ -9,8 +9,12 @@ void HttpServerFan::sendFanStatusOn()
     if (isConnected())
     {
 
-        HTTPClient https = setupHttps("/fans/update_on");
-        char requestBody[50] = "{\"on\": \"true\", \"fanId\": 7}";
+        HTTPClient https = setupHttps();
+        JsonDocument payload;
+        payload["fanId"] = _fanId;
+        payload["on"] = true;
+        char requestBody[50];
+        serializeJson(payload, requestBody);
 
         int httpResponseCode = https.PUT(requestBody);
         Serial.print(requestBody);
@@ -27,8 +31,12 @@ void HttpServerFan::sendFanStatusOff()
 
     if (isConnected())
     {
-        HTTPClient https = setupHttps("/fans/update_on");
-        char requestBody[50] = "{\"on\": \"false\", \"fanId\": 7}";
+        HTTPClient https = setupHttps();
+        JsonDocument payload;
+        payload["fanId"] = _fanId;
+        payload["on"] = false;
+        char requestBody[50];
+        serializeJson(payload, requestBody);
 
         int httpResponseCode = https.PUT(requestBody);
         Serial.print(requestBody);
