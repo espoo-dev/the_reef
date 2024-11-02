@@ -5,20 +5,22 @@
 #include <WiFiClient.h>
 #include <ESP8266HTTPClient.h>
 #include <WiFiHandler.h>
+#include <ArduinoJson.h>
 
 class HttpServerBase
 {
 private:
     String _host;
     String _secretKey;
+    String _path;
     WiFiHandler* _wiFiHandler;
 
 protected:
-    HTTPClient setupHttps(String path);
+    HTTPClient setupHttps();
     bool isConnected();
 
 public:
-    HttpServerBase(String host, String secretKey);
+    HttpServerBase(String host, String secretKey, String path);
     void setWiFiHandler(WiFiHandler* wiFiHandler);
 };
 

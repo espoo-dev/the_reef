@@ -1,6 +1,6 @@
 #include "http_server/HttpServerTemperature.h"
 
-HttpServerTemperature::HttpServerTemperature(String host, String secretKey) : HttpServerBase(host, secretKey) {}
+HttpServerTemperature::HttpServerTemperature(String host, String secretKey, String path, String sensorId) : HttpServerBase(host, secretKey, path), _sensorId(sensorId) {}
 
 void HttpServerTemperature::sendCurrentTemperature(float temperature)
 {
@@ -9,9 +9,12 @@ void HttpServerTemperature::sendCurrentTemperature(float temperature)
 
     if (isConnected())
     {
-        HTTPClient https = setupHttps("/indicators/update");
-
-        String requestBody = "{\"newValue\":\"" + String(temperature) + "\", \"indicatorId\":\"3\"}";
+        HTTPClient https = setupHttps();
+        JsonDocument payload;
+        payload["indicatorId"] = _sensorId;
+        payload["newValue"] = String(temperature);
+        char requestBody[50];
+        serializeJson(payload, requestBody);
 
         int httpResponseCode = https.PUT(requestBody);
         Serial.print(requestBody);

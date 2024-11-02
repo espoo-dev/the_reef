@@ -1,6 +1,6 @@
 #include "http_server/HttpServerWaterPump.h"
 
-HttpServerWaterPump::HttpServerWaterPump(String host, String secretKey) : HttpServerBase(host, secretKey) {}
+HttpServerWaterPump::HttpServerWaterPump(String host, String secretKey, String path, String waterPumpId) : HttpServerBase(host, secretKey, path), _waterPumpId(waterPumpId) {}
 
 void HttpServerWaterPump::sendWaterPumpStatusOn()
 {
@@ -9,8 +9,12 @@ void HttpServerWaterPump::sendWaterPumpStatusOn()
 
     if (isConnected())
     {
-        HTTPClient https = setupHttps("/fans/update_on");
-        char requestBody[50] = "{\"on\": \"true\", \"fanId\": 8}";
+        HTTPClient https = setupHttps();
+        JsonDocument payload;
+        payload["fanId"] = _waterPumpId;
+        payload["on"] = true;
+        char requestBody[50];
+        serializeJson(payload, requestBody);
 
         int httpResponseCode = https.PUT(requestBody);
         Serial.print(requestBody);
@@ -27,8 +31,12 @@ void HttpServerWaterPump::sendWaterPumpStatusOff()
 
     if (isConnected())
     {
-        HTTPClient https = setupHttps("/fans/update_on");
-        char requestBody[50] = "{\"on\": \"false\", \"fanId\": 8}";
+        HTTPClient https = setupHttps();
+        JsonDocument payload;
+        payload["fanId"] = _waterPumpId;
+        payload["on"] = true;
+        char requestBody[50];
+        serializeJson(payload, requestBody);
 
         int httpResponseCode = https.PUT(requestBody);
         Serial.print(requestBody);

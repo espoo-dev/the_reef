@@ -4,9 +4,11 @@
 #include <http_server/HttpServerBase.h>
 
 class HttpServerWaterPump: public HttpServerBase {
+private:
+    String _waterPumpId;
 
 public:
-    HttpServerWaterPump(String host, String secretKey);
+    HttpServerWaterPump(String host, String secretKey, String path, String waterPumpId);
     void sendWaterPumpStatusOn();
     void sendWaterPumpStatusOff();
 };
