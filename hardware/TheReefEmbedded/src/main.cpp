@@ -45,10 +45,10 @@ WiFiHandler wiFiHandler(PIN_BUTTON_RESET_WIFI);
 TemperatureManager temperatureManager(minTemperature, maxTemperature);
 WaterLevelManager waterLevelManager;
 
-HttpServerFan httpServerFan(HOST, secretKey, "10", "/fans/update_on");
-HttpServerTemperature httpServerTemperature(HOST, secretKey, "1", "/indicators/update");
-HttpServerBuoy httpServerBuoy(HOST, secretKey, "4", "/buoys/update");
-HttpServerWaterPump httpServerWaterPump(HOST, secretKey, "11", "/fans/update_on"); // no sevidor aparece como boia, pois é o sensor da boia que envia para o  servidor da bomba
+HttpServerFan httpServerFan(HOST, secretKey, "14", "/fans/update_on");
+HttpServerTemperature httpServerTemperature(HOST, secretKey, "5", "/indicators/update");
+HttpServerBuoy httpServerBuoy(HOST, secretKey, "15", "/buoys/update");
+HttpServerWaterPump httpServerWaterPump(HOST, secretKey, "15", "/fans/update_on"); // no sevidor aparece como boia, pois é o sensor da boia que envia para o  servidor da bomba
 
 LcdManager lcdManager;
 
