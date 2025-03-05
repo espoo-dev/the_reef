@@ -1,6 +1,6 @@
 #include "http_server/HttpServerWaterPump.h"
 
-HttpServerWaterPump::HttpServerWaterPump(String host, String secretKey, String path, String waterPumpId) : HttpServerBase(host, secretKey, path), _waterPumpId(waterPumpId) {}
+HttpServerWaterPump::HttpServerWaterPump(String host, String secretKey, String waterPumpId, String path) : HttpServerBase(host, secretKey, path), _waterPumpId(waterPumpId) {}
 
 void HttpServerWaterPump::sendWaterPumpStatusOn()
 {
@@ -34,7 +34,7 @@ void HttpServerWaterPump::sendWaterPumpStatusOff()
         HTTPClient https = setupHttps();
         JsonDocument payload;
         payload["fanId"] = _waterPumpId;
-        payload["on"] = true;
+        payload["on"] = false;
         char requestBody[50];
         serializeJson(payload, requestBody);
 

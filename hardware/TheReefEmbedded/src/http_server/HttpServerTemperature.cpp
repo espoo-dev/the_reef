@@ -1,6 +1,6 @@
 #include "http_server/HttpServerTemperature.h"
 
-HttpServerTemperature::HttpServerTemperature(String host, String secretKey, String path, String sensorId) : HttpServerBase(host, secretKey, path), _sensorId(sensorId) {}
+HttpServerTemperature::HttpServerTemperature(String host, String secretKey, String sensorId, String path) : HttpServerBase(host, secretKey, path), _sensorId(sensorId) {}
 
 void HttpServerTemperature::sendCurrentTemperature(float temperature)
 {

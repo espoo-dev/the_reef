@@ -39,7 +39,7 @@ void HttpServerBuoy::sendBuoyInactive()
         HTTPClient https = setupHttps();
         JsonDocument payload;
         payload["buoyId"] = _buoyId;
-        payload["newValue"] = true;
+        payload["newValue"] = false;
         char requestBody[50];
         serializeJson(payload, requestBody);
 
